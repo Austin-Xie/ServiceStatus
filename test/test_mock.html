@@ -22,58 +22,64 @@
 	<div id="result2"></div>
 	
     <script type="text/javascript">
-             
-        
-        /* attach a submit handler to the form */
-        $("#searchSuburb").submit(function(event) {
-            /* stop form from submitting normally */
-			event.preventDefault();
 
-			/* get some values from elements on the page: */
-			var $form = $( this ),
-              suburb = $form.find( 'input[name="serviceStatusSuburb"]' ).val(),
-              url = $form.attr( 'action' );
+        $(function() {
+            console.log("ready event handler 2 called");
+            /* attach a submit handler to the form */
+            $("#searchSuburb").submit(function(event) {
+                /* stop form from submitting normally */
+                event.preventDefault();
 
-            $.ajax({
-               type: "GET",
-               url: url,
-               data: {serviceStatusSuburb: suburb},
-               dataType: "json",
-			   success: function (data) {
-				var data1 = JSON.stringify(data);
-				console.log("data = " + JSON.stringify(data1));
-				$("#result").empty().html(data1);
-				}
-             });
+                /* get some values from elements on the page: */
+                var $form = $( this ),
+                        suburb = $form.find( 'input[name="serviceStatusSuburb"]' ).val(),
+                        url = $form.attr( 'action' );
 
-			return false;
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {serviceStatusSuburb: suburb},
+                    dataType: "json",
+                    success: function (data) {
+                        var data1 = JSON.stringify(data);
+                        console.log("data = " + JSON.stringify(data1));
+                        $("#result").empty().html(data1);
+                    }
+                });
 
+                return false;
+
+            });
+
+            /* attach a submit handler to the form */
+            $("#searchService").submit(function(event) {
+
+                /* stop form from submitting normally */
+                event.preventDefault();
+
+                /* get some values from elements on the page: */
+                var $form = $( this ),
+                        svcStsId = $form.find( 'input[name="serviceStatusId"]' ).val(),
+                        url = $form.attr( 'action' );
+
+                var posting2 = $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "json",
+                    data: {serviceStatusId: svcStsId}
+                });
+
+                posting2.done(function (data) {
+                    var data1 = JSON.stringify(data);
+                    console.log("data = " + data1);
+                    $("#result2").empty().html(data1);
+                });
+            });
         });
-		
-		/* attach a submit handler to the form */
-        $("#searchService").submit(function(event) {
-		
-			/* stop form from submitting normally */
-			event.preventDefault();
 
-			/* get some values from elements on the page: */
-			var $form = $( this ),
-              svcStsId = $form.find( 'input[name="serviceStatusId"]' ).val(),
-              url = $form.attr( 'action' );
 
-            var posting2 = $.ajax({
-               type: "GET",
-               url: url,
-               dataType: "json",
-               data: {serviceStatusId: svcStsId}
-             });
 
-			posting2.done(function (data) {
-				var data1 = JSON.stringify(data);
-				console.log("data = " + data1);
-				$("#result2").empty().html(data1);
-			});
-        });
+
     </script>
 
 </body>
