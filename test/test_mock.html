@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>RightNow Service Status Demo</title>
+  <script type="text/javascript" src="./jquery-1.10.2.js"></script>
+</head>
+<body>
+
+    <form action="http://localhost/mockJson.php" id="searchSuburb">
+       Suburb: <input type="text" name="serviceStatusSuburb" value="Epping" />
+       <input type="submit" value="Search" />
+    </form>
+	
+	<form action="http://localhost/mockJson.php" id="searchService">
+       Serivcie Status ID: <input type="text" name="serviceStatusId" value="10" />
+       <input type="submit" value="Search" />
+    </form>
+    
+    <!-- the result of the search will be rendered inside this div -->
+    <div id="result"></div>
+    
+	<div id="result2"></div>
+	
+    <script type="text/javascript">
+             
+        
+        /* attach a submit handler to the form */
+        $("#searchSuburb").submit(function(event) {
+		    alert('clicked');
+		
+			/* stop form from submitting normally */
+			event.preventDefault();
+
+			/* get some values from elements on the page: */
+			var $form = $( this ),
+              suburb = $form.find( 'input[name="serviceStatusSuburb"]' ).val(),
+              url = $form.attr( 'action' );
+
+            var posting = $.ajax({
+               type: "GET",
+               url: "http://localhost/mockJson.php",
+               data: {serviceStatusSuburb: suburb},
+               dataType: "json",
+			   success: function (data) {
+				var data1 = JSON.parse(data);
+				console.log("data = " + data1.get("Planned").get("id"));
+				$("#result").empty().html(data1);
+				}
+             });
+			 
+			 posting.done(function (data) {
+				var data1 = JSON.parse(data);
+				console.log("data = " + data1.get("Planned").get("id"));
+				$("#result").empty().html(data1);
+			});
+
+			/*
+			$.ajax({
+				type: "GET",
+				url: url,
+				data: {paramType: type, paramValue: param},
+				dataType: "json",
+				success: function(data) {
+				    var data1 = JSON.stringify(data);
+					console.log("data = " + data1);
+					$("#result").empty().html(data1);
+				}
+			});
+			*/
+			
+			return false;
+
+        });
+		
+		/* attach a submit handler to the form */
+        $("#searchService").submit(function(event) {
+		
+			/* stop form from submitting normally */
+			event.preventDefault();
+
+			/* get some values from elements on the page: */
+			var $form = $( this ),
+              svcStsId = $form.find( 'input[name="serviceStatusId"]' ).val(),
+              url = $form.attr( 'action' );
+
+            var posting2 = $.ajax({
+               type: "GET",
+               url: url,
+               data: {serviceStatusId: svcStsId}
+             });
+			 
+			 posting2.done(function (data) {
+				var data1 = JSON.stringify(data);
+				console.log("data = " + data1);
+				$("#result2").empty().html(data1);
+			});
+
+        });
+    </script>
+
+</body>
+</html>
