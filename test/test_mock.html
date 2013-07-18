@@ -12,7 +12,7 @@
     </form>
 	
 	<form action="http://localhost/ServiceStatus_GH/test/mockJson.php" id="searchService">
-       Serivcie Status ID: <input type="text" name="serviceStatusId" value="10" />
+       Service Status ID: <input type="text" name="serviceStatusId" value="10" />
        <input type="submit" value="Search" />
     </form>
     
@@ -64,15 +64,15 @@
             var posting2 = $.ajax({
                type: "GET",
                url: url,
+               dataType: "json",
                data: {serviceStatusId: svcStsId}
              });
-			 
-			 posting2.done(function (data) {
+
+			posting2.done(function (data) {
 				var data1 = JSON.stringify(data);
 				console.log("data = " + data1);
 				$("#result2").empty().html(data1);
 			});
-
         });
     </script>
 
