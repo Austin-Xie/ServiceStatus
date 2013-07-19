@@ -3,7 +3,7 @@
 /*
  * Service Status Search JS functions..
  */
-( function($) {
+(function ($) {
     'use strict';
 
     var unexpectedIssueListPanel =  '.service_status_content .unexpected_issues_panel .unexpected_issues_list_panel',
@@ -45,26 +45,22 @@
         var tablePanel = $(dataPanel);
         tablePanel.empty().html('<table cellpadding="0" cellspacing="0" border="0" class="display" id="dataTable" ></table>');
 
-        var oTable = tablePanel.children('#dataTable').dataTable( {
+        tablePanel.children('#dataTable').dataTable({
             "aaData": searchResult,
-            "aoColumns":cols
-        } );
-    };
-
-    function cleanSearchResults() {
-        $.each(arguments, function(panel) {
-            panel.empty();
+            "aoColumns": cols
         });
-    };
+    }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         //cleanSearchResults();
 
-        $( '#service_status_search_lnk').on('click', function(e){
-            var suburb = $('#suburbInput').val();
+        $('#service_status_search_lnk').on('click', function (e) {
+            var suburb = $('#suburbInput').val(),
+                aaData = [],
+                // '/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages';
+                url = 'http://localhost/ServiceStatus_GH/test/mockJson.php';
 
-            var aaData = [],
-                url = 'http://localhost/ServiceStatus_GH/test/mockJson.php'; // '/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages';
+            e.preventDefault();
 
             $.ajax({
                 url : url,
@@ -73,28 +69,31 @@
                 data : {
                     'serviceStatusSuburb' : suburb
                 },
-                success : function(data) {
-                    var unexpectedIssues = data['Unexpected'],
-                        plannedRepairs = data['Planned'],
+                success : function (data) {
+                    var unexpectedIssues = data.Unexpected,
+                        plannedRepairs = data.Planned,
                         no,
                         location,
                         when,
-                        moreInfo;
-                    for (var i = 0; i < unexpectedIssues.length; i++) {
-                         no = unexpectedIssues[i];
-                         location = no['location'] + ", " + no['state'];
-                         moreInfo = "<a href='#" + no['id'] + "'>More info ></a>";
-                         aaData.push([location, no['serviceAffected'], no['summary'], no['fixingStatus'], moreInfo]);
+                        moreInfo,
+                        i,
+                        l;
+
+                    for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
+                        no = unexpectedIssues[i];
+                        location = no.location + ", " + no.state;
+                        moreInfo = "<a href='#" + no.id + "'>More info ></a>";
+                        aaData.push([location, no.serviceAffected, no.summary, no.fixingStatus, moreInfo]);
                     }
                     renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, aaData);
 
                     aaData = [];
-                    for (var i = 0; i < plannedRepairs.length; i++) {
+                    for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
                         no = plannedRepairs[i];
-                        location = no['location'] + ", " + no['state'];
-                        when = no['startTime'] + " - " +  no['endTime'];
-                        moreInfo = "<a href='#" + no['id'] + "' class='detail_link'>More info ></a>";
-                        aaData.push([location, no['serviceAffected'], when, moreInfo]);
+                        location = no.location + ", " + no.state;
+                        when = no.startTime + " - " +  no.endTime;
+                        moreInfo = "<a href='#" + no.id + "' class='detail_link'>More info ></a>";
+                        aaData.push([location, no.serviceAffected, when, moreInfo]);
                     }
                     renderSearchResults(plannedIssueListPanel, plannedIssueCols, aaData);
 
@@ -105,8 +104,8 @@
                     $(plannedRepairsMaintenancePanel).show();
 
                 },
-                failure : function(resp) {
-                    alert(resp);
+                failure : function (resp) {
+                    //TODO: to add error handling logic.
                 }
             });
 
