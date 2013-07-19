@@ -8,6 +8,10 @@
 
     var unexpectedIssueListPanel =  '.service_status_content .unexpected_issues_panel .unexpected_issues_list_panel',
         plannedIssueListPanel = '.service_status_content .planned_repairs_maintenance_panel .planned_repairs_maintenance_list_panel',
+        searchIntroPanel = ".search_intro_panel",
+        searchResultPrompt = ".search_result_prompt",
+        unexpectedIssuesPanel = ".unexpected_issues_panel",
+        plannedRepairsMaintenancePanel = ".planned_repairs_maintenance_panel",
         unplannedIssueCols = [
             {
                 "sTitle" : "Location" // Group by Network
@@ -71,24 +75,35 @@
                 },
                 success : function(data) {
                     var unexpectedIssues = data['Unexpected'],
-                        plannedRepairs = data['Planned'];
+                        plannedRepairs = data['Planned'],
+                        no,
+                        location,
+                        when,
+                        moreInfo;
                     for (var i = 0; i < unexpectedIssues.length; i++) {
-                        var no = unexpectedIssues[i],
-                            location = no['location'] + ", " + no['state'],
-                            moreInfo = "<a href='#" + no['id'] + "'>More info ></a>";
-                        aaData.push([location, no['serviceAffected'], no['summary'], no['fixingStatus'], moreInfo]);
+                         no = unexpectedIssues[i];
+                         location = no['location'] + ", " + no['state'];
+                         moreInfo = "<a href='#" + no['id'] + "'>More info ></a>";
+                         aaData.push([location, no['serviceAffected'], no['summary'], no['fixingStatus'], moreInfo]);
                     }
                     renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, aaData);
 
                     aaData = [];
                     for (var i = 0; i < plannedRepairs.length; i++) {
-                        var no = plannedRepairs[i],
-                            location = no['location'] + ", " + no['state'],
-                            when = no['startTime'] + " - " +  no['endTime'],
-                            moreInfo = "<a href='#" + no['id'] + "'>More info ></a>";
+                        no = plannedRepairs[i];
+                        location = no['location'] + ", " + no['state'];
+                        when = no['startTime'] + " - " +  no['endTime'];
+                        moreInfo = "<a href='#" + no['id'] + "' class='detail_link'>More info ></a>";
                         aaData.push([location, no['serviceAffected'], when, moreInfo]);
                     }
                     renderSearchResults(plannedIssueListPanel, plannedIssueCols, aaData);
+
+                    // To Show Search result lists
+                    $(searchIntroPanel).hide();
+                    $(searchResultPrompt).show();
+                    $(unexpectedIssuesPanel).show();
+                    $(plannedRepairsMaintenancePanel).show();
+
                 },
                 failure : function(resp) {
                     alert(resp);
