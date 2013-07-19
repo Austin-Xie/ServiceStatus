@@ -13,7 +13,9 @@
         var oTable;
 
         function renderSearchResults(searchResult) {
+
             cleanSearchResults();
+
             $('#dynamic').html('<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>');
             queryType = $('#queryType').val();
             grpCol = queryType == "Suburb" ? 2 : 4;

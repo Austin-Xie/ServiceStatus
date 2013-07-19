@@ -1,97 +1,1373 @@
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>RightNow Service Status Demo</title>
-  <script type="text/javascript" src="./jquery-1.10.2.js"></script>
+
+
+
+    <!-- 1pcc-head-includes-dpm-theme starts -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <title>Optus | Mobile Phones, Broadband Internet, Home Phone, Digital TV</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="author" content="Singtel Optus" />
+    <meta name="description" content="Optus is an Australian leader in delivering cutting-edge mobile communications, mobile technology &amp;amp; broadband entertainment services" />
+    <meta name="keywords" content="optus, telecommunications, home, prepaid, mobile, phone, broadband, internet, technology" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+
+    <script type="text/javascript"> /*<![CDATA[*/
+    window.TrackTiming||function(){if(!window._gaq)window._gaq=[];var a=function(a,c,d){this.category=a;this.variable=c;this.label=d||void 0;return this};a.prototype.MAX_TIME=6E5;a.prototype.startTime=-1;a.prototype.elapsedTime=-1;a.prototype.isDebug=!1;a._postponeSend=!0;a.commandQueue=[];a.instances={};window.TrackTiming=a;a.prototype.startTime=function(){this.startTime=(new Date).getTime();return this};a.prototype.endTime=function(){this.elapsedTime=(new Date).getTime()-this.startTime;return this};
+        a.prototype.debug=function(a){this.isDebug=a===void 0?!0:!!a;return this};a.prototype.send=function(){var b=this.elapsedTime;0<b&&b<this.MAX_TIME&&(b=["_trackTiming",this.category,this.variable,b,this.label],this.isDebug&&b.push(100),window.console&&console.log&&console.log("TrackTiming.send(): command=",b),(a.postponeSend()?a.commandQueue:window._gaq).push(b));return this};a.processQueue=function(){var b=a.commandQueue;if(b.length)window._gaq.push.apply(window._gaq,b),a.commandQueue=[]};a.postponeSend=
+                function(b){if(b!=void 0)a._postponeSend=b;return a._postponeSend};a.start=function(b,c,d,f){var e=a.instances[b];if(e)throw Error("TrackTiming.start(): an existing time tracker with the same ID has already been created.");e=(new a(c,d,f)).startTime();return a.instances[b]=e};a.stop=function(b){if(b=a.instances[b])b.endTime().send();else throw Error("TrackTiming.stop(): unable to find time tracker with given id.");return b}}();
+    /*]]>*/</script>
+
+
+
+
+    <link rel="canonical" href="/" />
+
+
+
+    <script type="text/javascript">/*<![CDATA[*/
+    var oca_environment = "prod";
+    /*]]>*/</script>
+
+
+    <meta name="google-site-verification" content="RzqC8hvRK8UDMGZjy035BAsHS4jYRyhQxAbFQPVs-do" />
+    <link href="https://plus.google.com/115600172058669547479" rel="publisher" />
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-22088848-3']);
+
+        _gaq.push(['_setCampMediumKey', 'lorem4747']);
+        _gaq.push(['_setCampNameKey', 'ipsum4747']);
+        _gaq.push(['_setCampContentKey', 'dolor4747']);
+        _gaq.push(['_setCampSourceKey', 'sit4747']);
+        _gaq.push(['_setCampTermKey', 'amet4747']);
+
+        _gaq.push(['_setDomainName', '.optus.com.au']);
+        _gaq.push(['_trackPageview']);
+        _gaq.push(['_trackPageLoadTime']);
+
+        if (document.domain === 'localhost') {
+            _gaq.push(['_setDomainName', 'none']);
+        }
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+        //    window.onerror = function(message, file, line) {
+        //       var sFormattedMessage = '[' + file + ' (' + line + ')] ' + message;
+        //       _gaq.push(['_trackEvent', 'Exceptions', 'Application', sFormattedMessage, null, true]);
+        //    };
+
+    </script>
+    <script type="text/javascript">/*<![CDATA[*/
+    // var homeFlag = true;
+    var oca = window.oca || {};
+    oca.data = oca.data || {};
+    oca.data.isHome = true;
+    /*]]>*/</script>
+
+
+    <!-- Home CSS/JS loaded in header -->
+    <link href="//smb.optus.com.au/opfiles/assets/css/minified/home.min.css" rel="stylesheet" type="text/css" media="all"/>
+
+
+
+    <!--[if lt IE 10]>
+    <link href="//smb.optus.com.au/opfiles/cc/static/assets/common/css/behavior.css" rel="stylesheet" type="text/css"  media="all"/>
+    <![endif]-->
+
+
+
+
+    <!-- Minified OCA Javascript -->
+
+    <script src="//smb.optus.com.au/opfiles/cc/static/assets/common/js/oca1.min.js" type="text/javascript"> </script>
+    <script src="//smb.optus.com.au/opfiles/cc/static/assets/common/js/oca2.min.js" type="text/javascript"> </script>
+
+
+
+
+
+    <script type="text/javascript">/*<![CDATA[*/
+
+    oca.data.isHome = true;
+
+    function tandtHomePageSwitch(campaignId, experienceId) {
+        var oca = window.oca || {},
+                tntConfig = oca.tntConfig || {
+                    campaigns: {}
+                };
+
+        if (campaignId && experienceId) {
+            tntConfig.campaigns[campaignId] = experienceId;
+            oca.tntConfig = tntConfig;
+            window.oca = oca;
+
+            $("html").addClass("tnt_activate_experience_" + campaignId + "_" + experienceId);
+        }
+    }
+
+    /*]]>*/</script>
+    <script type="text/javascript" src="//smb.optus.com.au/opfiles/cc/static/assets/common/js/vendors/mvt/mbox.js"></script>
+
+    <script type="text/javascript" src="../assets/themes/optus_theme/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../assets/themes/optus_theme/js/NetworkOutage.js"></script>
+
+
+    <!-- 1pcc-head-includes-dpm-theme ends -->
 </head>
 <body>
 
-    <form action="http://optus.custhelp.com/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages?site=consumer" id="searchSuburb">
-       Suburb: <input type="text" name="serviceStatusSuburb" value="Epping" />
-       <input type="submit" value="Search" />
-    </form>
-	
-	<form action="http://optus.custhelp.com/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages?site=consumer" id="searchService">
-       Serivcie Status ID: <input type="text" name="serviceStatusId" value="10" />
-       <input type="submit" value="Search" />
-    </form>
-    
-    <!-- the result of the search will be rendered inside this div -->
-    <div id="result"></div>
-    
-	<div id="result2"></div>
-	
-    <script>
-             
-        
-        /* attach a submit handler to the form */
-        $("#searchSuburb").submit(function(event) {
-		
-			/* stop form from submitting normally */
-			event.preventDefault();
 
-			/* get some values from elements on the page: */
-			var $form = $( this ),
-              suburb = $form.find( 'input[name="serviceStatusSuburb"]' ).val(),
-              url = $form.attr( 'action' );
 
-            var posting = $.ajax({
-               type: "GET",
-               url: url,
-               data: {serviceStatusSuburb: suburb},
-               dataType: "jsonp",
-               jsonp: "callback"
-             });
-			 
-			 posting.done(function (data) {
-				var data1 = JSON.stringify(data);
-				console.log("data = " + data1);
-				$("#result").empty().html(data1);
-			});
 
-			/*
-			$.ajax({
-				type: "GET",
-				url: url,
-				data: {paramType: type, paramValue: param},
-				dataType: "json",
-				success: function(data) {
-				    var data1 = JSON.stringify(data);
-					console.log("data = " + data1);
-					$("#result").empty().html(data1);
-				}
-			});
-			*/
 
+
+<!-- Google Tag Manager -->
+<script type="text/javascript">/*<![CDATA[*/
+if(!window.isGtmSetup) {
+    (function(w,d,s,l,i){
+        w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        window.isGtmSetup = true;
+    })(window,document,'script','dataLayer','GTM-V5VX');
+}
+/*]]>*/</script>
+<!-- End Google Tag Manager -->
+
+<div class="personalSite ">
+
+<script type="text/javascript">/*<![CDATA[*/
+// we only want to be able to add this to the home page for now.
+if(window.oca && oca.data && oca.data.isHome) {
+    document.write('<div class="mboxDefault"><\/div>');
+    if (window.mboxCreate) {
+        if (oca.data.OPCCRM && oca.data.OPLOGIN && typeof(oca.data.origin) != "undefined") {
+            var loginPersist = oca.data.OPCCRM.exists();
+            var userLoggedIn = oca.data.OPLOGIN.isLoggedIn();
+            var loginStatus  = ((loginPersist == true) || (userLoggedIn == true));
+
+            mboxCreate('mvt_global', 'channel=' + ($('meta[name=channel]').attr('content') + '').toLowerCase(),'loginStatus=' + loginStatus,'origin=' + oca.data.origin);
+        } else {
+            mboxCreate('mvt_global', 'channel=' + ($('meta[name=channel]').attr('content') + ''));
+        }
+    }
+}
+/*]]>*/</script>
+
+<script type="text/javascript">
+    window.marketSegment = {
+        current: "personal",
+        isBusiness: false,
+        isPersonal: true
+    }
+
+
+    if(typeof(oca) != "undefined") {
+        oca.marketSegment = window.marketSegment;
+
+        $.extend(oca.config, {
+            currentDomain: window.marketSegment.isPersonal ? 'personal' : 'smb'
         });
-		
-		/* attach a submit handler to the form */
-        $("#searchService").submit(function(event) {
-		
-			/* stop form from submitting normally */
-			event.preventDefault();
 
-			/* get some values from elements on the page: */
-			var $form = $( this ),
-              svcStsId = $form.find( 'input[name="serviceStatusId"]' ).val(),
-              url = $form.attr( 'action' );
-
-            var posting2 = $.ajax({
-               type: "GET",
-               url: url,
-               data: {serviceStatusId: svcStsId},
-               dataType: "jsonp",
-               jsonp: "callback"
-             });
-			 
-			 posting2.done(function (data) {
-				var data1 = JSON.stringify(data);
-				console.log("data = " + data1);
-				$("#result2").empty().html(data1);
-			});
-
+        $.extend(oca.data, {
+            marketSegment: "cmr"
         });
-    </script>
 
+    }
+
+</script>
+
+
+<!-- includes div with class based on market segment -->
+<!-- header section -->
+<div class="top_layer clearfix">
+<div class="top_layer_inner clearfix" id="global_header">
+
+
+
+
+
+
+<div><div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Global Header version 2: $Date$:  Date of last commit -->
+
+
+
+
+
+    <script type="text/javascript">/*<![CDATA[*/
+    var ftl_autoCompleteUrl = "/1PCCSPortlet/ajax?id=autocomplete";
+
+    if (typeof(oca) === "undefined") {
+        var oca = {};
+    }
+
+    oca.globalHeader = {
+        internal: true,
+        environment: "prod",
+        isBusiness: false,
+        data: {
+            login: false
+        },
+        pageCacheMode: false
+    };
+
+
+    var Config = window.Config || {};
+    Config.shoppingCartViewItemsService = {
+        url: "/portal/site/shop/services?serviceType=shoppingcart"
+    };
+    Config.globalHeaderAjaxService = {
+        url: "/op-templating/oneportal/service/ajaxPageCacheRequest.jsp"
+    };
+
+    /*]]>*/</script>
+
+
+
+
+
+
+
+    <div class="section_12 section clearfix mainHeader">
+        <div class="col_12 col site_header_1">
+            <div class="column_content global_header_wrap">
+                <ul class="globalNavTabs inline-list globalHeader-topLayer-list">
+                    <li class="personal active"><a href="https://www.optus.com.au/" title="Personal">Personal</a></li>
+                    <li class="business "><a href="https://www.optusbusiness.com.au/" title="Business">Business</a></li>
+                    <li class="enterprise"><a href="http://www.optus.com.au/business" title="Enterprise and Government">Enterprise &#38; Government</a></li>
+                    <li class="wholesale"><a href="http://www.optus.com.au/wholesale" title="Wholesale">Wholesale</a></li>
+                    <li class="optus"><a href="http://www.optus.com.au/aboutoptus/About+Optus" title="About Optus">About Optus</a></li>
+                    <li class="optus_network "><a href="http://www.optus.com.au/network" title="Optus Network">Network & Coverage</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="section_12 section clearfix mainLogo">
+        <div class="col_2 col site_header_1 globalHeaderLogo">
+            <div class="column_content global_header_wrap">
+                <a class="optusLogo personalSite" href="https://www.optus.com.au/">Yes Optus</a>
+            </div>
+        </div>
+
+
+        <div class="col_10 col site_header_1 globalHeaderSubnavSearch">
+            <div class="column_content global_header_wrap">
+                <div class="subNavWrap">
+                    <ul class="subNav">
+                        <li class="global_header_link_logout"><a href="https://idp.optusnet.com.au/idp/optus/Logout?return=https%3A%2F%2Fwww.optus.com.au%2Flogoutop%2Findex.html%3FSTM_TARGET%3Dhttps%253A%252F%252Fwww.optus.com.au%252Fcustomercentre%252Fmyaccount%252Flogout">Log Out</a></li>
+                        <li class="global_header_link_login"><a href="/customercentre/myaccount">Log In</a></li>
+                        <li class="optus_community"><span class="icon personalSite"></span><a href="http://community.optus.com.au/">My Optus Community</a></li>
+
+                        <li><a href="https://webmail.optuszoo.com.au">Webmail</a></li>
+                        <li class="global_header_link_login"><a href="https://secure.optus.com.au/paymybill/">Pay any Bill</a></li>
+                        <li class="global_header_link_login"><a href="https://secure-optus.com.au/oor/launch?utm_source=ocahpv2&utm_medium=internal&utm_campaign=oca">Recharge</a></li>
+                        <li class="global_header_link_login"><a href="https://personal.optus.com.au/web/oneportal.portal?_nfpb=true&_pageLabel=activate_postpaid_personal&productpath=/personal/mobile&FP=/personal/mobile/activatemypostpaidmobile&site=personal&sid=activatesim:ocaheader:consumerwelcome:digitalservices:110413">Activate SIM</a></li>
+                        <li><a href="//memberservices.optuszoo.com.au/">Member Services</a></li>
+                        <li><a href="http://www.optus.com.au/contactus">Contact us</a></li>
+                        <li class="last li_shoppingcart"><a href="/shop/Shopping-Cart">Cart</a></li>
+                    </ul>
+                </div>
+                <div class="chatWrap">
+                    <div class="chat-live-col">
+                        <div class="chat_roundbox"></div>
+                    </div>
+                </div>
+                <script type="text/javascript">/*<![CDATA[*/
+                var Config = window.Config || {};
+                Config.globalHeaderUrls = {
+                    myAccountHome: "/customercentre/myaccount",
+                    idpSSOLogoutUrl: "https://idp.optusnet.com.au/idp/optus/Logout?return=https%3A%2F%2Fwww.optus.com.au%2Flogoutop%2Findex.html%3FSTM_TARGET%3Dhttps%253A%252F%252Fwww.optus.com.au%252Fcustomercentre%252Fmyaccount%252Flogout",
+                    cmrShoppingCart: "/shop/Shopping-Cart",
+                    smbShoppingCart: "//www.optusbusiness.com.au/shop/Shopping-Cart"
+                };
+                /*]]>*/</script>
+
+                <div class="topSearchFormWrap">
+                    <form name="topSearch" method="get" id="searchGo" class="topSearch" action="/customercentre/search">
+                        <input type="submit" value="Go" class="searchGo" id="globalSearch" data-search-index="globalSearch" />
+                        <input type="text" name="query" id="query" title="Search Optus" value="Search Optus" class="searchInput inactive" />
+                        <input type="hidden" name="sp" id="sp" value="1" />
+                        <input type="hidden" name="rpp" id="rpp" value="10" />
+
+                        <input type="hidden" name="overrideTabIndex" id="overrideTabIndex" value="1" />
+                        <input type="hidden" name="loggedIn"  value="false"/>
+                        <input type="hidden" name="site" value="customercentre" />
+                        <input type="hidden" name="activeTabIndex" id="activeTabIndex" value="1" />
+                        <input type="hidden" name="searchContext" id="searchContext" value="Personal" />
+                        <span class="searchIcon"></span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+
+<div class="section_12 section clearfix mainNav">
+<div class="col_12 col site_header_1">
+<div class="column_content global_header_wrap">
+<div class="mainGlobalNav">
+
+
+
+
+<div><div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+	debug
+	
+	isBusiness: false
+	
+	isBusinessCustomerCentre: false
+	
+	loggedIn: false
+	
+	globals.externalApp: 
+	
+	CustomerCentrePresentaion.isNetworkMicrosite(): false
+ -->
+
+
+
+
+
+
+
+<div class="mainNav navContainer clearfix">
+<ul class="mainLinks inlineList clearfix " id="oca_globalNav_megaDropdown_ul">
+
+<li class="mainLink home gray radiusLeft ">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="/">Home</a>
+
+
+
+
+
+        <!-- showMegaNavDropDown: true -->
+
+
+    </div>
+</li>
+
+
+<li class="mainLink gray ">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="/shop/mobilephones/mobilelandingpage">Mobile Phone</a>
+
+
+
+
+
+        <!-- showMegaNavDropDown: true -->
+
+
+
+        <div class="dropdown">
+            <div class="dropdownSection ">
+                <h3>Mobile Plans</h3>
+
+                <ul>
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/mobilelandingpage">Mobiles on Plans</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/SimBYO?SID=con:mob:pro:::::under50plans:::tex">Under $50 plans</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/SimBYO?SID=con:mob:pro:::::byoplans:::tex">BYO SIM Only plans</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/my-plan">Learn about our plans</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/broadband/mobilebroadband/bundle">Bundle &#38; Save with Mobile Broadband</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephone/Mytime">Mobile plans and phones for Seniors</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/upgrade">How to Upgrade</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/Deals">Online Deals And Special Offers</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/smartphonealerts">Smartphone Alerts</a></li>
+                </ul>
+
+                <p><br />
+                </p>
+
+                <h3>Top Selling Mobiles</h3>
+
+                <ul>
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/iphone/iphone5">iPhone 5</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/samsung/galaxys4">Samsung GS4</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/htc/one">HTC One</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/iphone/iphone4">iPhone 4</a></li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+                <h3>Prepaid Mobiles</h3>
+
+                <ul>
+                    <li><a href="https://www.optus.com.au/shop/prepaid">Prepaid Home</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/prepaidmobile">Prepaid Mobiles &#38; SIMs</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/prepaidmobile/prepaidoffers">Prepaid Plans</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephone/topup">Prepaid Top Ups Offers</a></li>
+
+                    <li><a href="https://personal.optus.com.au/web/newportal.portal?_nfpb=true&#38;_pageLabel=activateprepaidonline&#38;productpath=/personal&#38;FP=/personal/mobile/prepaidmobile/activateprepaidonline&#38;site=personal">Activate Prepaid SIM</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/switchplan">Move to a Billed Plan</a></li>
+                </ul>
+
+                <p><br />
+                </p>
+
+                <h3>Prepaid Recharge</h3>
+
+                <ul>
+                    <li><a href="https://secure-optus.com.au/oor/launch">Recharge Now</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/prepaidmobile/rewards">Recharge Rewards</a></li>
+
+                    <li><a href="http://www.optus.com.au/opfiles/consumer/homepage2011/recharge-central">How to Recharge</a></li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Offers & Extras</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/mobilephones/insurance/phoneinsurance">Phone Insurance</a>
+                    </li>
+                    <li>
+                        <a href="/shop/mobilephones/usingyourmobileoverseas">Using Your Mobile Overseas</a>
+                    </li>
+                    <li>
+                        <a href="/shop/mobilephones/mobilevaluepack">Mobile Value Packs</a>
+                    </li>
+                    <li>
+                        <a href="/shop/bundles">Bundle & Save</a>
+                    </li>
+                    <li>
+                        <a href="/shop/mobilephone/internationalcallingrates">Postpaid Int'l Rates</a>
+                    </li>
+                    <li>
+                        <a href="/shop/mobilephone/prepaidinternationalcallingrates">Prepaid Int'l Rates</a>
+                    </li>
+                    <li>
+                        <a href="/shop/prepaidmobile/creditoptions">Prepaid Extras</a>
+                    </li>
+                    <li>
+                        <a href="/shop/mobilephoneplans/featuresservices">Messaging & Voice Services </a>
+                    </li>
+                    <li>
+                        <a href="https://optussmartsafe.optus.com.au/">Back Up & Storage</a>
+                    </li>
+                    <li>
+                        <a href="/shop/qantasfrequentflyerpoints">Qantas Frequent Flyer Points</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optus.com.au/home/home-zone/">Improve Mobile Coverage - Home Zone</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+                <h3>Accessories</h3>
+
+                <ul>
+                    <li><a href="https://www.accessories.optus.com.au" target="_blank">Mobile phone &#38; tablet accessories</a></li>
+                </ul>
+
+                <p><br />
+                </p>
+
+                <h3>Brands</h3>
+
+                <ul>
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/allphones">Compare All Phones</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/iphone">iPhone </a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephone/blackberry">Blackberry</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephone/htc">HTC</a></li>
+
+                    <li><a href="https://www.optus.com.au/customercentre/search?query=lg&#38;sp=1&#38;rpp=10&#38;overrideTabIndex=1&#38;loggedIn=false&#38;site=shop&#38;activeTabIndex=1&#38;searchContext=Personal">LG</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephone/motorola">Motorola</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephones/mobilelandingpage#nokia">Nokia</a></li>
+
+                    <li><a href="https://www.optus.com.au/shop/mobilephone/samsung">Samsung</a></li>
+
+                    <li><a href="https://www.optus.com.au/sony">Sony</a></li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Operating Systems</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/Mobile-Phone/Operating-Systems/Android">Android</a>
+                    </li>
+                    <li>
+                        <a href="https://www.optus.com.au/shop/mobilephone/microsoft/windowsphone8">Windows Phone 8</a>
+                    </li>
+                    <li>
+                        <a href="/shop/Mobile-Phone/Operating-Systems/Android-Mobile-Phones">Android Mobile Phones</a>
+                    </li>
+                    <li>
+                        <a href="/shop/Mobile-Phone/Operating-Systems/Android-Prepaid-Mobile-Phones">Android Prepaid Mobile Phones</a>
+                    </li>
+                    <li>
+                        <a href="/shop/Mobile-Phone/Operating-Systems/Samsung-Galaxy-2.2-update">Samsung Galaxy 2.2 Update</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
+
+
+<li class="mainLink gray ">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="/shop/broadband/plans">Broadband</a>
+
+
+
+
+
+        <!-- showMegaNavDropDown: true -->
+
+
+
+        <div class="dropdown">
+            <div class="dropdownSection ">
+
+                <h3>Broadband Plans</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/broadband/naked">Naked Broadband Plans</a>
+                    </li>
+                    <li>
+                        <a href="/shop/broadband/bundle">Phone and Internet Bundles</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/network/nbn/about">Learn more about NBN</a>
+                    </li>
+                    <li>
+                        <a href="/shop/broadband/nbn/plans">NBN Broadband</a>
+                    </li>
+                    <li>
+                        <a href="/shop/Broadband/Offers-&-Extras/Australian-Broadband-Guarantee-Subsidy">Satellite Subsidy</a>
+                    </li>
+                    <li>
+                        <a href="/shop/Broadband/Offers-&-Extras/Approved-Equipment-List">Approved Equipment List</a>
+                    </li>
+                    <li>
+                        <a href="//optus.custhelp.com/app/answers/detail/a_id/179">How to relocate your services</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Mobile Broadband Plans</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/broadband/mobilebroadband">All Devices</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/broadband/mobilebroadband#modems">Modems on Plans</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/broadband/mobilebroadband/data-sim-card">SIM Only Data Plans</a>
+                    </li>
+                    <li>
+                        <a href="/shop/ipad">iPad & iPad mini</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/broadband/mobilebroadband#tablets">Android Tablets</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/broadband/mobilebroadband/info">Learn about My Mobile Broadband plans</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/broadband/mobilebroadband/info#optuscustomers">Benefits for Existing Customers</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Prepaid Mobile Broadband</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/mobilebroadband/prepaid">All Prepaid Devices </a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/mobilebroadband/prepaid#sims">Prepaid SIM Kits</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/mobilebroadband/prepaid#modems">Prepaid Modem Kits</a>
+                    </li>
+                    <li>
+                        <a href="/shop/broadband/optusprepaiddataroaming">Prepaid Data Roaming</a>
+                    </li>
+                    <li>
+                        <a href="/shop/rechargeoptions">Recharge Rates</a>
+                    </li>
+                    <li>
+                        <a href="https://secure-optus.com.au/oor/launch">Recharge Now</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Tablets</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/ipad">iPad & iPad mini</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/broadband/mobilebroadband#tablets">Android Tablets</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/broadband/mobilebroadband/data-sim-card">SIM Only Data Plans for BYO Tablets</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
+
+
+<li class="mainLink gray ">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="/shop/homephone/">Home Phone</a>
+
+
+
+
+
+        <!-- showMegaNavDropDown: true -->
+
+
+
+        <div class="dropdown">
+            <div class="dropdownSection ">
+
+                <h3>Home Phone Plans</h3>
+
+                <ul>
+                    <li>
+                        <a href="https://www.optus.com.au/shop/homephone/">Compare Home Phone Plans</a>
+                    </li>
+                    <li>
+                        <a href="/shop/broadband/bundle">Phone and Internet Bundles</a>
+                    </li>
+                    <li>
+                        <a href="https://www.optus.com.au/shop/homephone/classic/30">Designed for Seniors</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Rates & Features</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/bundles/offers/worldsaver">International Call Rates</a>
+                    </li>
+                    <li>
+                        <a href="/shop/homephones/chargesservices">Call Charges & Services</a>
+                    </li>
+                    <li>
+                        <a href="/shop/homephones/features">Call & Voice Features</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Handsets</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/homephone/offers/uniden">Uniden Handsets</a>
+                    </li>
+                    <li>
+                        <a href="/shop/homephone/offers/ttyhandsets">TTY Handsets</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
+
+
+<li class="mainLink mainLink gray dropdownToLeft150px ">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="/shop/broadband/bundle">Bundles</a>
+
+
+
+
+
+        <!-- showMegaNavDropDown: true -->
+
+
+
+        <div class="dropdown">
+            <div class="dropdownSection ">
+
+                <h3>Broadband & Phone</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/broadband/bundle">Home Phone & Broadband Bundles</a>
+                    </li>
+                    <li>
+                        <a href="/shop/broadband/seniors">Designed for Seniors</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>TV & Video</h3>
+
+                <ul>
+                    <li>
+                        <a href="/shop/broadband/phone/plans">Optus TV with Fetch</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
+
+
+<li class="mainLink teal groupFirst ">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="https://www.optus.com.au/shop/Optus-TV">TV</a>
+
+
+
+
+
+        <!-- showMegaNavDropDown: true -->
+
+
+
+        <div class="dropdown">
+            <div class="dropdownSection ">
+
+                <h3>Optus TV</h3>
+
+                <ul>
+                    <li>
+                        <a href="http://www.optuszoo.com.au/tvandvideo/optustv/">Optus TV with Fetch</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/home/help-support/welcome_to_optus/?SID=con:hme:othr:othr:1:support:meganav::tex">Welcome to Optus</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optuszoo.com.au/tvandvideo/mobiletv">Optus Mobile TV</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
+
+
+<li class="mainLink teal dropdownToLeft ">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="http://www.optusgames.com.au/">Apps & Downloads</a>
+
+
+
+
+
+        <!-- showMegaNavDropDown: true -->
+
+
+
+        <div class="dropdown">
+            <div class="dropdownSection ">
+
+                <h3>App Store</h3>
+
+                <ul>
+                    <li>
+                        <a href="http://optusgames.com.au/apps-cat-50014-optus-apps?rel=op_app_web_h_featured">Featured</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusgames.com.au/?rel=op_app_web_tabh">Games</a>
+                    </li>
+                    <li>
+                        <a href="http://optusgames.com.au/apps-cat-50003-entertainment?rel=op_app_web_h_entert">Entertainment</a>
+                    </li>
+                    <li>
+                        <a href="http://optusgames.com.au/apps-cat-50011-social-networking?rel=op_app_web_h_social">Social networking</a>
+                    </li>
+                    <li>
+                        <a href="http://optusgames.com.au/apps-cat-50005-lifestyle-shopping?rel=op_app_web_h_lifestyle">Lifestyle</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Music</h3>
+
+                <ul>
+                    <li>
+                        <a href="http://www.optusmusicstore.com/">MP3 $1.69 songs</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusmusicstore.com/Downloads/102/Tones">Ringtones</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusmusicstore.com/">Top downloads</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusmusicstore.com/">New releases</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusmusicstore.com/Section/1405949/Pop">Pop</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusmusicstore.com/Section/1405951/Urban">Urban</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusmusicstore.com/Section/1405952/Dance">Dance</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusmusicstore.com/Section/1405950/Rock">Rock</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusmusicstore.com/Section/49090270/Classic%20Hits">Classic hits</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Games</h3>
+
+                <ul>
+                    <li>
+                        <a href="http://www.optusgames.com.au/">All games</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusgames.com.au/cat-11100-most-downloaded">Top downloads</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusgames.com.au/cat-11102-latest-releases">New releases</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusgames.com.au/topRatedByPGamer.php">Top rated</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusgames.com.au/cat-888-best-reviewed">Latest reviews</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusgames.com.au/cat-11001-puzzle">Puzzles</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusgames.com.au/cat-11104-action-adventure-shooter">Action</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusgames.com.au/cat-11105-sports">Sports</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optusgames.com.au/cat-11002-strategy-board-games">Strategy</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Manage Your Account On The Go</h3>
+
+                <ul>
+                    <li>
+                        <a href="//www.optus.com.au/home/myoptusapp">My Optus app</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
+
+
+<li class="mainLink teal dropdownToLeft radius ">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="http://www.optuszoo.com.au/news/news-com-au">News</a>
+
+
+
+
+
+        <!-- showMegaNavDropDown: true -->
+
+
+
+        <div class="dropdown">
+            <div class="dropdownSection ">
+
+                <h3>News sections</h3>
+
+                <ul>
+                    <li>
+                        <a href="http://www.optuszoo.com.au/news/">Top stories</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optuszoo.com.au/news/entertainment">Entertainment</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optuszoo.com.au/news/weird/news-com-au">Weird,True,Freaky</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optuszoo.com.au/news/technology">Technology</a>
+                    </li>
+                    <li>
+                        <a href="http://www.weatherzone.com.au/?aid=10502">Weather</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optuszoo.com.au/horoscopes">Horoscopes</a>
+                    </li>
+                    <li>
+                        <a href="http://www.optuszoo.com.au/gallery">Picture gallery</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Sports</h3>
+
+                <ul>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au">Latest sports</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/afl">AFL</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/football">Football</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/cricket">Cricket</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/league">Rugby league</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/union">Rugby union</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/tennis">Tennis</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/golf">Golf</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/motorsports">Motorsports</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/horseracing">Horseracing</a>
+                    </li>
+                    <li>
+                        <a href="http://optuszoo.sportal.net.au/other-sports">Other sports</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
+
+
+<li class="mainLink blue dropdownToLeft groupFirst ">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="http://www.optus.com.au/home/help-support/">Support</a>
+
+
+
+
+
+        <!-- showMegaNavDropDown: true -->
+
+
+
+        <div class="dropdown">
+            <div class="dropdownSection ">
+
+                <h3>Get help with your</h3>
+
+                <ul>
+                    <li>
+                        <a href="//www.optus.com.au/home/help-support/?sid=con:hme:othr:othr:1:support:mobile:meganav:tex#mobile">Mobile</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/home/help-support/?sid=con:hme:othr:othr:1:support:homepho:meganav:tex#home_phone">Home phone</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/home/help-support/?sid=con:hme:othr:othr:1:support:fixbroa:meganav:tex#fixed_broadband">Broadband</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/home/help-support/?sid=con:hme:othr:othr:1:support:mobbroa:meganav:tex#mobile_broadband">Mobile broadband</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/home/help-support/?sid=con:hme:othr:othr:1:support:tv:meganav:tex#television">Optus TV</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Optus Community</h3>
+
+                <ul>
+                    <li>
+                        <a href="//community.optus.com.au/t5/Mobile-Products-Network/ct-p/MobileProductsNetwork?sid=con:hme:othr:othr:1:support:mocmob:meganav:tex">Mobiles</a>
+                    </li>
+                    <li>
+                        <a href="//community.optus.com.au/t5/Broadband-Telephony-TV/ct-p/BroadbandTelephoneTV?sid=con:hme:othr:othr:1:support:mocbroa:meganav:tex">Broadband</a>
+                    </li>
+                    <li>
+                        <a href="//community.optus.com.au/t5/Broadband-Telephony-TV/ct-p/BroadbandTelephoneTV?sid=con:hme:othr:othr:1:support:mocphon:meganav:tex">Telephony</a>
+                    </li>
+                    <li>
+                        <a href="//community.optus.com.au/t5/Network-Coverage/bd-p/Network?sid=con:hme:othr:othr:1:support:mocnetw:meganav:tex">Network & Coverage</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdownSection ">
+
+                <h3>Hot Topics</h3>
+
+                <ul>
+                    <li>
+                        <a href="//www.optus.com.au/home/help-support/welcome_to_optus/?SID=con:hme:othr:othr:1:support:meganav::tex">Welcome to Optus</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/network?sid=con:hme:othr:othr:1:support:network:meganav:tex">Optus Network</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/aboutoptus/About+Optus/Contact+Us/Store+Locator?sid=con:hme:othr:othr:1:support:storelo:meganav:tex">Store locator</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/home/help-support/welcome_to_optus/?sid=con:hme:othr:othr:1:support:trackor:meganav:tex">Track your order</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/customercentre/myaccount?sid=con:hme:othr:othr:1:support:myaccou:meganav:tex">Manage your account</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/shop/optusgurus?sid=con:hme:othr:othr:1:support:gurus:meganav:tex">Optus Gurus Videos</a>
+                    </li>
+                    <li>
+                        <a href="//optus.custhelp.com/app/answers/detail/a_id/135?SID=con:hme:othr:othr:1:support:meganav::tex">Moving Home</a>
+                    </li>
+                    <li>
+                        <a href="//www.optus.com.au/askolivia?SID=con:hme:othr:othr:1:support:meganav::tex">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</li>
+
+
+<li class="mainLink my_account_drop_down_menu blue radius dropdownToLeft last">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="https://www.optus.com.au/customercentre/myaccount">My Account</a>
+        <div class="dropdown">
+            <div class="dropdownSection notLoggedIn first">
+                <h3><a href="https://www.optus.com.au/customercentre/myaccount">Log in </a>to Optus My Account</h3>
+                <h3>or</h3>
+                <h3><a href="https://www.optus.com.au/customercentre/myaccount/registration">Register now </a>for Optus My Acccount</h3>
+            </div>
+        </div>
+    </div>
+</li>
+</ul>
+
+<div class="menuItem guest_view_fragment" style="display:none">
+    <div class="menuItem">
+        <a class="menuItemRootLink" href="https://www.optus.com.au/customercentre/myaccount">My Account</a>
+    </div>
+    <div class="dropdown">
+        <div class="dropdownSection notLoggedIn first">
+            <h3><a href="https://www.optus.com.au/customercentre/myaccount">Log in </a>to Optus My Account</h3>
+            <h3>or</h3>
+            <h3><a href="https://www.optus.com.au/customercentre/myaccount/registration">Register now </a>for Optus My Account</h3>
+        </div>
+    </div>
+</div>
+
+<div class="globalNavShadowBar"></div>
+<div class="bottomNav">
+    <div class="bottomNavLinks">
+    </div>
+    <div id="your_cart_quick_panel_wrapper">
+        <div id="your_cart_quick_panel" class="your_cart_quick_panel your_cart_quick_panel_empty" style="display:none">
+            <p class="your_cart_quick_panel_content">
+                Your cart is empty
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+<script type="text/javascript">/*<![CDATA[*/
+if (typeof oca_globalheader_target != 'undefined') {
+    oca_globalheader_target.fire("oca_cust_evt_enableMegaDropDown");
+}
+/*]]>*/</script>
+
+
+</div>
+</div>
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- end top_layer -->
+
+<!-- body section -->
+<div class="middle_layer clearfix">
+    <div class="middle_layer_inner page_contents">
+        <div class="content_section">
+            <!-- Service Status pages start here! -->
+
+            <div class="service_status_content">
+
+                <div  class="service_status_search_head">
+                    <h1>Live Service Status</h1>
+                    <p>
+                        Enter a suburb name to see if there are any known issues:
+                    </p>
+                    <div class="service_status_search_panel">
+                        <input id="suburbInput" name="serviceStatusSuburb" />
+                        <a href="#">Search</a>
+                    </div>
+                    <div class="service_status_SubNote">
+                        <p>E.g. Darlinghurst</p>
+                    </div>
+                </div>
+
+                <div class="service_status_search_intro_panel">
+                    <p>
+                        babalablallaqbllalabvl!
+                    </p>
+                </div>
+
+                <div class="unexpected_issues_data">
+                    <h2>Unexpected Issues</h2>
+                    <div class="unexpected_issues_list">
+                         <!-- unexpected issues list shown in table here -->
+                    </div>
+
+                </div>
+
+                <div class="planned_repairs_maintenance_data">
+                    <h2>Unexpected Issues</h2>
+                    <div class="planned_repairs_maintenance_list">
+                        <!-- planned repairs maintenance shown in table here -->
+                    </div>
+
+                </div>
+
+
+            </div>
+            <!-- service_status_content -->
+
+
+            <!-- Service Status pages stop here! -->
+
+        </div> <!-- end content section -->
+    </div> <!-- end middle layer -->
+</div>
+
+<!-- begin footer area -->
+
+<div><div>
+
+</div><div>
+
+    <div class="bottom_layer">
+        <div class="bottom_layer_inner clearfix">
+            <div class="content_section clearfix" id="global_footer">
+                <div class="globalFooter">
+                    <h2>Footer</h2>
+
+                    <ul class="footerLinks">
+                        <li><a href="http://www.optus.com.au/cis/">Critical Information Summaries</a></li>
+
+                        <li><a href="http://www.optus.com.au/portal/site/aboutoptus/menuitem.ee0ee21ac9cce722d0b61a108c8ac7a0/?vgnextoid=6ebf3dd4813b1010VgnVCM100000c8a87c0aRCRD">Careers</a></li>
+
+                        <li><a href="http://www.optus.com.au/portal/site/aboutoptus/menuitem.813c6f701cee5a14f0419f108c8ac7a0/?vgnextoid=0aaba47491954010VgnVCM10000029a67c0aRCRD">Privacy policy</a></li>
+
+                        <li><a href="http://www.optus.com.au/portal/site/aboutoptus/menuitem.cfa0247099a6f722d0b61a108c8ac7a0/?vgnextoid=5ee44f923c454010VgnVCM10000029a67c0aRCRD">Copyright</a></li>
+
+                        <li><a href="http://www.optus.com.au/portal/site/aboutoptus/menuitem.26a56e3a0149a03327b868108c8ac7a0/?vgnextoid=a72a17d85fbbc110VgnVCMServer29867c0aRCRD">Accessibility</a></li>
+
+                        <li><a href="http://www.optus.com.au/portal/site/aboutoptus/menuitem.cfa0247099a6f722d0b61a108c8ac7a0/?vgnextoid=76523dd4813b1010VgnVCM100000c8a87c0aRCRD">Standard agreements</a></li>
+
+                        <li><a href="https://www.optus.com.au/shop/usageguides">Optus Usage Guides</a></li>
+                    </ul>
+
+                    <ul class="footerLinks">
+                        <li class="title">
+                            <h3>Optus sites:</h3>
+                        </li>
+
+                        <li class="first"><a href="http://www.optusbusiness.com.au">Optus Business</a></li>
+
+                        <li><a href="http://www.optus.com.au/business">Enterprise &#38; Government</a></li>
+
+                        <li><a href="https://www.optus.com.au/portal/site/wholesale/menuitem.6ba14ff94e0c6c66d0b61a108c8ac7a0/?vgnextoid=49d28e59168b5010VgnVCM10000029867c0aRCRD">Wholesale</a></li>
+
+                        <li><a href="http://www.optus.com.au/franchise">��yes�� Optus Franchising</a></li>
+                    </ul>
+
+                    <ul class="footerLinks">
+                        <li class="title">
+                            <h3>Optus shop:</h3>
+                        </li>
+
+                        <li class="first"><a href="https://www.optus.com.au/shop/mobilephones/mobilelandingpage">Mobile Phone Plans</a></li>
+
+                        <li><a href="//www.optus.com.au/shop/mobilephone/iphone/plans">iPhone Plans</a></li>
+
+                        <li><a href="//www.optus.com.au/shop/broadband/topbroadbandplans">Broadband Plans</a></li>
+
+                        <li><a href="//www.optus.com.au/shop/thenewipad">New iPad</a></li>
+                    </ul>
+
+                    <ul class="footerLinks tnt_experience_b">
+                        <li class="title">
+                            <h3>Support:</h3>
+                        </li>
+
+                        <li class="first"><a href="http://www.optus.com.au/contactus">Contact Us</a></li>
+
+                        <li><a href="http://www.optus.com.au/storelocator">Find a Store</a></li>
+
+                        <li><a href="http://community.optus.com.au/">My Optus Community</a></li>
+
+                        <li><a href="http://www.optus.com.au/dafiles/OCA/AboutOptus/LegalAndRegulatory/SharedStaticFiles/SharedDocuments/AppH.doc">Internet acceptable use</a></li>
+                    </ul>
+
+                    <p>?2013 Singtel Optus Pty Limited</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- end footer area -->
+</div><!-- div close, which is opened in market-segment style -->
 </body>
 </html>
+
+<!--33-->
