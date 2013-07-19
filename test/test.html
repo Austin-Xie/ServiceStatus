@@ -98,6 +98,8 @@
     <script type="text/javascript" src="../assets/themes/optus_theme/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../assets/themes/optus_theme/js/serviceStatus.js"></script>
 
+    <link href="../assets/themes/optus_theme/css/service_status.css" rel="stylesheet" type="text/css"  media="all"/>
+
 
     <!-- 1pcc-head-includes-dpm-theme ends -->
 </head>
@@ -854,10 +856,6 @@ if(window.oca && oca.data && oca.data.isHome) {
     <div class="menuItem">
         <a class="menuItemRootLink" href="http://www.optuszoo.com.au/news/news-com-au">News</a>
 
-
-
-
-
         <!-- showMegaNavDropDown: true -->
 
 
@@ -1090,54 +1088,55 @@ if (typeof oca_globalheader_target != 'undefined') {
 
             <div class="service_status_content">
 
-                <div  class="search_head">
-                    <h1>Live Service Status</h1>
-                    <p>
-                        Enter a suburb name to see if there are any known issues:
-                    </p>
-                    <div class="search_panel">
-                        <input id="suburbInput" name="serviceStatusSuburb" />
-                        <a href="#" id="service_status_search_lnk">Search</a>
+                <div class="search_condition_list_container">
+                    <div  class="search_head">
+                        <h1>Live Service Status</h1>
+                        <p>
+                            Enter a suburb name to see if there are any known issues:
+                        </p>
+                        <div class="search_panel">
+                            <input id="suburbInput" name="serviceStatusSuburb" />
+                            <a href="#" id="service_status_search_lnk">Search</a>
+                        </div>
+                        <div class="service_status_SubNote">
+                            <p>E.g. Darlinghurst</p>
+                        </div>
                     </div>
-                    <div class="service_status_SubNote">
-                        <p>E.g. Darlinghurst</p>
+
+                    <div class="search_intro_panel" sytle="display: none">
+                        <p>
+                            {service status search intro panel}
+                        </p>
+                    </div>
+
+                    <div class="search_result_prompt" style="display:none">
+                        <h2>What's happening in your area?</h2>
+                        <p>Below are the results found for your area.</p>
+                    </div>
+
+                    <div class="unexpected_issues_panel" style="display:none">
+                        <h2>Unexpected Issues</h2>
+                        <div class="not_found_panel">
+                            None found
+                        </div>
+                        <div class="unexpected_issues_list_panel">
+                            <!-- unexpected issues list shown in table here -->
+                        </div>
+
+                    </div>
+
+                    <div class="planned_repairs_maintenance_panel" style="display:none">
+                        <h2>Planned Repairs and Maintenance</h2>
+                        <div class="not_found_panel">
+                            None found
+                        </div>
+                        <div class="planned_repairs_maintenance_list_panel">
+                            <!-- planned repairs maintenance shown in table here -->
+                        </div>
                     </div>
                 </div>
 
-                <div class="search_intro_panel" sytle="display: none">
-                    <p>
-                        {service status search intro panel}
-                    </p>
-                </div>
-
-                <div class="search_result_prompt">
-                    <h2>What's happening in your area?</h2>
-                    <p>Below are the results found for your area.</p>
-                </div>
-
-                <div class="unexpected_issues_panel">
-                    <h2>Planned Repairs and Maintenance</h2>
-                    <div class="not_found_panel">
-                        None found
-                    </div>
-                    <div class="unexpected_issues_list_panel">
-                         <!-- unexpected issues list shown in table here -->
-                    </div>
-
-                </div>
-
-                <div class="planned_repairs_maintenance_panel">
-                    <h2>Unexpected Issues</h2>
-                    <div class="not_found_panel">
-                        None found
-                    </div>
-                    <div class="planned_repairs_maintenance_list_panel">
-                        <!-- planned repairs maintenance shown in table here -->
-                    </div>
-
-                </div>
-
-                <div class="details_panel">
+                <div class="details_panel" style="display:none">
                     <h3>{Suburb}, {State}}</h3>
                     <p>
                         {updated time}
@@ -1148,11 +1147,11 @@ if (typeof oca_globalheader_target != 'undefined') {
 
 
                     <div class="service_affected_panel">
-                    {Service affected}
+                        {Service affected}
                     </div>
 
                     <div class="outage_type_panel">
-                    {Outage Type}
+                        {Outage Type}
                     </div>
 
                     <div class="description_panel">
@@ -1163,13 +1162,10 @@ if (typeof oca_globalheader_target != 'undefined') {
                         <a href="#">&lt;&nbsp;Back</a>
                     </div>
 
-
                 </div>
-
 
             </div>
             <!-- service_status_content -->
-
 
             <!-- Service Status pages stop here! -->
 
