@@ -1089,7 +1089,7 @@ if (typeof oca_globalheader_target != 'undefined') {
             <div class="service_status_content">
 
                 <div class="search_condition_list_container">
-                    <div  class="search_head">
+                    <div  class="search_head_section">
                         <h1>Live Service Status</h1>
                         <p>
                             Enter a suburb name to see if there are any known issues:
@@ -1103,21 +1103,28 @@ if (typeof oca_globalheader_target != 'undefined') {
                         </div>
                     </div>
 
-                    <div class="search_intro_panel" sytle="display: none">
+                    <div class="search_intro_panel " sytle="display: none">
                         <p>
                             {service status search intro panel}
                         </p>
                     </div>
 
-                    <div class="search_result_prompt" style="display:none">
-                        <h2>What's happening in your area?</h2>
-                        <p>Below are the results found for your area.</p>
+                </div>
+
+                <div class="search_result_list_section" sytle="display: none">
+
+                    <div class="search_result_prompt "  sytle="display: none">
+                        <h2 sytle="display:none">What's happening in your area?</h2>
+                        <p sytle="display:none">Below are the results found for your area.</p>
                     </div>
 
-                    <div class="unexpected_issues_panel" style="display:none">
+                    <div class="unexpected_issues_panel "  sytle="display: none">
                         <h2>Unexpected Issues</h2>
-                        <div class="not_found_panel">
-                            None found
+                        <div class="loading_panel">
+                            {loading_panel}
+                        </div>
+                        <div class="none_found_panel">
+                            None found.
                         </div>
                         <div class="unexpected_issues_list_panel">
                             <!-- unexpected issues list shown in table here -->
@@ -1128,10 +1135,13 @@ if (typeof oca_globalheader_target != 'undefined') {
                     <br/>
                     <br/>
 
-                    <div class="planned_repairs_maintenance_panel" style="display:none">
+                    <div class="planned_repairs_maintenance_panel"  sytle="display: none">
                         <h2>Planned Repairs and Maintenance</h2>
-                        <div class="not_found_panel">
-                            None found
+                        <div class="loading_panel">
+                            {loading_panel}
+                        </div>
+                        <div class="none_found_panel">
+                            None found.
                         </div>
                         <div class="planned_repairs_maintenance_list_panel">
                             <!-- planned repairs maintenance shown in table here -->
@@ -1139,7 +1149,8 @@ if (typeof oca_globalheader_target != 'undefined') {
                     </div>
                 </div>
 
-                <div class="details_panel" style="display:none">
+                <!-- details_panel starts -->
+                <div class="details_section" style="display:none">
                     <h3>{Suburb}, {State}}</h3>
                     <p>
                         {updated time}
@@ -1148,17 +1159,28 @@ if (typeof oca_globalheader_target != 'undefined') {
                     <p>Optus Network Ref</p>
                     <p>{serviceId}</p>
 
+                    <div class="commencement_time_panel">
+                        {commencement_time_panel}
+                    </div>
 
                     <div class="service_affected_panel">
                         {Service affected}
                     </div>
 
                     <div class="outage_type_panel">
-                        {Outage Type}
+                        {outage_type_panel}
                     </div>
 
                     <div class="description_panel">
-                        {Description}
+                        {description_panel}
+                    </div>
+
+                    <div class="resolution_panel">
+                        {resolution_panel}
+                    </div>
+
+                    <div class="restoration_time_panel">
+                        {restoration_time_panel}
                     </div>
 
                     <div class="back_link_panel">
@@ -1166,9 +1188,14 @@ if (typeof oca_globalheader_target != 'undefined') {
                     </div>
 
                 </div>
+                <!-- details_panel ends -->
 
             </div>
             <!-- service_status_content -->
+
+            <div class="system_error_section" style="display:none">
+                {system_error_section}
+            </div>
 
             <!-- Service Status pages stop here! -->
 
