@@ -6,13 +6,15 @@
 (function ($) {
     'use strict';
 
-    var unexpectedIssueListPanel =  '.service_status_content .unexpected_issues_panel .unexpected_issues_list_panel',
-        plannedIssueListPanel = '.service_status_content .planned_repairs_maintenance_panel .planned_repairs_maintenance_list_panel',
-        searchIntroPanel = ".search_intro_panel",
-        searchResultPrompt = ".search_result_prompt",
-        unexpectedIssuesPanel = ".unexpected_issues_panel",
-        plannedRepairsMaintenancePanel = ".planned_repairs_maintenance_panel",
-        unplannedIssueCols = [
+    var searchController = {
+        unexpectedIssueListPanel: '.service_status_content .unexpected_issues_panel .unexpected_issues_list_panel',
+        plannedIssueListPanel: '.service_status_content .planned_repairs_maintenance_panel .planned_repairs_maintenance_list_panel',
+        searchIntroPanel: ".search_intro_panel",
+        searchResultListPanel: '.search_result_list_section',
+        unexpectedIssuesPanel: ".unexpected_issues_panel",
+        plannedRepairsMaintenancePanel: ".planned_repairs_maintenance_panel",
+        isSuburbSearched: false,
+        unplannedIssueCols: [
             {
                 "sTitle" : "Location" // Group by Network
             }, {
@@ -27,7 +29,7 @@
                 "sClass" : "center"
             }
         ],
-        plannedIssueCols = [
+        plannedIssueCols: [
             {
                 "sTitle" : "Location"
             }, {
@@ -39,7 +41,69 @@
                 "sTitle" : "More info",  // wrap 'id'
                 "sClass" : "center"
             }
-        ];
+        ],
+
+        searchSuburb: function(e) {
+            var self = this,
+                suburb = $('#suburbInput').val(),
+            // '/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages';
+                url = 'http://localhost/ServiceStatus_GH/test/mockJson.php';
+
+            $.ajax({
+                url : url,
+                type : 'get',
+                dataType : 'json',
+                data : {
+                    'serviceStatusSuburb' : suburb
+                },
+                success : searchController.showServiceStatusList,
+                failure : function (resp) {
+                    //TODO: to add error handling logic.
+                }
+            });
+
+            return false;
+
+        },
+
+        showServiceStatusList: function (data) {
+            var self = searchController,
+                unexpectedIssues = data.Unexpected,
+                plannedRepairs = data.Planned,
+                aaData = [],
+                no,
+                location,
+                when,
+                moreInfo,
+                i,
+                l;
+
+            $(self.searchIntroPanel).hide();
+            $(self.searchResultListPanel).show();
+
+            for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
+                no = unexpectedIssues[i];
+                location = no.location + ", " + no.state;
+                moreInfo = "<a href='#" + no.id + "'>More info ></a>";
+                aaData.push([location, no.serviceAffected, no.summary, no.fixingStatus, moreInfo]);
+            }
+            renderSearchResults(self.unexpectedIssueListPanel, self.unplannedIssueCols, aaData);
+
+            aaData = [];
+            for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
+                no = plannedRepairs[i];
+                location = no.location + ", " + no.state;
+                when = no.startTime + " - " +  no.endTime;
+                moreInfo = "<a href='#" + no.id + "' class='detail_link'>More info ></a>";
+                aaData.push([location, no.serviceAffected, when, moreInfo]);
+            }
+            renderSearchResults(self.plannedIssueListPanel, self.plannedIssueCols, aaData);
+            // To Show Search result lists
+        }
+
+    };
+
+
 
     function renderSearchResults(dataPanel, cols, searchResult) {
         var tablePanel = $(dataPanel);
@@ -54,63 +118,7 @@
     $(document).ready(function () {
         //cleanSearchResults();
 
-        $('#service_status_search_lnk').on('click', function (e) {
-            var suburb = $('#suburbInput').val(),
-                aaData = [],
-                // '/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages';
-                url = 'http://localhost/ServiceStatus_GH/test/mockJson.php';
-
-            e.preventDefault();
-
-            $.ajax({
-                url : url,
-                type : 'get',
-                dataType : 'json',
-                data : {
-                    'serviceStatusSuburb' : suburb
-                },
-                success : function (data) {
-                    var unexpectedIssues = data.Unexpected,
-                        plannedRepairs = data.Planned,
-                        no,
-                        location,
-                        when,
-                        moreInfo,
-                        i,
-                        l;
-
-                    for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
-                        no = unexpectedIssues[i];
-                        location = no.location + ", " + no.state;
-                        moreInfo = "<a href='#" + no.id + "'>More info ></a>";
-                        aaData.push([location, no.serviceAffected, no.summary, no.fixingStatus, moreInfo]);
-                    }
-                    renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, aaData);
-
-                    aaData = [];
-                    for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
-                        no = plannedRepairs[i];
-                        location = no.location + ", " + no.state;
-                        when = no.startTime + " - " +  no.endTime;
-                        moreInfo = "<a href='#" + no.id + "' class='detail_link'>More info ></a>";
-                        aaData.push([location, no.serviceAffected, when, moreInfo]);
-                    }
-                    renderSearchResults(plannedIssueListPanel, plannedIssueCols, aaData);
-
-                    // To Show Search result lists
-                    $(searchIntroPanel).hide();
-                    $(searchResultPrompt).show();
-                    $(unexpectedIssuesPanel).show();
-                    $(plannedRepairsMaintenancePanel).show();
-
-                },
-                failure : function (resp) {
-                    //TODO: to add error handling logic.
-                }
-            });
-
-            return false;
-        });
+        $('#service_status_search_lnk').on('click', searchController.searchSuburb);
 
     });
 
