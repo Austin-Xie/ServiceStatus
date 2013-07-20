@@ -17,7 +17,7 @@
     $plannedEvents  = $testJsonData -> Planned;
     //echo json_encode($plannedEvents);
 
-    if (!is_null($serviceId)) {
+    if (!empty($serviceId)) {
         $serviceId = intval($serviceId);
         foreach ($unexpectedEvents as $ue) {
             if ($ue->id == $serviceId) {
@@ -33,8 +33,8 @@
                 break;
             }
         }
-
-    } else if (!is_null($suburb)) {
+        return;
+    } else if (!empty($suburb)) {
         $networkOutages = array();
 
         $matchUnexpected = array();
@@ -54,7 +54,8 @@
         $networkOutages["Unexpected"] = $matchUnexpected;
 
         echo json_encode($networkOutages);
-    } else {
-        echo "{}";
+        return;
+    } else { // By default, show all issues.
+        echo json_encode($testJsonData);
     }
 ?>
