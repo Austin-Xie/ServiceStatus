@@ -1,0 +1,20 @@
+1. when Loading the page the first time.
+    - show 'Intro' section
+    - Suburb = "":  Loading 'Unexpected Issues' & 'Planned Repairs', show them in table from most recent to past
+
+2. When a suburb input and click search button
+    - Validate Suburb name
+    - Perform Search operation
+        - Hide 'search_intro_panel' section
+        - Show 'search_result_prompt' section
+        - if no issues found for either 'Unexpected...' or 'Planned ...'
+              show 'none_found_panel'
+          else
+              render issues in table
+
+3. When click 'More info' to show details
+    - Hide '
+
+    - Query Service Status by ID
+      when succeed:
+          Show 'details_panel' panel

@@ -19,8 +19,10 @@ class ajaxNetworkOutage extends ControllerBase
     function ajaxQueryNetworkOutages()
     {
         //$paramType = $this->input->post('paramType');
+		$serviceId = $_GET["serviceStatusId"];
+        $suburb = $_GET["serviceStatusSuburb"];
 
-        if (!is_null($_GET['serviceStatusId'])) {
+        if (!is_null($serviceId)) {
             $svcStsId = $_GET['serviceStatusId'];
 
             $no = $this->NetworkOutage_model->getNetworkOutageById($svcStsId);

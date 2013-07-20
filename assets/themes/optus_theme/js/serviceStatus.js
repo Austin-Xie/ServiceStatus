@@ -10,9 +10,16 @@
         unexpectedIssueListPanel: '.service_status_content .unexpected_issues_panel .unexpected_issues_list_panel',
         plannedIssueListPanel: '.service_status_content .planned_repairs_maintenance_panel .planned_repairs_maintenance_list_panel',
         searchIntroPanel: ".search_intro_panel",
-        searchResultListPanel: '.search_result_list_section',
-        unexpectedIssuesPanel: ".unexpected_issues_panel",
+        searchResultListPanel: '.search_result_list_section .search_result_list_section',
+        unexpectedIssuesPanel: '.search_result_list_section .unexpected_issues_panel',
+
+        unexpectedNonFoundPanel: ".search_result_list_section .none_found_panel",
+        plannedNonFoundPanel: ".planned_repairs_maintenance_panel .loading_panel",
+
         plannedRepairsMaintenancePanel: ".planned_repairs_maintenance_panel",
+
+        searchLoadingPanels: ".search_result_list_section .loading_panel, .planned_repairs_maintenance_panel .loading_panel",
+
         isSuburbSearched: false,
         unplannedIssueCols: [
             {
@@ -49,6 +56,7 @@
             // '/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages';
                 url = 'http://localhost/ServiceStatus_GH/test/mockJson.php';
 
+            $(self.searchLoadingPanels).show();
             $.ajax({
                 url : url,
                 type : 'get',
@@ -78,26 +86,41 @@
                 i,
                 l;
 
-            $(self.searchIntroPanel).hide();
-            $(self.searchResultListPanel).show();
+            $(self.searchLoadingPanels).hide();
 
-            for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
-                no = unexpectedIssues[i];
-                location = no.location + ", " + no.state;
-                moreInfo = "<a href='#" + no.id + "'>More info ></a>";
-                aaData.push([location, no.serviceAffected, no.summary, no.fixingStatus, moreInfo]);
+            //$(self.plannedIssueListPanel + "," + self.unexpectedIssuesPanel).show();
+
+            l = plannedRepairs.length;
+            if (l == 0) {
+                $(self.unexpectedNonFoundPanel).show();
+                $(self.unexpectedIssueListPanel).hide();
+            } else {
+                for (i = 0; i < l; i += 1) {
+                    no = unexpectedIssues[i];
+                    location = no.location + ", " + no.state;
+                    moreInfo = "<a href='#" + no.id + "'>More info ></a>";
+                    aaData.push([location, no.serviceAffected, no.summary, no.fixingStatus, moreInfo]);
+                }
+                renderSearchResults(self.unexpectedIssueListPanel, self.unplannedIssueCols, aaData);
+                $(self.unexpectedIssueListPanel).show();
             }
-            renderSearchResults(self.unexpectedIssueListPanel, self.unplannedIssueCols, aaData);
 
             aaData = [];
-            for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
-                no = plannedRepairs[i];
-                location = no.location + ", " + no.state;
-                when = no.startTime + " - " +  no.endTime;
-                moreInfo = "<a href='#" + no.id + "' class='detail_link'>More info ></a>";
-                aaData.push([location, no.serviceAffected, when, moreInfo]);
+            l = l = plannedRepairs.length;
+            if (l == 0 ) {
+                $(self.plannedNonFoundPanel).show();
+                $(self.plannedIssueListPanel).hide();
+            } else {
+                for (i = 0; i < l; i += 1) {
+                    no = plannedRepairs[i];
+                    location = no.location + ", " + no.state;
+                    when = no.startTime + " - " +  no.endTime;
+                    moreInfo = "<a href='#" + no.id + "' class='detail_link'>More info ></a>";
+                    aaData.push([location, no.serviceAffected, when, moreInfo]);
+                }
+                renderSearchResults(self.plannedIssueListPanel, self.plannedIssueCols, aaData);
+                $(self.plannedIssueListPanel).show();
             }
-            renderSearchResults(self.plannedIssueListPanel, self.plannedIssueCols, aaData);
             // To Show Search result lists
         }
 

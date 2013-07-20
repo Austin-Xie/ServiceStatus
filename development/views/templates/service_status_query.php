@@ -231,6 +231,8 @@ if(isIE6()){
 			border: 0;
 		}
 		</style>
+		
+		
 	</head>
 	<body>
 		<script type="text/javascript">/*<![CDATA[*/
@@ -448,7 +450,7 @@ if(isIE6()){
 
 <!--  *************** Right now content ************** -->				
 					  <div class="main_page_contents">
-										<rn:page_content/>
+					    <rn:page_content/>
 					  </div>  
           
 <!--  ************************************************ -->				
@@ -459,6 +461,12 @@ if(isIE6()){
         
 			</div>
 		</div>
+		
+		<!-- Service Status JS & CSS -->
+		<script type="text/javascript" src="../optus_theme/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" src="../optus_theme/js/serviceStatus.js"></script>
+		<link href="../optus_theme/css/service_status.css" rel="stylesheet" type="text/css"  media="all"/>
+		
 		
 		<!-- FOOTER STARTS -->
 		
