@@ -93,7 +93,6 @@
             moreInfo = "<a href='#" + ss.id + "'>More info ></a>";
             unexpectedIssuesData.push([location, ss.serviceAffected, ss.summary, ss.fixingStatus, moreInfo]);
         }
-        //renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, aaData);
 
         for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
             ss = plannedRepairs[i];
@@ -102,7 +101,6 @@
             moreInfo = "<a href='#" + ss.id + "' class='detail_link'>More info ></a>";
             plannedIssuesData.push([location, ss.serviceAffected, when, moreInfo]);
         }
-        //renderSearchResults(plannedIssueListPanel, plannedIssueCols, aaData);
 
         return {
             unexpectedIssuesData: unexpectedIssuesData,
@@ -125,59 +123,53 @@
     }
 
     function initSearchPage() {
-        // var suburb = $('#suburbInput').val();
-
-        // waiting for query results
-        $(unexpectedIssueLoadingPanel + ", " + plannedIssueLoadingPanel).show();
-
-        fetchServiceStatus("", function(jsonData) {
-            // Succeed
-            togglePanels([unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
-
-            var data = getServiceStatusData(jsonData);
-
-            $(searchResultListSection + ", " + searchResultPrompt).show();
-                togglePanels([searchResultListSection, searchResultPrompt], true);
-            if (data.unexpectedIssuesData) {
-                renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, data.unexpectedIssuesData);
-                $(unexpectedIssueListPanel).show();
-            } else {
-                $(unexpectedIssueNonFoundPanel).show();
-            }
-
-            if (data.plannedIssuesData) {
-                renderSearchResults(plannedIssueListPanel, plannedIssueCols, data.plannedIssuesData);
-                $(plannedIssueListPanel).show();
-            } else {
-                $(plannedIssueNonFoundPanel).show();
-            }
-
-        },
-        function(error) {
-            console.error(error);
-            togglePanels([searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
-            $(systemErrorSection).html(error).show();
-        });
+        $('#service_status_search_lnk').trigger('click');
 
         return false;
     }
 
     function searchServiceStatuses(e) {
-        // Hide Search Intro Section
-        /*
-         //Unexpected Issues Section
-         unexpectedIssuesPanel = '.service_status_content .unexpected_issues_panel',
-         unexpectedIssueListPanel = unexpectedIssuesPanel + ' .unexpected_issues_list_panel',
-         unexpectedIssueNonFoundPanel = unexpectedIssuesPanel + ' .none_found_panel',
-         unexpectedIssueLoadingPanel = unexpectedIssuesPanel + ' .loading_panel',
+        var suburb = $('#suburbInput').val();
 
-         // Planned Issues Section
-         plannedIssuePanel = '.service_status_content .planned_repairs_maintenance_panel',
-         plannedIssueListPanel = plannedIssuePanel + ' .planned_repairs_maintenance_list_panel',
-         plannedIssueNonFoundPanel = plannedIssuePanel + ' .none_found_panel',
-         plannedIssueLoadingPanel = plannedIssuePanel + ' .loading_panel',
-         */
-        togglePanels([searchIntroSection, unexpectedIssueNonFoundPanel, plannedIssueNonFoundPanel], false);
+        console.log('suburb == ' + suburb);
+
+        togglePanels([searchIntroSection, unexpectedIssueNonFoundPanel, plannedIssueNonFoundPanel,
+            unexpectedIssueListPanel, plannedIssueListPanel], false);
+
+        togglePanels([unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], true);
+
+        fetchServiceStatus(suburb, function(jsonData) {
+                // Succeed
+                togglePanels([unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
+
+                var data = getServiceStatusData(jsonData);
+
+                togglePanels([searchResultListSection, searchResultPrompt], true);
+                //unexpectedIssueListPanel, plannedIssueListPanel
+                if (data.unexpectedIssuesData.length) {
+                    // found data
+                    renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, data.unexpectedIssuesData);
+                    $(unexpectedIssueListPanel).show();
+                } else {
+                    // None Found
+                    $(unexpectedIssueNonFoundPanel).show();
+
+                }
+
+                if (data.plannedIssuesData.length) {
+                    renderSearchResults(plannedIssueListPanel, plannedIssueCols, data.plannedIssuesData);
+                    $(plannedIssueListPanel).show();
+                } else {
+                    $(plannedIssueNonFoundPanel).show();
+                }
+
+            },
+            function(error) {
+                console.error(error);
+                togglePanels([searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
+                $(systemErrorSection).html(error).show();
+            }
+        );
 
     }
 
@@ -195,5 +187,6 @@
 
         initSearchPage();
     });
+
 
 }(jQuery));
