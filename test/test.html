@@ -96,7 +96,7 @@
     <script type="text/javascript" src="//smb.optus.com.au/opfiles/cc/static/assets/common/js/vendors/mvt/mbox.js"></script>
 
     <script type="text/javascript" src="../assets/themes/optus_theme/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../assets/themes/optus_theme/js/serviceStatus.js"></script>
+    <script type="text/javascript" src="../assets/themes/optus_theme/js/serviceStatus_test.js"></script>
 
     <link href="../assets/themes/optus_theme/css/service_status_datatable.css" rel="stylesheet" type="text/css"  media="all"/>
 
@@ -1088,116 +1088,134 @@ if (typeof oca_globalheader_target != 'undefined') {
 
             <div class="service_status_content">
 
-                <div class="search_condition_list_container">
-                    <div  class="search_head_section">
+                <div class="search_condition_section">
+                    <div class="search_head_panel">
                         <h1>Live Service Status</h1>
+
                         <p>
                             Enter a suburb name to see if there are any known issues:
                         </p>
+
                         <div class="search_panel">
-                            <input id="suburbInput" name="serviceStatusSuburb" />
+                            <input id="suburbInput" name="serviceStatusSuburb"/>
                             <a href="#" id="service_status_search_lnk">Search</a>
                         </div>
                         <div class="service_status_SubNote">
                             <p>E.g. Darlinghurst</p>
                         </div>
                     </div>
-
-                    <div class="search_intro_panel " sytle="display: none">
-                        <p>
-                            {service status search intro panel}
-                        </p>
-                    </div>
-
                 </div>
 
-                <div class="search_result_list_section" sytle="display: none">
+                <div class="search_intro_section ">
+                    <p>
+                        {service status search intro panel}
+                    </p>
+                </div>
 
-                    <div class="search_result_prompt "  sytle="display: none">
-                        <h2 sytle="display:none">What's happening in your area?</h2>
-                        <p sytle="display:none">Below are the results found for your area.</p>
+                <div class="search_result_list_section">
+
+                    <div class="search_result_prompt " style="display:none">
+                        <h2>What's happening in your area?</h2>
+
+                        <p>Below are the results found for your area.</p>
                     </div>
 
-                    <div class="unexpected_issues_panel "  sytle="display: none">
+                    <div class="unexpected_issues_panel ">
                         <h2>Unexpected Issues</h2>
-                        <div class="loading_panel">
+
+                        <div class="loading_panel" style="display:none">
                             {loading_panel}
                         </div>
-                        <div class="none_found_panel">
-                            None found.
+                        <div class="none_found_panel" style="display:none">
+                            <p>None found.</p>
                         </div>
-                        <div class="unexpected_issues_list_panel">
+                        <div class="unexpected_issues_list_panel" style="display:none">
                             <!-- unexpected issues list shown in table here -->
                         </div>
-
                     </div>
 
                     <br/>
                     <br/>
 
-                    <div class="planned_repairs_maintenance_panel"  sytle="display: none">
+                    <div class="planned_repairs_maintenance_panel">
                         <h2>Planned Repairs and Maintenance</h2>
-                        <div class="loading_panel">
+
+                        <div class="loading_panel" style="display:none">
                             {loading_panel}
                         </div>
-                        <div class="none_found_panel">
-                            None found.
+                        <div class="none_found_panel" style="display:none">
+                            <p>None found.</p>
                         </div>
-                        <div class="planned_repairs_maintenance_list_panel">
+                        <div class="planned_repairs_maintenance_list_panel" style="display:none">
                             <!-- planned repairs maintenance shown in table here -->
                         </div>
                     </div>
                 </div>
 
-                <!-- details_panel starts -->
-                <div class="details_section" style="display:none">
-                    <h3>{Suburb}, {State}}</h3>
-                    <p>
-                        {updated time}
-                    </p>
-
-                    <p>Optus Network Ref</p>
-                    <p>{serviceId}</p>
-
-                    <div class="commencement_time_panel">
-                        {commencement_time_panel}
-                    </div>
-
-                    <div class="service_affected_panel">
-                        {Service affected}
-                    </div>
-
-                    <div class="outage_type_panel">
-                        {outage_type_panel}
-                    </div>
-
-                    <div class="description_panel">
-                        {description_panel}
-                    </div>
-
-                    <div class="resolution_panel">
-                        {resolution_panel}
-                    </div>
-
-                    <div class="restoration_time_panel">
-                        {restoration_time_panel}
-                    </div>
-
-                    <div class="back_link_panel">
-                        <a href="#">&lt;&nbsp;Back</a>
-                    </div>
-
+                <div class="system_error_section" style="display:none">
+                    {system_error_section}
                 </div>
-                <!-- details_panel ends -->
 
             </div>
             <!-- service_status_content -->
 
-            <div class="system_error_section" style="display:none">
-                {system_error_section}
-            </div>
+            <!-- service_status_detail_content starts -->
+            <div class="service_status_detail_content" style="display:none">
+                <div class="loading_panel" style="display:none">
+                    {loading_panel}
+                </div>
+                <div class="details_panel" >
+                    <h3><span id="ssd_location"></span>, <span id="ssd_state"></span></h3>
+                    <p>
+                        <span id="ssd_updatedTime"></span>
+                    </p>
 
-            <!-- Service Status pages stop here! -->
+                    <div>
+                        <p>Optus Network Ref</p>
+                        <p><span id="ssd_serviceId"></span></p>
+                    </div>
+
+                    <div>
+                        <p>Estimated Time of Commencement</p>
+                        <p><span id="ssd_startTime"></span></p>
+                    </div>
+
+                    <div>
+                        <p>Service Affected</p>
+                        <p><span id="ssd_serviceAffected"></span></p>
+                    </div>
+
+                    <div>
+                        <p>Outage Type</p>
+                        <p><span id="ssd_outageType"></span></p>
+                    </div>
+
+                    <div>
+                        <p>Description</p>
+                        <p><span id="ssd_description"></span></p>
+                    </div>
+
+                    <div>
+                        <p>Resolution</p>
+                        <p><span id="ssd_resolution"></span></p>
+                    </div>
+
+                    <div>
+                        <p>Estimated Time of Commencement</p>
+                        <p><span id="ssd_endTime"></span></p>
+                    </div>
+                </div>
+
+                <div class="back_link_panel" >
+                    <a href="#" class="back_link">&lt;&nbsp;Back</a>
+                </div>
+
+                <div class="system_error_section" style="display:none">
+                    {system_error_section}
+                </div>
+
+            </div>
+            <!-- service_status_detail_content ends -->
 
         </div> <!-- end content section -->
     </div> <!-- end middle layer -->
