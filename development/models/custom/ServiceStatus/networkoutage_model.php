@@ -20,9 +20,13 @@ class NetworkOutage_model extends Model
     * @return Answer The CO.NetworkOutage with the specified answer_id
     */
     function getBySuburb($suburb, $status){
-
-        $nos = RNCPHP\ROQL::queryObject("SELECT CO.NetworkOutage FROM CO.NetworkOutage WHERE ProcessStatus.Name = '"
-              . $status . "' AND Areas like '%" . $suburb . "%'")->next();
+	    $serviceStatusQry = "SELECT CO.NetworkOutage FROM CO.NetworkOutage WHERE ProcessStatus.Name = '"
+		                    . $status . "' ";
+        if (empty($suburb)) {
+            $nos = RNCPHP\ROQL::queryObject($serviceStatusQry)->next();
+        } else {
+		    $nos = RNCPHP\ROQL::queryObject($serviceStatusQry . " AND Areas like '%" . $suburb . "%'")->next();
+        }
 
         return $nos;
     }
@@ -50,26 +54,26 @@ class NetworkOutage_model extends Model
     */
 
     function getNetworkOutageTemplateById($templateId) {
-		$noTmpl = RNCPHP\ROQL::queryObject("SELECT CO.NwkOtgTemplate FROM CO.NwkOtgTemplate WHERE  ID = "
+        $noTmpl = RNCPHP\ROQL::queryObject("SELECT CO.NwkOtgTemplate FROM CO.NwkOtgTemplate WHERE  ID = "
                   . $templateId)->next();
 
         return $noTmpl;
     }
 
     function populateNwkOtgTemplate($noTmpl, $ssJsonTemplate) {
-		$noTmpl->NetworkType = $ssJsonTemplate-> NetworkType;
-        $noTmpl->OptusNetwork = $ssJsonTemplate-> OptusNetwork;
-        $noTmpl->OptusService = $ssJsonTemplate-> OptusService;
-        $noTmpl->PlanType = $ssJsonTemplate-> PlanType;
-        $noTmpl->OutageType = $ssJsonTemplate-> OutageType;
-        $noTmpl->ProductRename = $ssJsonTemplate-> ProductRename;
-        $noTmpl->Severity = $ssJsonTemplate-> Severity;
-        $noTmpl->Summary = $ssJsonTemplate-> Summary;
-        $noTmpl->Description = $ssJsonTemplate-> Description;
+        $noTmpl->NetworkType = $ssJsonTemplate->NetworkType;
+        $noTmpl->OptusNetwork = $ssJsonTemplate->OptusNetwork;
+        $noTmpl->OptusService = $ssJsonTemplate->OptusService;
+        $noTmpl->PlanType = $ssJsonTemplate->PlanType;
+        $noTmpl->OutageType = $ssJsonTemplate->OutageType;
+        $noTmpl->ProductRename = $ssJsonTemplate->ProductRename;
+        $noTmpl->Severity = $ssJsonTemplate->Severity;
+        $noTmpl->Summary = $ssJsonTemplate->Summary;
+        $noTmpl->Description = $ssJsonTemplate->Description;
     }
 
     function updateNwkOtgTemplate($ssJsonTemplate) {
-		$noTemple = null;
+        $noTemple = null;
         if (is_null($ssJsonTemplate->ID)) {
              $noTemple = new RNCPHP\CO.NwkOtgTemplate;
         } else {
@@ -88,4 +92,3 @@ class NetworkOutage_model extends Model
         return "success";
     }
 }
- 
