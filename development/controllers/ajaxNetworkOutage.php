@@ -74,7 +74,6 @@ class ajaxNetworkOutage extends ControllerBase
         } else {
             echo "{}";
         }
-
     }
 
     function exportNetworkOutageBrief($no) {
@@ -86,7 +85,7 @@ class ajaxNetworkOutage extends ControllerBase
         $exptNO['state'] = $no->State->Name;
         $exptNO['location'] = $no->Areas;
         
-        $exptNO['serviceAffected'] = $no->CustomCustomService;
+        $exptNO['serviceAffected'] = $no->CustomService;
         $exptNO['summary'] = $no->CustomSummary;
 
         $exptNO['type'] = $no->Type->Name;
