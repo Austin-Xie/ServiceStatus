@@ -90,7 +90,7 @@ class ajaxServiceStatus extends ControllerBase
         $exptNO['location'] = $no->Areas;
         
         $exptNO['serviceAffected'] = $no->CustomService;
-        $exptNO['summary'] = $no->CustomSummary;
+        $exptNO['outageType'] = $no->CustomSummary;
 
         $exptNO['type'] = $no->Type->Name;
         if ($exptNO['type'] === "Planned") {
@@ -111,11 +111,14 @@ class ajaxServiceStatus extends ControllerBase
             $exptNO[$key] = $value;
         }
 
+        if ($exptNO['type'] === "Unplanned") {
+            $exptNO['startTime'] = date('l jS \of F Y h:i:s A', $no->StartTime);
+            $exptNO['endTime'] = date('l jS \of F Y h:i:s A', $no->EndTime);
+        }
         $exptNO['updatedTime'] = date('l jS \of F Y h:i:s A', $no->UpdatedTime);
 
         $exptNO['description'] = $no->CustomDescription;
-
-        $exptNO['technicalSummary'] = $no->TechnicalSummary;
+        //$exptNO['technicalSummary'] = $no->TechnicalSummary;
         $exptNO['resolution'] = $no->Resolution;
 
         return $exptNO;
