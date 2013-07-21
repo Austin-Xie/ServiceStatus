@@ -103,7 +103,6 @@ class ajaxServiceStatus extends ControllerBase
         return $exptNO;
     }
 
-
     function exportNetworkOutageDetail($no) {
         $exptNO2 = $this->exportNetworkOutageBrief($no);
         

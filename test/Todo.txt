@@ -18,3 +18,28 @@
     - Query Service Status by ID
       when succeed:
           Show 'details_panel' panel
+
+
+
+------------------------------------------------------------------------------------------------------------------------
+service/status/list.php
+- When page load is ready
+  1. set query loading status
+  2.  send request to fetch all service status
+  3. when data come back:
+        -> hide query loading status
+        -> populate tables
+     when no data found for either planned or unexpected:
+        -> show Non Found
+
+
+ unexpectedIssuesPanel = '.service_status_content .unexpected_issues_panel',
+        unexpectedIssueListPanel = unexpectedIssuesPanel + ' .unexpected_issues_list_panel',
+        unexpectedIssueNonFoundPanel = unexpectedIssueListPanel + ' .none_found_panel',
+        unexpectedIssueLoadingPanel = unexpectedIssueNonFoundPanel + ' .loading_panel',
+
+        plannedIssuePanel = '.service_status_content .planned_repairs_maintenance_panel',
+        plannedIssueListPanel = plannedIssuePanel + ' .planned_repairs_maintenance_list_panel',
+        plannedIssueNonFoundPanel = plannedIssueListPanel + ' .none_found_panel',
+        plannedIssueLoadingPanel = plannedIssueListPanel + ' .loading_panel',
+
