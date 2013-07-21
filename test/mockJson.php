@@ -1,6 +1,6 @@
 <?php 
-    $serviceId = $_GET["serviceStatusId"];
-    $suburb = $_GET["serviceStatusSuburb"];
+    $serviceId = $_POST["serviceStatusId"];
+    $suburb = $_POST["serviceStatusSuburb"];
 
     $testJsonData = json_decode('{' .
     '"Unexpected":['.
@@ -14,7 +14,7 @@
 
     // echo json_encode($testJsonData->Planned);
     $unexpectedEvents = $testJsonData->Unexpected;
-    $plannedEvents  = $testJsonData -> Planned;
+    $plannedEvents  = $testJsonData->Planned;
     //echo json_encode($plannedEvents);
 
     if (!empty($serviceId)) {
