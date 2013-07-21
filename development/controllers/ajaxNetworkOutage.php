@@ -10,6 +10,11 @@ class ajaxNetworkOutage extends ControllerBase
 
         $this->load->model('custom/ServiceStatus/NetworkOutage_model');
     }
+	
+	function ajaxQueryTest() {
+		//echo '{"ajax": "OK!"}';
+		 echo '{"msg": "FFFFFFFFFFFFFFFKKKKKKKKKKKKKKKKKK"}';
+	}
     
     
     /**
@@ -18,12 +23,11 @@ class ajaxNetworkOutage extends ControllerBase
      */
     function ajaxQueryNetworkOutages()
     {
-        //$paramType = $this->input->post('paramType');
-		$serviceId = $_GET["serviceStatusId"];
-        $suburb = $_GET["serviceStatusSuburb"];
+		$serviceId = $_POST["serviceStatusId"];
+        $suburb = $_POST["serviceStatusSuburb"];
 
-        if (!is_null($serviceId)) {
-            $svcStsId = $_GET['serviceStatusId'];
+        if (!empty($serviceId)) {
+            //$svcStsId = $_GET['serviceStatusId'];
 
             $no = $this->NetworkOutage_model->getNetworkOutageById($svcStsId);
             //header('Content-Type: text/javascript');
@@ -35,15 +39,10 @@ class ajaxNetworkOutage extends ControllerBase
             } else {
                 echo $_GET['callback']. '('. $exptNOResp .');';
             }
-        } else if (!is_null($_GET['serviceStatusSuburb'])) {
-            // Seary by Suburb only.
-            $suburb = $_GET['serviceStatusSuburb'];
-            //$this->input->post('serviceStatusSuburb');
-            
+        } else if (!empty($suburb)) {            
             // only 'Online' accessible.
             $status = 'Online'; //"('Online')"; //"('Edit', 'Review', 'Online')";
-            
-    
+
             $nos = $this->NetworkOutage_model->getBySuburb($suburb, $status);
 
             $planned = array();
@@ -75,7 +74,7 @@ class ajaxNetworkOutage extends ControllerBase
         } else {
             echo "{}";
         }
-        
+
     }
 
     function exportNetworkOutageBrief($no) {
