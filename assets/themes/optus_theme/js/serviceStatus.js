@@ -58,7 +58,7 @@
             alert('clicked me');
             var suburb = $('#suburbInput').val(),
                 aaData = [],
-                url = '/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages' ; //'/ci/ajaxCustom/ajaxFunctionHandler';
+                url = '/cc/ajaxServiceStatus/ajaxQueryServiceStatuses' ; //'/ci/ajaxCustom/ajaxFunctionHandler';
             //url = '/cc/ajaxNetworkOutage/ajaxQueryTest' ;
             //http://optus.custhelp.com/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages?serviceStatusSuburb=Epping&site=consumer
             // url = 'http://localhost/ServiceStatus_GH/test/mockJson.php';
@@ -80,7 +80,7 @@
 
                     var unexpectedIssues = jsonData.Unexpected,
                         plannedRepairs = jsonData.Planned,
-                        no,
+                        ss,
                         location,
                         when,
                         moreInfo,
@@ -88,20 +88,20 @@
                         l;
 
                     for (i = 0, l = unexpectedIssues.length; i < l; i += 1) {
-                        no = unexpectedIssues[i];
-                        location = no.location + ", " + no.state;
-                        moreInfo = "<a href='#" + no.id + "'>More info ></a>";
-                        aaData.push([location, no.serviceAffected, no.summary, no.fixingStatus, moreInfo]);
+                        ss = unexpectedIssues[i];
+                        location = ss.location + ", " + ss.state;
+                        moreInfo = "<a href='#" + ss.id + "'>More info ></a>";
+                        aaData.push([location, ss.serviceAffected, ss.summary, ss.fixingStatus, moreInfo]);
                     }
                     renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, aaData);
 
                     aaData = [];
                     for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
-                        no = plannedRepairs[i];
-                        location = no.location + ", " + no.state;
-                        when = no.startTime + " - " +  no.endTime;
-                        moreInfo = "<a href='#" + no.id + "' class='detail_link'>More info ></a>";
-                        aaData.push([location, no.serviceAffected, when, moreInfo]);
+                        ss = plannedRepairs[i];
+                        location = ss.location + ", " + ss.state;
+                        when = ss.startTime + " - " +  ss.endTime;
+                        moreInfo = "<a href='#" + ss.id + "' class='detail_link'>More info ></a>";
+                        aaData.push([location, ss.serviceAffected, when, moreInfo]);
                     }
                     renderSearchResults(plannedIssueListPanel, plannedIssueCols, aaData);
 

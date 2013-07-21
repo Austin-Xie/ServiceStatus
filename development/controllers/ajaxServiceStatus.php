@@ -1,6 +1,6 @@
 <?php
 
-class ajaxNetworkOutage extends ControllerBase
+class ajaxServiceStatus extends ControllerBase
 {
     //This is the constructor for the custom controller. Do not modify anything within
     //this function.
@@ -21,7 +21,7 @@ class ajaxNetworkOutage extends ControllerBase
      * This function can be called by sending
      * a request to /ci/ajaxNetworkOutage/ajaxQueryNetworkOutages.
      */
-    function ajaxQueryNetworkOutages()
+    function ajaxQueryServiceStatuses()
     {
         $suburb = $_POST["serviceStatusSuburb"];
 		if (is_null($suburb)) {
