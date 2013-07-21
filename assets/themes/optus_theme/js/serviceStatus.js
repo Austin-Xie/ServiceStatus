@@ -6,12 +6,34 @@
 (function ($) {
     'use strict';
 
-    var unexpectedIssueListPanel =  '.service_status_content .unexpected_issues_panel .unexpected_issues_list_panel',
-        plannedIssueListPanel = '.service_status_content .planned_repairs_maintenance_panel .planned_repairs_maintenance_list_panel',
-        searchIntroPanel = ".search_intro_panel",
-        searchResultPrompt = ".search_result_prompt",
-        unexpectedIssuesPanel = ".unexpected_issues_panel",
-        plannedRepairsMaintenancePanel = ".planned_repairs_maintenance_panel",
+    var serviceStatusUrl = '/cc/ajaxServiceStatus/ajaxQueryServiceStatuses',
+        //Search Condition Section
+        searchConditionSection = '.service_status_content .search_condition_section',
+
+        //Search Into Section
+        searchIntoSection = '.service_status_content .search_intro_section',
+
+        // search result list section
+        searchResultListSection = '.search_result_list_section',
+        searchResultPrompt = searchResultListSection + ' .search_result_prompt',
+
+
+
+        //Unexpected Issues Section
+        unexpectedIssuesPanel = '.service_status_content .unexpected_issues_panel',
+        unexpectedIssueListPanel = unexpectedIssuesPanel + ' .unexpected_issues_list_panel',
+        unexpectedIssueNonFoundPanel = unexpectedIssuesPanel + ' .none_found_panel',
+        unexpectedIssueLoadingPanel = unexpectedIssuesPanel + ' .loading_panel',
+
+        // Planned Issues Section
+        plannedIssuePanel = '.service_status_content .planned_repairs_maintenance_panel',
+        plannedIssueListPanel = plannedIssuePanel + ' .planned_repairs_maintenance_list_panel',
+        plannedIssueNonFoundPanel = plannedIssuePanel + ' .none_found_panel',
+        plannedIssueLoadingPanel = plannedIssuePanel + ' .loading_panel',
+
+        // System error section
+        systemErrorSection = '.system_error_section',
+
         unplannedIssueCols = [
             {
                 "sTitle" : "Location" // Group by Network
@@ -51,76 +73,105 @@
         });
     }
 
-    $(document).ready(function () {
-        //cleanSearchResults();
+    function getServiceStatusData (jsonData) {
+        // console.log('jsonData=' + JSON.stringify(jsonData));
 
-        $('#service_status_search_lnk').on('click', function (e) {
-            alert('clicked me');
-            var suburb = $('#suburbInput').val(),
-                aaData = [],
-                url = '/cc/ajaxServiceStatus/ajaxQueryServiceStatuses' ; //'/ci/ajaxCustom/ajaxFunctionHandler';
-            //url = '/cc/ajaxNetworkOutage/ajaxQueryTest' ;
-            //http://optus.custhelp.com/cc/ajaxNetworkOutage/ajaxQueryNetworkOutages?serviceStatusSuburb=Epping&site=consumer
-            // url = 'http://localhost/ServiceStatus_GH/test/mockJson.php';
+        var unexpectedIssues = jsonData.Unexpected,
+            plannedRepairs = jsonData.Planned,
+            unexpectedIssuesData = [],
+            plannedIssuesData = [],
+            ss,
+            location,
+            when,
+            moreInfo,
+            i,
+            l;
 
-            e.preventDefault();
+        for (i = 0, l = unexpectedIssues.length; i < l; i += 1) {
+            ss = unexpectedIssues[i];
+            location = ss.location + ", " + ss.state;
+            moreInfo = "<a href='#" + ss.id + "'>More info ></a>";
+            unexpectedIssuesData.push([location, ss.serviceAffected, ss.summary, ss.fixingStatus, moreInfo]);
+        }
+        //renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, aaData);
 
-            $.ajax({
-                url : url,
-                type : 'POST',
-                dataType : 'json',
-                //dataType : 'jsonp',
-                //jsonpCallback: 'callback',
-                async: false,
-                data : {
-                    serviceStatusSuburb : suburb
-                },
-                success : function (jsonData) {
-                    alert('jsonData=' + JSON.stringify(jsonData));
+        for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
+            ss = plannedRepairs[i];
+            location = ss.location + ", " + ss.state;
+            when = ss.startTime + " - " +  ss.endTime;
+            moreInfo = "<a href='#" + ss.id + "' class='detail_link'>More info ></a>";
+            plannedIssuesData.push([location, ss.serviceAffected, when, moreInfo]);
+        }
+        //renderSearchResults(plannedIssueListPanel, plannedIssueCols, aaData);
 
-                    var unexpectedIssues = jsonData.Unexpected,
-                        plannedRepairs = jsonData.Planned,
-                        ss,
-                        location,
-                        when,
-                        moreInfo,
-                        i,
-                        l;
+        return {
+            unexpectedIssuesData: unexpectedIssuesData,
+            plannedIssuesData: plannedIssuesData
+        };
+    }
 
-                    for (i = 0, l = unexpectedIssues.length; i < l; i += 1) {
-                        ss = unexpectedIssues[i];
-                        location = ss.location + ", " + ss.state;
-                        moreInfo = "<a href='#" + ss.id + "'>More info ></a>";
-                        aaData.push([location, ss.serviceAffected, ss.summary, ss.fixingStatus, moreInfo]);
-                    }
-                    renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, aaData);
-
-                    aaData = [];
-                    for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
-                        ss = plannedRepairs[i];
-                        location = ss.location + ", " + ss.state;
-                        when = ss.startTime + " - " +  ss.endTime;
-                        moreInfo = "<a href='#" + ss.id + "' class='detail_link'>More info ></a>";
-                        aaData.push([location, ss.serviceAffected, when, moreInfo]);
-                    }
-                    renderSearchResults(plannedIssueListPanel, plannedIssueCols, aaData);
-
-                    // To Show Search result lists
-                    $(searchIntroPanel).hide();
-                    $(searchResultPrompt).show();
-                    $(unexpectedIssuesPanel).show();
-                    $(plannedRepairsMaintenancePanel).show();
-
-                },
-                failure : function (resp) {
-                    //TODO: to add error handling logic.
-                    alert('error happened', resp);
-                }
-            });
-
-            return false;
+    function fetchServiceStatus(suburb, successCallback, errorCallback) {
+        $.ajax({
+            url : serviceStatusUrl,
+            type : 'POST',
+            dataType : 'json',
+            async: false,
+            data : {
+                serviceStatusSuburb : suburb
+            },
+            success : successCallback,
+            failure :errorCallback
         });
 
+    }
+
+    function initSearchPage() {
+        // var suburb = $('#suburbInput').val();
+
+        // waiting for query results
+        $(unexpectedIssueLoadingPanel + ", " + plannedIssueLoadingPanel).show();
+
+        fetchServiceStatus("", function(jsonData) {
+            // Succeed
+            $(unexpectedIssueLoadingPanel + ", " + plannedIssueLoadingPanel).hide();
+
+            var data = getServiceStatusData(jsonData);
+
+            $(searchResultListSection + ", " + searchResultPrompt).show();
+            if (data.unexpectedIssuesData) {
+                renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, data.unexpectedIssuesData);
+                $(unexpectedIssueListPanel).show();
+            } else {
+                $(unexpectedIssueNonFoundPanel).show();
+            }
+
+            if (data.plannedIssuesData) {
+                renderSearchResults(plannedIssueListPanel, plannedIssueCols, data.plannedIssuesData);
+                $(plannedIssueListPanel).show();
+            } else {
+                $(plannedIssueNonFoundPanel).show();
+            }
+
+        },
+        function(error) {
+            console.error(error);
+            $(searchResultListSection).hide();
+            $(unexpectedIssueLoadingPanel + ", " + plannedIssueLoadingPanel).hide();
+            $(systemErrorSection).html(error).show();
+        });
+
+        return false;
+    }
+
+    function searchServiceStatuses(e) {
+        //TODO:
+    }
+
+    $(document).ready(function () {
+        // bind search action
+        $('#service_status_search_lnk').on('click', searchServiceStatuses);
+
+        initSearchPage();
     });
 
 }(jQuery));
