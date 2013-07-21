@@ -24,38 +24,34 @@ class ajaxNetworkOutage extends ControllerBase
     function ajaxQueryNetworkOutages()
     {
         $suburb = $_POST["serviceStatusSuburb"];
+		if (is_null($suburb)) {
+		    $suburb = "";
+		}
 
-        if (!empty($suburb)) {            
-            // only 'Online' accessible.
-            $status = 'Online'; //"('Online')"; //"('Edit', 'Review', 'Online')";
-            $nos = $this->NetworkOutage_model->getBySuburb($suburb, $status);
-
-            $planned = array();
-            $unexpected = array();
-            while($no = $nos->next())
-            {
-                $expNO = $this->exportNetworkOutageBrief($no);
-                if ($expNO['type'] === 'Planned') {
-                    $planned[] = $expNO;
-                } else {
-                    $unexpected[] = $expNO;
-                }
-            }
-    
-            $networkOutages = array();
-            $networkOutages["Planned"] = $planned;
-            $networkOutages["Unexpected"] = $unexpected;
-
-            //header('Content-Type: text/javascript');
-            $jsonResp = json_encode($networkOutages);
-            if (is_null($_GET['callback'])) {
-                echo $jsonResp;
+		// only 'Online' accessible.
+        $status = 'Online';
+        $nos = $this->NetworkOutage_model->getBySuburb($suburb, $status);
+		$planned = array();
+        $unexpected = array();
+        while($no = $nos->next())
+        {
+            $expNO = $this->exportNetworkOutageBrief($no);
+            if ($expNO['type'] === 'Planned') {
+                $planned[] = $expNO;
             } else {
-                echo $_GET['callback']. '('. $jsonResp .');';
+                $unexpected[] = $expNO;
             }
+        }
 
+        $networkOutages = array();
+        $networkOutages["Planned"] = $planned;
+        $networkOutages["Unexpected"] = $unexpected;
+
+        $jsonResp = json_encode($networkOutages);
+        if (is_null($_GET['callback'])) {
+            echo $jsonResp;
         } else {
-            echo "{}";
+            echo $_GET['callback']. '('. $jsonResp .');';
         }
     }
 	
