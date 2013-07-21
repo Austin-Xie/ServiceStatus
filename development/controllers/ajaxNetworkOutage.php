@@ -23,26 +23,11 @@ class ajaxNetworkOutage extends ControllerBase
      */
     function ajaxQueryNetworkOutages()
     {
-		$serviceId = $_POST["serviceStatusId"];
         $suburb = $_POST["serviceStatusSuburb"];
 
-        if (!empty($serviceId)) {
-            //$svcStsId = $_GET['serviceStatusId'];
-
-            $no = $this->NetworkOutage_model->getNetworkOutageById($svcStsId);
-            //header('Content-Type: text/javascript');
-            $expNO = $this->exportNetworkOutageDetail($no->next());
-
-            $exptNOResp = json_encode($expNO);
-            if (is_null($_GET['callback'])) {
-                echo $exptNOResp;
-            } else {
-                echo $_GET['callback']. '('. $exptNOResp .');';
-            }
-        } else if (!empty($suburb)) {            
+        if (!empty($suburb)) {            
             // only 'Online' accessible.
             $status = 'Online'; //"('Online')"; //"('Edit', 'Review', 'Online')";
-
             $nos = $this->NetworkOutage_model->getBySuburb($suburb, $status);
 
             $planned = array();
@@ -50,7 +35,6 @@ class ajaxNetworkOutage extends ControllerBase
             while($no = $nos->next())
             {
                 $expNO = $this->exportNetworkOutageBrief($no);
-
                 if ($expNO['type'] === 'Planned') {
                     $planned[] = $expNO;
                 } else {
@@ -61,8 +45,7 @@ class ajaxNetworkOutage extends ControllerBase
             $networkOutages = array();
             $networkOutages["Planned"] = $planned;
             $networkOutages["Unexpected"] = $unexpected;
-            
-    
+
             //header('Content-Type: text/javascript');
             $jsonResp = json_encode($networkOutages);
             if (is_null($_GET['callback'])) {
@@ -72,6 +55,31 @@ class ajaxNetworkOutage extends ControllerBase
             }
 
         } else {
+            echo "{}";
+        }
+    }
+	
+	/**
+     * This function can be called by sending
+     * a request to /ci/ajaxNetworkOutage/ajaxQueryServiceStatusDetails.
+     */
+	function ajaxQueryServiceStatusDetails()
+    {
+		$serviceId = $_POST["serviceStatusId"];
+
+        if (!empty($serviceId)) {
+            $no = $this->NetworkOutage_model->getNetworkOutageById($serviceId);
+            //header('Content-Type: text/javascript');
+            $expNO = $this->exportNetworkOutageDetail($no->next());
+
+            $exptNOResp = json_encode($expNO);
+            if (is_null($_GET['callback'])) {
+                echo $exptNOResp;
+            } else {
+                echo $_GET['callback']. '('. $exptNOResp .');';
+            }
+        } else {
+		    // return empty object
             echo "{}";
         }
     }
