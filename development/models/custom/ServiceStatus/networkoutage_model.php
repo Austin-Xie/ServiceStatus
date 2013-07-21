@@ -41,5 +41,51 @@ class NetworkOutage_model extends Model
         return $no;
     }
 
+    /**
+    * Returns an CO.NwkOtgTemplate object from the database based on its id
+    *
+    * @param $templateId Int The ID for CO.NwkOtgTemplate
+    *
+    * @return CO.NwkOtgTemplate  The CO.NwkOtgTemplate object with its details
+    */
+
+    function getNetworkOutageTemplateById($templateId) {
+		$noTmpl = RNCPHP\ROQL::queryObject("SELECT CO.NwkOtgTemplate FROM CO.NwkOtgTemplate WHERE  ID = "
+                  . $templateId)->next();
+
+        return $noTmpl;
+    }
+
+    function populateNwkOtgTemplate($noTmpl, $ssJsonTemplate) {
+		$noTmpl->NetworkType = $ssJsonTemplate-> NetworkType;
+        $noTmpl->OptusNetwork = $ssJsonTemplate-> OptusNetwork;
+        $noTmpl->OptusService = $ssJsonTemplate-> OptusService;
+        $noTmpl->PlanType = $ssJsonTemplate-> PlanType;
+        $noTmpl->OutageType = $ssJsonTemplate-> OutageType;
+        $noTmpl->ProductRename = $ssJsonTemplate-> ProductRename;
+        $noTmpl->Severity = $ssJsonTemplate-> Severity;
+        $noTmpl->Summary = $ssJsonTemplate-> Summary;
+        $noTmpl->Description = $ssJsonTemplate-> Description;
+    }
+
+    function updateNwkOtgTemplate($ssJsonTemplate) {
+		$noTemple = null;
+        if (is_null($ssJsonTemplate->ID)) {
+             $noTemple = new RNCPHP\CO.NwkOtgTemplate;
+        } else {
+             $noTemple =  getNetworkOutageTemplateById($ssJsonTemplate->ID);
+        }
+
+        if(is_null($noTemple)) {
+            return 'failed to create/update network outage template';
+        }
+
+        populateNwkOtgTemplate($noTemple, $ssJsonTemplate);
+
+        // save template
+        $noTemple->save();
+
+        return "success";
+    }
 }
  
