@@ -11,7 +11,7 @@
         searchConditionSection = '.service_status_content .search_condition_section',
 
         //Search Into Section
-        searchIntoSection = '.service_status_content .search_intro_section',
+        searchIntroSection = '.service_status_content .search_intro_section',
 
         // search result list section
         searchResultListSection = '.search_result_list_section',
@@ -115,7 +115,6 @@
             url : serviceStatusUrl,
             type : 'POST',
             dataType : 'json',
-            async: false,
             data : {
                 serviceStatusSuburb : suburb
             },
@@ -133,11 +132,12 @@
 
         fetchServiceStatus("", function(jsonData) {
             // Succeed
-            $(unexpectedIssueLoadingPanel + ", " + plannedIssueLoadingPanel).hide();
+            togglePanels([unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
 
             var data = getServiceStatusData(jsonData);
 
             $(searchResultListSection + ", " + searchResultPrompt).show();
+                togglePanels([searchResultListSection, searchResultPrompt], true);
             if (data.unexpectedIssuesData) {
                 renderSearchResults(unexpectedIssueListPanel, unplannedIssueCols, data.unexpectedIssuesData);
                 $(unexpectedIssueListPanel).show();
@@ -155,8 +155,7 @@
         },
         function(error) {
             console.error(error);
-            $(searchResultListSection).hide();
-            $(unexpectedIssueLoadingPanel + ", " + plannedIssueLoadingPanel).hide();
+            togglePanels([searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
             $(systemErrorSection).html(error).show();
         });
 
@@ -164,7 +163,30 @@
     }
 
     function searchServiceStatuses(e) {
-        //TODO:
+        // Hide Search Intro Section
+        /*
+         //Unexpected Issues Section
+         unexpectedIssuesPanel = '.service_status_content .unexpected_issues_panel',
+         unexpectedIssueListPanel = unexpectedIssuesPanel + ' .unexpected_issues_list_panel',
+         unexpectedIssueNonFoundPanel = unexpectedIssuesPanel + ' .none_found_panel',
+         unexpectedIssueLoadingPanel = unexpectedIssuesPanel + ' .loading_panel',
+
+         // Planned Issues Section
+         plannedIssuePanel = '.service_status_content .planned_repairs_maintenance_panel',
+         plannedIssueListPanel = plannedIssuePanel + ' .planned_repairs_maintenance_list_panel',
+         plannedIssueNonFoundPanel = plannedIssuePanel + ' .none_found_panel',
+         plannedIssueLoadingPanel = plannedIssuePanel + ' .loading_panel',
+         */
+        togglePanels([searchIntroSection, unexpectedIssueNonFoundPanel, plannedIssueNonFoundPanel], false);
+
+    }
+
+    function togglePanels(panels, show) {
+        if (show) {
+            $(panels.join(', ')).show();
+        } else {
+            $(panels.join(', ')).hide();
+        }
     }
 
     $(document).ready(function () {
