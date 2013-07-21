@@ -7,11 +7,15 @@
     'use strict';
 
     var serviceStatusUrl = 'http://localhost/ServiceStatus_GH/test/mockJson.php',
+        serviceStatusDetailUrl ='http://localhost/ServiceStatus_GH/test/mockJson.php',
+
+        serviceStatusContent = '.service_status_content',
+
         //Search Condition Section
-        searchConditionSection = '.service_status_content .search_condition_section',
+        searchConditionSection = serviceStatusContent + '.search_condition_section',
 
         //Search Into Section
-        searchIntroSection = '.service_status_content .search_intro_section',
+        searchIntroSection = serviceStatusContent +  ' .search_intro_section',
 
         // search result list section
         searchResultListSection = '.search_result_list_section',
@@ -20,16 +24,23 @@
 
 
         //Unexpected Issues Section
-        unexpectedIssuesPanel = '.service_status_content .unexpected_issues_panel',
+        unexpectedIssuesPanel = serviceStatusContent +  ' .unexpected_issues_panel',
         unexpectedIssueListPanel = unexpectedIssuesPanel + ' .unexpected_issues_list_panel',
         unexpectedIssueNonFoundPanel = unexpectedIssuesPanel + ' .none_found_panel',
         unexpectedIssueLoadingPanel = unexpectedIssuesPanel + ' .loading_panel',
 
         // Planned Issues Section
-        plannedIssuePanel = '.service_status_content .planned_repairs_maintenance_panel',
+        plannedIssuePanel = serviceStatusContent + ' .planned_repairs_maintenance_panel',
         plannedIssueListPanel = plannedIssuePanel + ' .planned_repairs_maintenance_list_panel',
         plannedIssueNonFoundPanel = plannedIssuePanel + ' .none_found_panel',
         plannedIssueLoadingPanel = plannedIssuePanel + ' .loading_panel',
+
+        // Service Status Details Section
+        serviceStatusDetailsContent = '.service_status_detail_content',
+        serviceStatusDetailsLoadingPanel  = serviceStatusDetailsContent + ' .loading_panel',
+        serviceStatusDetailsPanel = serviceStatusDetailsContent + ' .details_panel',
+        serviceStatusDetailsErrorPanel = serviceStatusDetailsContent + ' .system_error_section',
+        serviceStatusDetailsBackPanel = serviceStatusDetailsContent + ' .back_link_panel',
 
         // System error section
         systemErrorSection = '.system_error_section',
@@ -71,6 +82,36 @@
             "aaData": searchResult,
             "aoColumns": cols
         });
+
+        // bind 'More info' click event handler
+        $("#dataTable .service_status_detail_link").on('click', function (e) {
+            e.preventDefault();
+            var hrefValue  = e.target.href,
+                i = hrefValue.indexOf('#'),
+                //l =  hrefValue.length,
+                ssId = Number (hrefValue.substr(i + 1));
+
+            console.log("serviceStatusId = " + ssId);
+            // Hide Service Status Search Section
+            $(serviceStatusContent).hide();
+            $(serviceStatusDetailsContent).show();
+
+            fetchServiceStatusDetails(ssId, function (jsonData) {
+                    console.log("service status details = " + jsonData);
+                    // Todo: to populate these details
+
+                    populateServiceStatusDetailsPanel(jsonData);
+
+                    $([serviceStatusDetailsPanel, serviceStatusDetailsBackPanel], true);
+                    $(serviceStatusDetailsLoadingPanel).hide();
+                },
+                function (error) {
+                    togglePanels([serviceStatusDetailsLoadingPanel, serviceStatusDetailsPanel], false);
+                    togglePanels([serviceStatusDetailsErrorPanel, serviceStatusDetailsBackPanel], true);
+                    // Todo: to display error message in system error panel
+                }
+            );
+        });
     }
 
     function getServiceStatusData (jsonData) {
@@ -90,15 +131,15 @@
         for (i = 0, l = unexpectedIssues.length; i < l; i += 1) {
             ss = unexpectedIssues[i];
             location = ss.location + ", " + ss.state;
-            moreInfo = "<a href='#" + ss.id + "'>More info ></a>";
-            unexpectedIssuesData.push([location, ss.serviceAffected, ss.summary, ss.fixingStatus, moreInfo]);
+            moreInfo = "<a href='#" + ss.id + "' class='service_status_detail_link'>More info ></a>";
+            unexpectedIssuesData.push([location, ss.serviceAffected, ss.outageType, ss.fixingStatus, moreInfo]);
         }
 
         for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
             ss = plannedRepairs[i];
             location = ss.location + ", " + ss.state;
             when = ss.startTime + " - " +  ss.endTime;
-            moreInfo = "<a href='#" + ss.id + "' class='detail_link'>More info ></a>";
+            moreInfo = "<a href='#" + ss.id + "' class='service_status_detail_link'>More info ></a>";
             plannedIssuesData.push([location, ss.serviceAffected, when, moreInfo]);
         }
 
@@ -122,6 +163,28 @@
 
     }
 
+    function fetchServiceStatusDetails(serviceStatusId, successCallback, errorCallback) {
+        $.ajax({
+            url :serviceStatusDetailUrl,
+            type : 'POST',
+            dataType : 'json',
+            data : {
+                serviceStatusId : serviceStatusId
+            },
+            success : successCallback,
+            failure :errorCallback
+        });
+    }
+
+    function populateServiceStatusDetailsPanel(jsonData) {
+        var detailPanel = $(serviceStatusDetailsPanel);
+        $.each(jsonData, function(key, value) {
+            console.log('$(#ssd_'+ key + ").text(" + value + ")");
+            //detailPanel.children("#ssd_" + key).html(value);
+            $('#ssd_' + key).text(value);
+        });
+    }
+
     function initSearchPage() {
         $('#service_status_search_lnk').trigger('click');
 
@@ -130,6 +193,8 @@
 
     function searchServiceStatuses(e) {
         var suburb = $('#suburbInput').val();
+
+        e.preventDefault();
 
         console.log('suburb == ' + suburb);
 
@@ -184,6 +249,14 @@
     $(document).ready(function () {
         // bind search action
         $('#service_status_search_lnk').on('click', searchServiceStatuses);
+
+        $(serviceStatusDetailsBackPanel + ' a.back_link').on('click', function(e) {
+            e.preventDefault();
+            $(serviceStatusContent).show();
+            $(serviceStatusDetailsContent).hide();
+
+            return false;
+        });
 
         initSearchPage();
     });
