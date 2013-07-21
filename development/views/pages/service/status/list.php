@@ -76,6 +76,64 @@
     </div>
     <!-- service_status_content -->
 
+    <!-- service_status_detail_content starts -->
+    <div class="service_status_detail_content" style="display:none">
+        <div class="loading_panel" style="display:none">
+            {loading_panel}
+        </div>
+        <div class="details_panel" >
+            <h3><span id="ssd_location"></span>, <span id="ssd_state"></span></h3>
+            <p>
+                <span id="ssd_updatedTime"></span>
+            </p>
+
+            <div>
+                <p>Optus Network Ref</p>
+                <p><span id="ssd_serviceId"></span></p>
+            </div>
+
+            <div>
+                <p>Estimated Time of Commencement</p>
+                <p><span id="ssd_startTime"></span></p>
+            </div>
+
+            <div>
+                <p>Service Affected</p>
+                <p><span id="ssd_serviceAffected"></span></p>
+            </div>
+
+            <div>
+                <p>Outage Type</p>
+                <p><span id="ssd_outageType"></span></p>
+            </div>
+
+            <div>
+                <p>Description</p>
+                <p><span id="ssd_description"></span></p>
+            </div>
+
+            <div>
+                <p>Resolution</p>
+                <p><span id="ssd_resolution"></span></p>
+            </div>
+
+            <div>
+                <p>Estimated Time of Commencement</p>
+                <p><span id="ssd_endTime"></span></p>
+            </div>
+        </div>
+
+        <div class="back_link_panel" >
+            <a href="#" class="back_link">&lt;&nbsp;Back</a>
+        </div>
+
+        <div class="system_error_section" style="display:none">
+            {system_error_section}
+        </div>
+
+    </div>
+    <!-- service_status_detail_content ends -->
+
 </div>
 <!-- Service Status pages stop here! -->
 
