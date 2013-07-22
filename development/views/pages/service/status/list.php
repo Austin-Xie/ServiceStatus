@@ -138,13 +138,3 @@
 <!-- Service Status pages stop here! -->
 
 </div>
-
-        <script type='text/javascript'>
-            $(document).ready(function () {
-                // bind search action
-                $('#service_status_search_lnk').on('click', searchServiceStatuses);
-
-                initSearchPage();
-            });
-
-        </script>
