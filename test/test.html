@@ -98,7 +98,13 @@
     <script type="text/javascript" src="../assets/themes/optus_theme/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../assets/themes/optus_theme/js/serviceStatus_test.js"></script>
 
-    <link href="../assets/themes/optus_theme/css/service_status_datatable.css" rel="stylesheet" type="text/css"  media="all"/>
+    <link href="../assets/themes/optus_theme/css/service_status.css" rel="stylesheet" type="text/css"  media="all"/>
+
+    <link href="https://www.optus.com.au/opfiles/OnePortal/lib/css/oca/microsites/network/network.css" rel="stylesheet" type="text/css"  media="all"/>
+
+
+
+
 
 
     <!-- 1pcc-head-includes-dpm-theme ends -->
@@ -1086,18 +1092,23 @@ if (typeof oca_globalheader_target != 'undefined') {
         <div class="content_section">
             <!-- Service Status pages start here! -->
 
+            <div class="search_title_panel">
+                <h1>Network Status</h1>
+            </div>
+
             <div class="service_status_content">
 
                 <div class="search_condition_section">
                     <div class="search_head_panel">
-                        <h1>Live Service Status</h1>
-
-                        <p>
+                        <p class="search_prompt">
                             Enter a suburb name to see if there are any known issues:
                         </p>
 
                         <div class="search_panel">
-                            <input id="suburbInput" name="serviceStatusSuburb"/>
+                            <input type="text" name="serviceStatusSuburb" id="serviceStatusSuburb"  class="searchInput inactive ui-autocomplete-input ui-autocomplete-loading"
+                                   autocomplete="off" role="textbox"
+                                   aria-autocomplete="list" aria-haspopup="true">
+                           <!-- <input id="serviceStatusSuburb" name="serviceStatusSuburb"/>-->
                             <a href="#" id="service_status_search_lnk">Search</a>
                         </div>
                         <div class="service_status_SubNote">
@@ -1171,37 +1182,37 @@ if (typeof oca_globalheader_target != 'undefined') {
                     </p>
 
                     <div>
-                        <p>Optus Network Ref</p>
+                        <h4>Optus Network Ref</h4>
                         <p><span id="ssd_serviceId"></span></p>
                     </div>
 
                     <div>
-                        <p>Estimated Time of Commencement</p>
+                        <h4>Estimated Time of Commencement</h4>
                         <p><span id="ssd_startTime"></span></p>
                     </div>
 
                     <div>
-                        <p>Service Affected</p>
+                        <h4>Service Affected</h4>
                         <p><span id="ssd_serviceAffected"></span></p>
                     </div>
 
                     <div>
-                        <p>Outage Type</p>
+                        <h4>Outage Type</h4>
                         <p><span id="ssd_outageType"></span></p>
                     </div>
 
                     <div>
-                        <p>Description</p>
+                        <h4>Description</h4>
                         <p><span id="ssd_description"></span></p>
                     </div>
 
                     <div>
-                        <p>Resolution</p>
+                        <h4>Resolution</h4>
                         <p><span id="ssd_resolution"></span></p>
                     </div>
 
                     <div>
-                        <p>Estimated Time of Commencement</p>
+                        <h4>Estimated Time of Commencement</h4>
                         <p><span id="ssd_endTime"></span></p>
                     </div>
                 </div>
