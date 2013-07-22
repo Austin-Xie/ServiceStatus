@@ -1105,11 +1105,20 @@ if (typeof oca_globalheader_target != 'undefined') {
                         </p>
 
                         <div class="search_panel">
-                            <input type="text" name="serviceStatusSuburb" id="serviceStatusSuburb"  class="searchInput inactive ui-autocomplete-input ui-autocomplete-loading"
-                                   autocomplete="off" role="textbox"
-                                   aria-autocomplete="list" aria-haspopup="true">
+                            <table>
+                                <tr>
+                                    <td class="search_input">
+                                        <input type="text" name="serviceStatusSuburb" id="suburbInput"  autocomplete="off" role="textbox"
+                                               aria-autocomplete="list" aria-haspopup="true">
+                                    </td>
+                                    <td class="search_action_lnk">
+                                        <div><a href="#" id="service_status_search_lnk">Search</a></div>
+                                    </td>
+                                </tr>
+                            </table>
+
                            <!-- <input id="serviceStatusSuburb" name="serviceStatusSuburb"/>-->
-                            <a href="#" id="service_status_search_lnk">Search</a>
+
                         </div>
                         <div class="service_status_SubNote">
                             <p>E.g. Darlinghurst</p>
@@ -1144,9 +1153,6 @@ if (typeof oca_globalheader_target != 'undefined') {
                             <!-- unexpected issues list shown in table here -->
                         </div>
                     </div>
-
-                    <br/>
-                    <br/>
 
                     <div class="planned_repairs_maintenance_panel">
                         <h2>Planned Repairs and Maintenance</h2>

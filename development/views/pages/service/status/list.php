@@ -3,19 +3,33 @@
 <div id="rn_PageContent123" class="rn_Home">
     <!-- Service Status pages start here! -->
 
+    <div class="search_title_panel">
+        <h1 class="search_title">Network Status</h1>
+    </div>
+
     <div class="service_status_content">
 
         <div class="search_condition_section">
             <div class="search_head_panel">
-                <h1>Live Service Status</h1>
-
-                <p>
+                <p class="search_prompt">
                     Enter a suburb name to see if there are any known issues:
                 </p>
 
                 <div class="search_panel">
-                    <input id="suburbInput" name="serviceStatusSuburb"/>
-                    <a href="#" id="service_status_search_lnk">Search</a>
+                    <table>
+                        <tr>
+                            <td class="search_input">
+                                <input type="text" name="serviceStatusSuburb" id="suburbInput"  autocomplete="off" role="textbox"
+                                       aria-autocomplete="list" aria-haspopup="true">
+                            </td>
+                            <td class="search_action_lnk">
+                                <div><a href="#" id="service_status_search_lnk">Search</a></div>
+                            </td>
+                        </tr>
+                    </table>
+
+                   <!-- <input id="serviceStatusSuburb" name="serviceStatusSuburb"/>-->
+
                 </div>
                 <div class="service_status_SubNote">
                     <p>E.g. Darlinghurst</p>
@@ -51,9 +65,6 @@
                 </div>
             </div>
 
-            <br/>
-            <br/>
-
             <div class="planned_repairs_maintenance_panel">
                 <h2>Planned Repairs and Maintenance</h2>
 
@@ -82,43 +93,43 @@
             {loading_panel}
         </div>
         <div class="details_panel" >
-            <h3><span id="ssd_location"></span>, <span id="ssd_state"></span></h3>
+            <h2><span id="ssd_location"></span>, <span id="ssd_state"></span></h2>
             <p>
                 <span id="ssd_updatedTime"></span>
             </p>
 
             <div>
-                <p>Optus Network Ref</p>
+                <h5>Optus Network Ref</h5>
                 <p><span id="ssd_serviceId"></span></p>
             </div>
 
             <div>
-                <p>Estimated Time of Commencement</p>
+                <h5>Estimated Time of Commencement</h5>
                 <p><span id="ssd_startTime"></span></p>
             </div>
 
             <div>
-                <p>Service Affected</p>
+                <h5>Service Affected</h5>
                 <p><span id="ssd_serviceAffected"></span></p>
             </div>
 
             <div>
-                <p>Outage Type</p>
+                <h5>Outage Type</h5>
                 <p><span id="ssd_outageType"></span></p>
             </div>
 
             <div>
-                <p>Description</p>
+                <h5>Description</h5>
                 <p><span id="ssd_description"></span></p>
             </div>
 
             <div>
-                <p>Resolution</p>
+                <h5>Resolution</h5>
                 <p><span id="ssd_resolution"></span></p>
             </div>
 
             <div>
-                <p>Estimated Time of Commencement</p>
+                <h5>Estimated Time of Commencement</h5>
                 <p><span id="ssd_endTime"></span></p>
             </div>
         </div>
@@ -133,8 +144,5 @@
 
     </div>
     <!-- service_status_detail_content ends -->
-
-</div>
-<!-- Service Status pages stop here! -->
 
 </div>
