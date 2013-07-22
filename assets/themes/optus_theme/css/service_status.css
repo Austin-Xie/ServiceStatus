@@ -4,6 +4,63 @@
     margin-right: 10px;
 }
 
+.search_title_panel .search_title {
+   margin-bottom: 20px;
+}
+
+.service_status_detail_content h2 {
+    color: #000000;
+    font-weight: bold;
+}
+
+.service_status_detail_content h5 {
+    color: #000000;
+    font-weight: bold;
+}
+
+.service_status_detail_content a.back_link {
+    color: #006685;;
+    font-size: 1.3em;
+    margin-top: 15px;
+}
+
+.unexpected_issues_panel {
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+#suburbInput {
+    color: #006685;
+    font-family: Arial,sans-serif,Helvetica;
+    font-size: 13px;
+    background: none repeat scroll 0 0 white;
+    border-color: #E5EFF3 #E5EFF3 #E5EFF3 #E5EFF3;
+    border-image: none;
+    border-radius: 5px 0 0 5px;
+    border-style: solid solid solid solid;
+    border-width: 2px medium 2px 2px;
+    display: block;
+    padding: 5px 0 4px 5px;
+    position: relative;
+    vertical-align: bottom;
+    width: 150px;
+    line-height: 1em;
+}
+
+.search_panel {
+    width: 200px;
+}
+
+.search_panel .search_action_lnk {
+    text-align:center;
+    vertical-align:middle;
+}
+
+#service_status_search_lnk {
+    font-size: 13px;
+}
+
+
 
 .service_status_content .dataTables_wrapper {
     position: relative;
