@@ -11,84 +11,84 @@
 
         serviceStatusContent = '.service_status_content',
 
-    //Search Condition Section
+        //Search Condition Section
         searchConditionSection = serviceStatusContent + '.search_condition_section',
 
-    //Search Into Section
+        //Search Into Section
         searchIntroSection = serviceStatusContent +  ' .search_intro_section',
 
-    // search result list section
+        // search result list section
         searchResultListSection = '.search_result_list_section',
         searchResultPrompt = searchResultListSection + ' .search_result_prompt',
 
-
-
-    //Unexpected Issues Section
+        //Unexpected Issues Section
         unexpectedIssuesPanel = serviceStatusContent +  ' .unexpected_issues_panel',
         unexpectedIssueListPanel = unexpectedIssuesPanel + ' .unexpected_issues_list_panel',
         unexpectedIssueNonFoundPanel = unexpectedIssuesPanel + ' .none_found_panel',
         unexpectedIssueLoadingPanel = unexpectedIssuesPanel + ' .loading_panel',
 
-    // Planned Issues Section
+        // Planned Issues Section
         plannedIssuePanel = serviceStatusContent + ' .planned_repairs_maintenance_panel',
         plannedIssueListPanel = plannedIssuePanel + ' .planned_repairs_maintenance_list_panel',
         plannedIssueNonFoundPanel = plannedIssuePanel + ' .none_found_panel',
         plannedIssueLoadingPanel = plannedIssuePanel + ' .loading_panel',
 
-    // Service Status Details Section
+        // Service Status Details Section
         serviceStatusDetailsContent = '.service_status_detail_content',
         serviceStatusDetailsLoadingPanel  = serviceStatusDetailsContent + ' .loading_panel',
         serviceStatusDetailsPanel = serviceStatusDetailsContent + ' .details_panel',
         serviceStatusDetailsErrorPanel = serviceStatusDetailsContent + ' .system_error_section',
         serviceStatusDetailsBackPanel = serviceStatusDetailsContent + ' .back_link_panel',
 
-    // System error section
+        // System error section
         systemErrorSection = '.system_error_section',
 
-        unplannedIssueCols = [
-            {
-                "sTitle" : "Location" // Group by Network
-            }, {
-                "sTitle" : "Service Affected"
-            }, {
-                "sTitle" : "Outage Type"
-            }, {
-                "sTitle" : "Status",
-                "sClass" : "center"
-            }, {
-                "sTitle" : "More info", // wrap 'id'
-                "sClass" : "center"
-            }
-        ],
-        plannedIssueCols = [
-            {
-                "sTitle" : "Location"
-            }, {
-                "sTitle" : "Service Affected"
-            }, {
-                "sTitle" : "When",
-                "sClass" : "center"
-            }, {
-                "sTitle" : "More info",  // wrap 'id'
-                "sClass" : "center"
-            }
-        ];
+        unplannedIssueCols = [  "Location", "Service Affected", "Outage Type", "Status",  "More info" ],
+
+        plannedIssueCols = [  "Location", "Service Affected", "When",   "More info" ];
+
 
     function renderSearchResults(dataPanel, cols, searchResult) {
         var tablePanel = $(dataPanel);
-        tablePanel.empty().html('<table cellpadding="0" cellspacing="0" border="0" class="display" id="dataTable" ></table>');
+//        tablePanel.empty().html('<table cellpadding="0" cellspacing="0" border="0" class="display" id="dataTable" ></table>');
+//
+//        tablePanel.children('#dataTable').dataTable({
+//            "aaData": searchResult,
+//            "aoColumns": cols
+//        });
 
-        tablePanel.children('#dataTable').dataTable({
-            "aaData": searchResult,
-            "aoColumns": cols
+        var dataTable = '<table cellpadding="0" cellspacing="0" class="service_status_table" >';
+        dataTable += '<tr>'
+        $.each(cols, function (i) {
+            dataTable += "<th class='col" + (i + 1) + "'>" ;
+            dataTable += cols[i];
+            dataTable += '</th>';
+        });
+        dataTable += '</tr>';
+
+        $.each(searchResult, function (i) {
+            var trow = searchResult[i];
+            dataTable += '<tr>'
+            $.each(trow, function(j){
+                dataTable += "<td class='col" + (j + 1) + "'>" + trow[j] + '</td>';
+            });
+            dataTable += '</tr>'
         });
 
+        dataTable += '</table>';
+
+        tablePanel.empty().html(dataTable);
+        $(tablePanel.selector + ' .service_status_table tr:odd').toggleClass('odd', true);
+        $(tablePanel.selector + ' .service_status_table tr:even').toggleClass('even', true);
+
+
+
         // bind 'More info' click event handler
-        $("#dataTable .service_status_detail_link").on('click', function (e) {
+        $(".service_status_table .service_status_detail_link").on('click', function (e) {
             e.preventDefault();
             var hrefValue  = e.target.href,
                 i = hrefValue.indexOf('#'),
-            //l =  hrefValue.length,
+                //l =  hrefValue.length,
                 ssId = Number (hrefValue.substr(i + 1));
 
             console.log("serviceStatusId = " + ssId);
@@ -218,7 +218,6 @@
                 } else {
                     // None Found
                     $(unexpectedIssueNonFoundPanel).show();
-
                 }
 
                 if (data.plannedIssuesData.length) {

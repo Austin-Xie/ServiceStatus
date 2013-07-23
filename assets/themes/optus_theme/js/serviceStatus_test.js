@@ -21,8 +21,6 @@
         searchResultListSection = '.search_result_list_section',
         searchResultPrompt = searchResultListSection + ' .search_result_prompt',
 
-
-
         //Unexpected Issues Section
         unexpectedIssuesPanel = serviceStatusContent +  ' .unexpected_issues_panel',
         unexpectedIssueListPanel = unexpectedIssuesPanel + ' .unexpected_issues_list_panel',
@@ -45,46 +43,48 @@
         // System error section
         systemErrorSection = '.system_error_section',
 
-        unplannedIssueCols = [
-            {
-                "sTitle" : "Location" // Group by Network
-            }, {
-                "sTitle" : "Service Affected"
-            }, {
-                "sTitle" : "Outage Type"
-            }, {
-                "sTitle" : "Status",
-                "sClass" : "center"
-            }, {
-                "sTitle" : "More info", // wrap 'id'
-                "sClass" : "center"
-            }
-        ],
-        plannedIssueCols = [
-            {
-                "sTitle" : "Location"
-            }, {
-                "sTitle" : "Service Affected"
-            }, {
-                "sTitle" : "When",
-                "sClass" : "center"
-            }, {
-                "sTitle" : "More info",  // wrap 'id'
-                "sClass" : "center"
-            }
-        ];
+        unplannedIssueCols = [  "Location", "Service Affected", "Outage Type", "Status",  "More info" ],
+
+        plannedIssueCols = [  "Location", "Service Affected", "When",   "More info" ];
+
 
     function renderSearchResults(dataPanel, cols, searchResult) {
         var tablePanel = $(dataPanel);
-        tablePanel.empty().html('<table cellpadding="0" cellspacing="0" border="0" class="display" id="dataTable" ></table>');
+//        tablePanel.empty().html('<table cellpadding="0" cellspacing="0" border="0" class="display" id="dataTable" ></table>');
+//
+//        tablePanel.children('#dataTable').dataTable({
+//            "aaData": searchResult,
+//            "aoColumns": cols
+//        });
 
-        tablePanel.children('#dataTable').dataTable({
-            "aaData": searchResult,
-            "aoColumns": cols
+        var dataTable = '<table cellpadding="0" cellspacing="0" class="service_status_table" >';
+        dataTable += '<tr>'
+        $.each(cols, function (i) {
+            dataTable += "<th class='col" + (i + 1) + "'>" ;
+            dataTable += cols[i];
+            dataTable += '</th>';
+        });
+        dataTable += '</tr>';
+
+        $.each(searchResult, function (i) {
+            var trow = searchResult[i];
+            dataTable += '<tr>'
+            $.each(trow, function(j){
+                dataTable += "<td class='col" + (j + 1) + "'>" + trow[j] + '</td>';
+            });
+            dataTable += '</tr>'
         });
 
+        dataTable += '</table>';
+
+        tablePanel.empty().html(dataTable);
+        $(tablePanel.selector + ' .service_status_table tr:odd').toggleClass('odd', true);
+        $(tablePanel.selector + ' .service_status_table tr:even').toggleClass('even', true);
+
+
+
         // bind 'More info' click event handler
-        $("#dataTable .service_status_detail_link").on('click', function (e) {
+        $(".service_status_table .service_status_detail_link").on('click', function (e) {
             e.preventDefault();
             var hrefValue  = e.target.href,
                 i = hrefValue.indexOf('#'),
@@ -218,7 +218,6 @@
                 } else {
                     // None Found
                     $(unexpectedIssueNonFoundPanel).show();
-
                 }
 
                 if (data.plannedIssuesData.length) {
