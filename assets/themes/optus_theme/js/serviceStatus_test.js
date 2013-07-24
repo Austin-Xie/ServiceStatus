@@ -11,50 +11,70 @@
 
         serviceStatusContent = '.service_status_content',
 
-        //Search Condition Section
-        searchConditionSection = serviceStatusContent + '.search_condition_section',
+    //Search Condition Section
+    // searchConditionSection = serviceStatusContent + '.search_condition_section',
 
-        //Search Into Section
-        searchIntroSection = serviceStatusContent +  ' .search_intro_section',
+    //Search Into Section
+        searchIntroSection = serviceStatusContent + ' .search_intro_section',
 
-        // search result list section
+    // search result list section
         searchResultListSection = '.search_result_list_section',
         searchResultPrompt = searchResultListSection + ' .search_result_prompt',
 
-        //Unexpected Issues Section
-        unexpectedIssuesPanel = serviceStatusContent +  ' .unexpected_issues_panel',
+    //Unexpected Issues Section
+        unexpectedIssuesPanel = serviceStatusContent + ' .unexpected_issues_panel',
         unexpectedIssueListPanel = unexpectedIssuesPanel + ' .unexpected_issues_list_panel',
         unexpectedIssueNonFoundPanel = unexpectedIssuesPanel + ' .none_found_panel',
         unexpectedIssueLoadingPanel = unexpectedIssuesPanel + ' .loading_panel',
 
-        // Planned Issues Section
+    // Planned Issues Section
         plannedIssuePanel = serviceStatusContent + ' .planned_repairs_maintenance_panel',
         plannedIssueListPanel = plannedIssuePanel + ' .planned_repairs_maintenance_list_panel',
         plannedIssueNonFoundPanel = plannedIssuePanel + ' .none_found_panel',
         plannedIssueLoadingPanel = plannedIssuePanel + ' .loading_panel',
 
-        // Service Status Details Section
+    // System error section
+        serviceStatusListErrorPanel = serviceStatusContent + ' .system_error_section',
+
+    // Service Status Details Section
         serviceStatusDetailsContent = '.service_status_detail_content',
-        serviceStatusDetailsLoadingPanel  = serviceStatusDetailsContent + ' .loading_panel',
+        serviceStatusDetailsLoadingPanel = serviceStatusDetailsContent + ' .loading_panel',
         serviceStatusDetailsPanel = serviceStatusDetailsContent + ' .details_panel',
         serviceStatusDetailsErrorPanel = serviceStatusDetailsContent + ' .system_error_section',
         serviceStatusDetailsBackPanel = serviceStatusDetailsContent + ' .back_link_panel',
 
-        // System error section
-        systemErrorSection = '.system_error_section',
+        unplannedIssueCols = [  "Location", "Service Affected", "Outage Type", "Status", "More info" ],
 
-        unplannedIssueCols = [  "Location", "Service Affected", "Outage Type", "Status",  "More info" ],
+        plannedIssueCols = [  "Location", "Service Affected", "When", "More info" ];
 
-        plannedIssueCols = [  "Location", "Service Affected", "When",   "More info" ];
+    function fetchServiceStatusDetails(serviceStatusId, successCallback, errorCallback) {
+        $.ajax({
+            url: serviceStatusDetailUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                serviceStatusId: serviceStatusId
+            },
+            success: successCallback,
+            failure: errorCallback
+        });
+    }
 
+    function togglePanels(panels, show) {
+        if (show) {
+            $(panels.join(', ')).show();
+        } else {
+            $(panels.join(', ')).hide();
+        }
+    }
 
     function renderSearchResults(dataPanel, cols, searchResult) {
-        var tablePanel = $(dataPanel);
+        var tablePanel = $(dataPanel),
+            dataTable = '<table cellpadding="0" cellspacing="0" class="service_status_table" >';
 
-        var dataTable = '<table cellpadding="0" cellspacing="0" class="service_status_table" >';
-        dataTable += '<tr>'
+        dataTable += '<tr>';
         $.each(cols, function (i) {
-            dataTable += "<th class='col" + (i + 1) + "'>" ;
+            dataTable += "<th class='col" + (i + 1) + "'>";
             dataTable += cols[i];
             dataTable += '</th>';
         });
@@ -62,11 +82,11 @@
 
         $.each(searchResult, function (i) {
             var trow = searchResult[i];
-            dataTable += '<tr>'
-            $.each(trow, function(j){
+            dataTable += '<tr>';
+            $.each(trow, function (j) {
                 dataTable += "<td class='col" + (j + 1) + "'>" + (trow[j] || '') + '</td>';
             });
-            dataTable += '</tr>'
+            dataTable += '</tr>';
         });
 
         dataTable += '</table>';
@@ -76,39 +96,35 @@
         $(tablePanel.selector + ' .service_status_table tr:even').toggleClass('even', true);
 
 
-
         // bind 'More info' click event handler
         $(".service_status_table .service_status_detail_link").on('click', function (e) {
             e.preventDefault();
-            var hrefValue  = e.target.href,
+            var hrefValue = e.target.href,
                 i = hrefValue.indexOf('#'),
-                //l =  hrefValue.length,
-                ssId = Number (hrefValue.substr(i + 1));
+                ssId = Number(hrefValue.substr(i + 1));
 
-            console.log("serviceStatusId = " + ssId);
+            // console.log("serviceStatusId = " + ssId);
             // Hide Service Status Search Section
             $(serviceStatusContent).hide();
-            $(serviceStatusDetailsContent).show();
+            togglePanels([serviceStatusDetailsContent, serviceStatusDetailsLoadingPanel], true);
 
             fetchServiceStatusDetails(ssId, function (jsonData) {
-                    console.log("service status details = " + jsonData);
-                    // Todo: to populate these details
-
+                    // console.log("service status details = " + jsonData);
                     populateServiceStatusDetailsPanel(jsonData);
 
-                    $([serviceStatusDetailsPanel, serviceStatusDetailsBackPanel], true);
                     $(serviceStatusDetailsLoadingPanel).hide();
+                    togglePanels([serviceStatusDetailsPanel, serviceStatusDetailsBackPanel], true);
                 },
                 function (error) {
                     togglePanels([serviceStatusDetailsLoadingPanel, serviceStatusDetailsPanel], false);
                     togglePanels([serviceStatusDetailsErrorPanel, serviceStatusDetailsBackPanel], true);
-                    // Todo: to display error message in system error panel
+                    // console.error(error);
                 }
             );
         });
     }
 
-    function getServiceStatusData (jsonData) {
+    function getServiceStatusData(jsonData) {
         // console.log('jsonData=' + JSON.stringify(jsonData));
 
         var unexpectedIssues = jsonData.Unexpected,
@@ -132,7 +148,7 @@
         for (i = 0, l = plannedRepairs.length; i < l; i += 1) {
             ss = plannedRepairs[i];
             location = ss.location + ", " + ss.state;
-            when = ss.startTime + " - " +  ss.endTime;
+            when = ss.startTime + " - " + ss.endTime;
             moreInfo = "<a href='#" + ss.id + "' class='service_status_detail_link'>More info ></a>";
             plannedIssuesData.push([location, ss.serviceAffected, when, moreInfo]);
         }
@@ -145,35 +161,21 @@
 
     function fetchServiceStatus(suburb, successCallback, errorCallback) {
         $.ajax({
-            url : serviceStatusUrl,
-            type : 'POST',
-            dataType : 'json',
-            data : {
-                serviceStatusSuburb : suburb
+            url: serviceStatusUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                serviceStatusSuburb: suburb
             },
-            success : successCallback,
-            failure :errorCallback
+            success: successCallback,
+            failure: errorCallback
         });
 
-    }
-
-    function fetchServiceStatusDetails(serviceStatusId, successCallback, errorCallback) {
-        $.ajax({
-            url :serviceStatusDetailUrl,
-            type : 'POST',
-            dataType : 'json',
-            data : {
-                serviceStatusId : serviceStatusId
-            },
-            success : successCallback,
-            failure :errorCallback
-        });
     }
 
     function populateServiceStatusDetailsPanel(jsonData) {
-        var detailPanel = $(serviceStatusDetailsPanel);
-        $.each(jsonData, function(key, value) {
-            console.log('$(#ssd_'+ key + ").text(" + value + ")");
+        $.each(jsonData, function (key, value) {
+            //console.log('$(#ssd_' + key + ").text(" + value + ")");
             $('#ssd_' + key).text(value || '');
         });
     }
@@ -189,14 +191,13 @@
 
         e.preventDefault();
 
-        console.log('suburb == ' + suburb);
-
+        //console.log('suburb == ' + suburb);
         togglePanels([searchIntroSection, unexpectedIssueNonFoundPanel, plannedIssueNonFoundPanel,
             unexpectedIssueListPanel, plannedIssueListPanel], false);
 
         togglePanels([unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], true);
 
-        fetchServiceStatus(suburb, function(jsonData) {
+        fetchServiceStatus(suburb, function (jsonData) {
                 // Succeed
                 togglePanels([unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
 
@@ -221,28 +222,20 @@
                 }
 
             },
-            function(error) {
+            function (error) {
                 console.error(error);
                 togglePanels([searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
-                $(systemErrorSection).html(error).show();
+                $(serviceStatusListErrorPanel).show();
             }
         );
 
-    }
-
-    function togglePanels(panels, show) {
-        if (show) {
-            $(panels.join(', ')).show();
-        } else {
-            $(panels.join(', ')).hide();
-        }
     }
 
     $(document).ready(function () {
         // bind search action
         $('#service_status_search_lnk').on('click', searchServiceStatuses);
 
-        $(serviceStatusDetailsBackPanel + ' a.back_link').on('click', function(e) {
+        $(serviceStatusDetailsBackPanel + ' a.back_link').on('click', function (e) {
             e.preventDefault();
             $(serviceStatusContent).show();
             $(serviceStatusDetailsContent).hide();
@@ -252,6 +245,5 @@
 
         initSearchPage();
     });
-
 
 }(jQuery));
