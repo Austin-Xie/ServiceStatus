@@ -1,7 +1,17 @@
 
-.search_title_panel, .service_status_content, .service_status_detail_content {
+.search_title_panel, .service_status_content, .service_status_detail_content,
+.service_status_content .system_error_section,  .service_status_detail_content .system_error_section,
+.service_status_content .loading_panel,  .service_status_detail_content .loading_panel {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.service_status_content .system_error_section,  .service_status_detail_content .system_error_section,
+.service_status_content .loading_panel,  .service_status_detail_content .loading_panel
+{
+    height: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .search_title_panel .search_title {
