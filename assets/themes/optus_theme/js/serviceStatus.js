@@ -50,12 +50,6 @@
 
     function renderSearchResults(dataPanel, cols, searchResult) {
         var tablePanel = $(dataPanel);
-//        tablePanel.empty().html('<table cellpadding="0" cellspacing="0" border="0" class="display" id="dataTable" ></table>');
-//
-//        tablePanel.children('#dataTable').dataTable({
-//            "aaData": searchResult,
-//            "aoColumns": cols
-//        });
 
         var dataTable = '<table cellpadding="0" cellspacing="0" class="service_status_table" >';
         dataTable += '<tr>'
@@ -70,7 +64,7 @@
             var trow = searchResult[i];
             dataTable += '<tr>'
             $.each(trow, function(j){
-                dataTable += "<td class='col" + (j + 1) + "'>" + trow[j] + '</td>';
+                dataTable += "<td class='col" + (j + 1) + "'>" + (trow[j] || '') + '</td>';
             });
             dataTable += '</tr>'
         });
@@ -180,8 +174,7 @@
         var detailPanel = $(serviceStatusDetailsPanel);
         $.each(jsonData, function(key, value) {
             console.log('$(#ssd_'+ key + ").text(" + value + ")");
-            //detailPanel.children("#ssd_" + key).html(value);
-            $('#ssd_' + key).text(value);
+            $('#ssd_' + key).text(value || '');
         });
     }
 
