@@ -463,10 +463,9 @@ if(isIE6()){
 		</div>
 		
 		<!-- Service Status JS & CSS -->
-		<script type="text/javascript" src="../optus_theme/js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="../optus_theme/js/serviceStatus.js"></script>
-		<link href="../optus_theme/css/service_status_search.css" rel="stylesheet" type="text/css"  media="all"/>
-		<link href="../optus_theme/css/service_status_datatable.css" rel="stylesheet" type="text/css"  media="all"/>
+		<link href="../optus_theme/css/service_status.css" rel="stylesheet" type="text/css"  media="all"/>
+		
 		
 		
 		<!-- FOOTER STARTS -->
