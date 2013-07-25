@@ -55,7 +55,7 @@
                  <h2>Unexpected Issues</h2>
 
                  <div class="loading_panel" style="display:none">
-                     <img alt="clock" src="../assets/themes/optus_theme/images/ajax-loader.gif"/>
+                     <img alt="clock" src="../optus_theme/images/ajax-loader.gif"/>
                  </div>
                  <div class="none_found_panel" style="display:none">
                      <p>None found.</p>
@@ -70,7 +70,7 @@
 
                  <div class="loading_panel" style="display:none">
                      <div class="loading_panel" style="display:none">
-                         <img alt="clock" src="../assets/themes/optus_theme/images/ajax-loader.gif"/>
+                         <img alt="clock" src="../optus_theme/images/ajax-loader.gif"/>
                      </div>
                  </div>
                  <div class="none_found_panel" style="display:none">
@@ -92,7 +92,7 @@
      <!-- service_status_detail_content starts -->
      <div class="service_status_detail_content" style="display:none">
          <div class="loading_panel" style="display:none">
-             <img alt="clock" src="../assets/themes/optus_theme/images/ajax-loader.gif"/>
+             <img alt="clock" src="../optus_theme/images/ajax-loader.gif"/>
          </div>
          <div class="details_panel" style="display:none">
              <h2><span id="ssd_location"></span>, <span id="ssd_state"></span></h2>
