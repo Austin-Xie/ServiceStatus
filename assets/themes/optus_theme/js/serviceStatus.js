@@ -194,7 +194,12 @@
         e.preventDefault();
 
         //console.log('suburb == ' + suburb);
-        togglePanels([searchIntroSection, unexpectedIssueNonFoundPanel, plannedIssueNonFoundPanel,
+        if (suburb === '' || suburb == null) {
+            $(searchIntroSection).show();
+        } else {
+            $(searchIntroSection).hide();
+        }
+        togglePanels([unexpectedIssueNonFoundPanel, plannedIssueNonFoundPanel,
             unexpectedIssueListPanel, plannedIssueListPanel], false);
 
         togglePanels([unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], true);
