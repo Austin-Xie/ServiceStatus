@@ -1,0 +1,8 @@
+development/controllers/ajaxCustom.php
+development/controllers/ajaxServiceStatus.php
+development/models/custom/ServiceStatus/networkoutage_model.php
+development/views/templates/service_status_query.php
+development/views/pages/service/status/list.php
+assets/themes/optus_theme/css/service_status.css
+assets/themes/optus_theme/js/serviceStatus.js
+assets/themes/standard/widgetCss/NetworkOutage.css
