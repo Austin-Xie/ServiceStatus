@@ -4,7 +4,8 @@
      <!-- Service Status pages start here! -->
 
      <div class="search_title_panel">
-         <h1 class="search_title">Network Status</h1>
+         <h1 class="search_title">Optus Network Status</h1>
+		 <h2 class="search_title2">Check Optus’ Network service status in your area</p>
      </div>
 
      <div class="service_status_content">
@@ -39,7 +40,8 @@
 
          <div class="search_intro_section ">
              <p>
-                 {service status search intro panel}
+                We’ll keep you in the loop about any planned repairs & maintenance, outages and any other unexpected issues that may affect your Optus fixed, broadband or mobile service. 
+Simply enter a suburb name to see if there are any known issues in your area:
              </p>
          </div>
 
