@@ -106,7 +106,9 @@
             // console.log("serviceStatusId = " + ssId);
             // Hide Service Status Search Section
             $(serviceStatusContent).hide();
-            togglePanels([serviceStatusDetailsContent, serviceStatusDetailsLoadingPanel], true);
+            $(serviceStatusDetailsContent).show();
+            $(serviceStatusDetailsPanel).hide();
+            $(serviceStatusDetailsLoadingPanel).show();
 
             fetchServiceStatusDetails(ssId, function (jsonData) {
                     // console.log("service status details = " + jsonData);
