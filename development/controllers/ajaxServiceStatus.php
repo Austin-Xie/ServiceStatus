@@ -2,7 +2,6 @@
 
 class ajaxServiceStatus extends ControllerBase
 {
-	
     //This is the constructor for the custom controller. Do not modify anything within
     //this function.
     function __construct()
@@ -10,14 +9,7 @@ class ajaxServiceStatus extends ControllerBase
         parent::__construct();
 
         $this->load->model('custom/ServiceStatus/NetworkOutage_model');
-
     }
-	
-	function ajaxQueryTest() {
-		//echo '{"ajax": "OK!"}';
-		 echo '{"msg": "FFFFFFFFFFFFFFFKKKKKKKKKKKKKKKKKK"}';
-	}
-    
     
     /**
      * This function can be called by sending
@@ -31,18 +23,16 @@ class ajaxServiceStatus extends ControllerBase
 		}
 
 		// only 'Online' accessible.
-        $status = 3;
+        $status = 'Online';
         $nos = $this->NetworkOutage_model->getBySuburb($suburb, $status);
 		$planned = array();
         $unexpected = array();
         while($no = $nos->next())
         {
-		    //echo json_encode($no);
             $expNO = $this->exportNetworkOutageBrief($no);
-            if ($expNO['type'] === "Planned") {
+            if ($expNO['type'] === 'Planned') {
                 $planned[] = $expNO;
             } else {
-			     $expNO['type'] = "Unplanned";
                 $unexpected[] = $expNO;
             }
         }
@@ -85,29 +75,24 @@ class ajaxServiceStatus extends ControllerBase
     }
 
     function exportNetworkOutageBrief($no) {
-	    $NOType = array("1" => "Unplanned", "2" => "Planned");
-	    $NOState = array("1" => "ACT", "2" => "NSW", "3" => "VIC", "4" => "QLD",
-		                 "5" => "SA", "6" => "WA", "7" => "TAS", "8" => "NT");
-	    $NOFixStatus = array("1" => "Fixing", "2" => "Fixed");
-
         $exptNO = array();
 
-        $exptNO['id'] = $no['ID'];
-        $exptNO['serviceId'] = $no['OptusNetworkRef'];
+        $exptNO['id'] = $no->ID;
+        $exptNO['serviceId'] = $no->OptusNetworkRef;
         
-        $exptNO['state'] = $NOState[$no['State']];
-        $exptNO['location'] = $no['Areas'];
+        $exptNO['state'] = $no->State->Name;
+        $exptNO['location'] = $no->Areas;
         
-        $exptNO['serviceAffected'] = $no['CustomService'];
-        $exptNO['outageType'] = $no['CustomSummary'];
+        $exptNO['serviceAffected'] = $no->CustomService;
+        $exptNO['outageType'] = $no->CustomSummary;
 
-        $exptNO['type'] = $NOType[$no['Type']];
-       
-        $exptNO['startTime'] = date('g:ia D, jS M', $no['StartTime']);
-        $exptNO['endTime'] = date('g:ia D, jS M', $no['EndTime']);
-        
-		$exptNO['fixingStatus'] = $NOFixStatus[$no['FixingStatus']];
-        
+        $exptNO['type'] = $no->Type->Name;
+        if ($exptNO['type'] === "Planned") {
+            $exptNO['startTime'] = date('g:ia D, jS M', $no->StartTime);
+            $exptNO['endTime'] = date('g:ia D, jS M', $no->EndTime);
+        } else {
+            $exptNO['fixingStatus'] = $no->FixingStatus->Name;
+        }
 
         return $exptNO;
     }
@@ -120,11 +105,15 @@ class ajaxServiceStatus extends ControllerBase
             $exptNO[$key] = $value;
         }
 
-        $exptNO['updatedTime'] = date('Y-m-d H:i:s T', $no['UpdatedTime']);
+        if ($exptNO['type'] === "Unplanned") {
+            $exptNO['startTime'] = date('g:ia D, jS M', $no->StartTime);
+            $exptNO['endTime'] = date('g:ia D, jS M', $no->EndTime);
+        }
+        $exptNO['updatedTime'] = date('g:ia D, jS M', $no->UpdatedTime);
 
-        $exptNO['description'] = $no['CustomDescription'];
+        $exptNO['description'] = $no->CustomDescription;
         //$exptNO['technicalSummary'] = $no->TechnicalSummary;
-        $exptNO['resolution'] = $no['Resolution'];
+        $exptNO['resolution'] = $no->Resolution;
 
         return $exptNO;
     }
