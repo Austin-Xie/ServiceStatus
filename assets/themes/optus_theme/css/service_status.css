@@ -1,3 +1,31 @@
+.content_section {
+    background-color: white;
+}
+.servcie_status_main_section {
+    background: transparent;
+}
+
+
+.search_action_lnk a {
+    width: 96px;
+    height: 32px;
+    display: block;
+}
+
+.search_action_lnk a {
+    background: url('../images/optus/search_button_sprite.png') no-repeat;
+    background-position: 0 -5px;
+}
+
+.search_action_lnk a:hover {
+    background: url('../images/optus/search_button_sprite.png') no-repeat;
+    background-position: 0 -45px;
+}
+
+.search_action_lnk a:active {
+    background: url('../images/optus/search_button_sprite.png') no-repeat;
+    background-position: 0 -85px;
+}
 
 .search_title_panel, .service_status_content, .service_status_detail_content,
 .service_status_content .system_error_section,  .service_status_detail_content .system_error_section,
@@ -14,8 +42,13 @@
     margin-bottom: 20px;
 }
 
-.search_title_panel .search_title {
-   margin-bottom: 20px;
+
+.search_title_panel .search_title2 {
+    font-size: 18px;
+}
+
+.service_status_content  .search_intro_section {
+    margin-top: 10px;
 }
 
 .service_status_detail_content h2 {
@@ -149,11 +182,12 @@ table.service_status_table {
 }
 
 table.service_status_table th {
-    padding: 3px 18px 3px 10px;
+    padding: 7px 18px 7px 10px;
     border: 1px #A7A7A7 solid;
-    background-color: #c4c4c4;
+    background-color: #dddddd;
     font-family: Arial;
     font-weight: bold;
+    font-size: 1.2em;
     cursor: pointer;
     * cursor: hand;
 
@@ -161,7 +195,7 @@ table.service_status_table th {
 }
 
 table.service_status_table tr {
-    border: 1px #A7A7A7 solid;
+    border: 1px #dddddd solid;
 }
 
 
@@ -170,6 +204,8 @@ table.service_status_table td {
     font-family: Arial;
     border: 1px #A7A7A7 solid;
     vertical-align: middle;
+    background-color: transparent;
+    line-height: 1.2em;
 }
 
 .unexpected_issues_list_panel table.service_status_table td.col1, .planned_repairs_maintenance_panel table.service_status_table td.col1 {
@@ -181,8 +217,8 @@ table.service_status_table td {
 }
 
 .planned_repairs_maintenance_panel table.service_status_table td.col2 {
-      width: 40%;
-  }
+    width: 40%;
+}
 
 .unexpected_issues_list_panel table.service_status_table td.col3 {
     width: 40%;
@@ -200,23 +236,8 @@ table.service_status_table td {
     width: 10%;
 }
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * DataTables row classes
- */
-table.service_status_table tr.odd {
-    background-color: #B0BED9;
-}
-
-table.service_status_table tr.even {
-    background-color: #ddffdd;
-}
-
-table.service_status_table tr.even.row_selected td {
-    background-color: #B0BED9;
-}
-
-table.service_status_table tr.odd.row_selected td {
-    background-color: #9FAFD1;
+.unexpected_issues_list_panel table.service_status_table td.col4, .unexpected_issues_list_panel table.service_status_table td.col5 {
+    text-align: center;
 }
 
 /*
@@ -233,5 +254,3 @@ table.service_status_table tbody tr.odd:hover, table.service_status_table tbody 
 table.service_status_table tr.even:hover {
     background-color: #ECFFB3;
 }
-
-
