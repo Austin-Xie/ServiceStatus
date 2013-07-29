@@ -206,7 +206,7 @@
 
         fetchServiceStatus(suburb, function (jsonData) {
                 // Succeed
-                togglePanels([unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
+                togglePanels([searchIntroSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
 
                 var data = getServiceStatusData(jsonData);
 
@@ -231,7 +231,7 @@
             },
             function (error) {
                 console.error(error);
-                togglePanels([searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
+                togglePanels([searchIntroSection, searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
                 $(serviceStatusListErrorPanel).show();
             }
         );
