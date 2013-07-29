@@ -11,6 +11,11 @@ class NetworkOutage_model extends Model
         initConnectAPI();
     }
 
+	function getNTs() {
+		$nt = RNCPHP\ROQL::query("SELECT nt.Name, nt.ID FROM CO.NwkOtgType nt ")->next();
+		return $nt;
+	}
+
    /**
     * Returns CO.NetworkOutage objects from the database based on their status and suburb.
     *
@@ -20,12 +25,16 @@ class NetworkOutage_model extends Model
     * @return Answer The CO.NetworkOutage with the specified answer_id
     */
     function getBySuburb($suburb, $status){
-	    $serviceStatusQry = "SELECT CO.NetworkOutage FROM CO.NetworkOutage WHERE ProcessStatus.Name = '"
-		                    . $status . "' ";
+        $rowLimit = 2;
+	    $serviceStatusQry = "SELECT no.ID, no.OptusNetworkRef, no.State, no.Areas, no.CustomService," .
+		                    " no.CustomSummary, no.Type, no.StartTime, no.EndTime, no.FixingStatus" .
+                            " FROM CO.NetworkOutage no WHERE ProcessStatus = 3 ";
+
         if (empty($suburb)) {
-            $nos = RNCPHP\ROQL::queryObject($serviceStatusQry)->next();
+            $nos = RNCPHP\ROQL::query($serviceStatusQry . " LIMIT " . $rowLimit)->next();
         } else {
-		    $nos = RNCPHP\ROQL::queryObject($serviceStatusQry . " AND Areas like '%" . $suburb . "%'")->next();
+		    $nos = RNCPHP\ROQL::query($serviceStatusQry . " AND Areas like '%" . $suburb . "%'"
+			                          . " LIMIT " . $rowLimit)->next();
         }
 
         return $nos;
@@ -39,8 +48,15 @@ class NetworkOutage_model extends Model
     * @return CO.NetworkOutage  The CO.NetworkOutage object with its details
     */
     function getNetworkOutageById($serviceStatusId) {
-        $no = RNCPHP\ROQL::queryObject("SELECT CO.NetworkOutage FROM CO.NetworkOutage WHERE  ID = " 
-              . $serviceStatusId)->next();
+	    $serviceStatusQry = "SELECT no.ID, no.OptusNetworkRef, no.State, no.Areas, no.CustomService," .
+		                    " no.CustomSummary, no.Type, no.StartTime, no.EndTime, no.FixingStatus, " .
+							" no.UpdatedTime, no.CustomDescription, no.Resolution " .
+                            " FROM CO.NetworkOutage no WHERE  no.ID = ". $serviceStatusId ; //.
+							//" ORDER BY no.StartTime DESC";
+							
+        //$no = RNCPHP\ROQL::queryObject("SELECT CO.NetworkOutage FROM CO.NetworkOutage WHERE  ID = " 
+        //      . $serviceStatusId)->next();
+		$no = RNCPHP\ROQL::query($serviceStatusQry)->next();
 
         return $no;
     }
