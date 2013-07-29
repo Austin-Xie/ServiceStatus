@@ -6,7 +6,7 @@ class ajaxServiceStatus extends ControllerBase
     protected $NOState = array("1" => "ACT", "2" => "NSW", "3" => "VIC", "4" => "QLD",
                          "5" => "SA", "6" => "WA", "7" => "TAS", "8" => "NT");
     protected $NOFixStatus = array("1" => "Fixing", "2" => "Fixed");
-
+    
     //This is the constructor for the custom controller. Do not modify anything within
     //this function.
     function __construct()
@@ -55,7 +55,7 @@ class ajaxServiceStatus extends ControllerBase
             echo $_GET['callback']. '('. $jsonResp .');';
         }
     }
-
+    
     /**
      * This function can be called by sending
      * a request to /ci/ajaxNetworkOutage/ajaxQueryServiceStatusDetails.
@@ -65,6 +65,11 @@ class ajaxServiceStatus extends ControllerBase
         $serviceId = $_POST["serviceStatusId"];
 
         if (!empty($serviceId)) {
+		    if (!is_numeric($serviceId)) {
+			    echo "{}";
+				return;
+			}
+
             $no = $this->NetworkOutage_model->getNetworkOutageById($serviceId);
             //header('Content-Type: text/javascript');
             $expNO = $this->exportNetworkOutageDetail($no->next());
@@ -86,27 +91,27 @@ class ajaxServiceStatus extends ControllerBase
 
         $exptNO['id'] = $no['ID'];
         $exptNO['serviceId'] = $no['OptusNetworkRef'];
-
+        
         $exptNO['state'] = $this->NOState[$no['State']];
         $exptNO['location'] = $no['Areas'];
-
+        
         $exptNO['serviceAffected'] = $no['CustomService'];
         $exptNO['outageType'] = $no['CustomSummary'];
 
         $exptNO['type'] = $this->NOType[$no['Type']];
-
+       
         $exptNO['startTime'] = date('g:ia D, jS M', $no['StartTime']);
         $exptNO['endTime'] = date('g:ia D, jS M', $no['EndTime']);
-
+        
         $exptNO['fixingStatus'] = $this->NOFixStatus[$no['FixingStatus']];
-
+        
 
         return $exptNO;
     }
 
     function exportNetworkOutageDetail($no) {
         $exptNO2 = $this->exportNetworkOutageBrief($no);
-
+        
         $exptNO = array();
         foreach($exptNO2 as $key => $value) {
             $exptNO[$key] = $value;
@@ -122,7 +127,7 @@ class ajaxServiceStatus extends ControllerBase
     }
 
     function getRealClientIP() {
-
+        
         if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $proxyIps = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
             return $proxyIps[0];
