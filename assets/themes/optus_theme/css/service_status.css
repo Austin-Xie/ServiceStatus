@@ -69,7 +69,11 @@
 
 .unexpected_issues_panel {
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+}
+
+.planned_repairs_maintenance_panel {
+    margin-bottom: 20px;
 }
 
 #suburbInput {
