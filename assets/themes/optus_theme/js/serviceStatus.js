@@ -197,6 +197,10 @@
         if (suburb === '' || suburb == null) {
             $(searchIntroSection).show();
         } else {
+            // Truncate suburb to up to 30 characters
+            if (suburb.length > 30) {
+                suburb = suburb.subs(0, 30);
+            }
             $(searchIntroSection).hide();
         }
         togglePanels([unexpectedIssueNonFoundPanel, plannedIssueNonFoundPanel,
