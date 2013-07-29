@@ -44,7 +44,7 @@
 
 
 .search_title_panel .search_title2 {
-    font-size: 18px;
+    font-size: 1.5em;
 }
 
 .service_status_content  .search_intro_section {
@@ -75,7 +75,7 @@
 #suburbInput {
     color: #006685;
     font-family: Arial,sans-serif,Helvetica;
-    font-size: 13px;
+    font-size: 1.2em;
     background: none repeat scroll 0 0 white;
     border-color: #E5EFF3 #E5EFF3 #E5EFF3 #E5EFF3;
     border-image: none;
@@ -87,7 +87,7 @@
     position: relative;
     vertical-align: bottom;
     width: 150px;
-    line-height: 1em;
+    line-height: 1.3em;
 }
 
 .search_panel {
@@ -100,7 +100,7 @@
 }
 
 #service_status_search_lnk {
-    font-size: 13px;
+    font-size: 1.2em;
 }
 
 .none_found_panel {
@@ -118,22 +118,6 @@
     position: relative;
     clear: both;
     zoom: 1; /* Feeling sorry for IE */
-}
-
-.service_status_content .dataTables_processing {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 250px;
-    height: 30px;
-    margin-left: -125px;
-    margin-top: -15px;
-    padding: 14px 0 2px 0;
-    border: 1px solid #ddd;
-    text-align: center;
-    color: #999;
-    font-size: 14px;
-    background-color: white;
 }
 
 .service_status_content .dataTables_length {
@@ -166,19 +150,6 @@ table.service_status_table {
     clear: both;
     width: 100%;
     border-collapse: collapse;
-
-    /* Note Firefox 3.5 and before have a bug with border-collapse
-     * ( https://bugzilla.mozilla.org/show%5Fbug.cgi?id=155955 ) 
-     * border-spacing: 0; is one possible option. Conditional-css.com is
-     * useful for this kind of thing
-     *
-     * Further note IE 6/7 has problems when calculating widths with border width.
-     * It subtracts one px relative to the other browsers from the first column, and
-     * adds one to the end...
-     *
-     * If you want that effect I'd suggest setting a border-top/left on th/td's and 
-     * then filling in the gaps with other borders.
-     */
 }
 
 table.service_status_table th {
@@ -205,7 +176,7 @@ table.service_status_table td {
     border: 1px #A7A7A7 solid;
     vertical-align: middle;
     background-color: transparent;
-    line-height: 1.2em;
+    line-height: 1.5em;
 }
 
 .unexpected_issues_list_panel table.service_status_table td.col1, .planned_repairs_maintenance_panel table.service_status_table td.col1 {
