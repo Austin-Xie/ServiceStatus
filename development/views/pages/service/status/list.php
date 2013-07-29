@@ -1,11 +1,11 @@
 <rn:meta title="#rn:msg:SHP_TITLE_HDG#" template="service_status_query.php" clickstream="home"/>
 
-<div id="rn_PageContent123" class="rn_Home">
+<div id="rn_ServiceStatusPageContent" class="servcie_status_main_section">
      <!-- Service Status pages start here! -->
 
      <div class="search_title_panel">
          <h1 class="search_title">Optus Network Status</h1>
-		 <h2 class="search_title2">Check Optus’ Network service status in your area</p>
+		 <h2 class="search_title2">Check Optus’ Network service status in your area</h2>
      </div>
 
      <div class="service_status_content">
@@ -24,7 +24,7 @@
                                         aria-autocomplete="list" aria-haspopup="true">
                              </td>
                              <td class="search_action_lnk">
-                                 <div><a href="#" id="service_status_search_lnk">Search</a></div>
+                                <a href="#" id="service_status_search_lnk"></a>
                              </td>
                          </tr>
                      </table>
@@ -148,6 +148,4 @@ Simply enter a suburb name to see if there are any known issues in your area:
 
      </div>
      <!-- service_status_detail_content ends -->
-
-
 </div>
