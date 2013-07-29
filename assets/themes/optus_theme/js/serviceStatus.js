@@ -97,9 +97,9 @@
 
 
         // bind 'More info' click event handler
-        $(".service_status_table .service_status_detail_link").on('click', function (e) {
-            e.preventDefault();
-            var hrefValue = e.target.href,
+        $(".service_status_table .service_status_detail_link").on('click', function (event) {
+            event.preventDefault();
+            var hrefValue = event.target.href,
                 i = hrefValue.indexOf('#'),
                 ssId = Number(hrefValue.substr(i + 1));
 
@@ -188,10 +188,10 @@
         return false;
     }
 
-    function searchServiceStatuses(e) {
+    function searchServiceStatuses(event) {
         var suburb = $('#suburbInput').val();
 
-        e.preventDefault();
+        event.preventDefault();
 
         //console.log('suburb == ' + suburb);
         if (suburb === '' || suburb == null) {
