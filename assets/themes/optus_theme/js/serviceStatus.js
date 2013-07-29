@@ -199,7 +199,7 @@
         } else {
             // Truncate suburb to up to 30 characters
             if (suburb.length > 30) {
-                suburb = suburb.subs(0, 30);
+                suburb = suburb.substr(0, 30);
             }
             $(searchIntroSection).hide();
         }
