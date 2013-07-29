@@ -2,6 +2,11 @@
 
 class ajaxServiceStatus extends ControllerBase
 {
+    protected $NOType = array("1" => "Unplanned", "2" => "Planned");
+    protected $NOState = array("1" => "ACT", "2" => "NSW", "3" => "VIC", "4" => "QLD",
+                         "5" => "SA", "6" => "WA", "7" => "TAS", "8" => "NT");
+    protected $NOFixStatus = array("1" => "Fixing", "2" => "Fixed");
+
     //This is the constructor for the custom controller. Do not modify anything within
     //this function.
     function __construct()
@@ -10,7 +15,7 @@ class ajaxServiceStatus extends ControllerBase
 
         $this->load->model('custom/ServiceStatus/NetworkOutage_model');
     }
-    
+
     /**
      * This function can be called by sending
      * a request to /ci/ajaxNetworkOutage/ajaxQueryNetworkOutages.
@@ -18,21 +23,23 @@ class ajaxServiceStatus extends ControllerBase
     function ajaxQueryServiceStatuses()
     {
         $suburb = $_POST["serviceStatusSuburb"];
-		if (is_null($suburb)) {
-		    $suburb = "";
-		}
+        if (is_null($suburb)) {
+            $suburb = "";
+        }
 
-		// only 'Online' accessible.
-        $status = 'Online';
+        // only 'Online' accessible.
+        $status = 3;
         $nos = $this->NetworkOutage_model->getBySuburb($suburb, $status);
-		$planned = array();
+        $planned = array();
         $unexpected = array();
         while($no = $nos->next())
         {
+            //echo json_encode($no);
             $expNO = $this->exportNetworkOutageBrief($no);
-            if ($expNO['type'] === 'Planned') {
+            if ($expNO['type'] === "Planned") {
                 $planned[] = $expNO;
             } else {
+                 $expNO['type'] = "Unplanned";
                 $unexpected[] = $expNO;
             }
         }
@@ -48,14 +55,14 @@ class ajaxServiceStatus extends ControllerBase
             echo $_GET['callback']. '('. $jsonResp .');';
         }
     }
-	
-	/**
+
+    /**
      * This function can be called by sending
      * a request to /ci/ajaxNetworkOutage/ajaxQueryServiceStatusDetails.
      */
-	function ajaxQueryServiceStatusDetails()
+    function ajaxQueryServiceStatusDetails()
     {
-		$serviceId = $_POST["serviceStatusId"];
+        $serviceId = $_POST["serviceStatusId"];
 
         if (!empty($serviceId)) {
             $no = $this->NetworkOutage_model->getNetworkOutageById($serviceId);
@@ -69,7 +76,7 @@ class ajaxServiceStatus extends ControllerBase
                 echo $_GET['callback']. '('. $exptNOResp .');';
             }
         } else {
-		    // return empty object
+            // return empty object
             echo "{}";
         }
     }
@@ -77,49 +84,45 @@ class ajaxServiceStatus extends ControllerBase
     function exportNetworkOutageBrief($no) {
         $exptNO = array();
 
-        $exptNO['id'] = $no->ID;
-        $exptNO['serviceId'] = $no->OptusNetworkRef;
-        
-        $exptNO['state'] = $no->State->Name;
-        $exptNO['location'] = $no->Areas;
-        
-        $exptNO['serviceAffected'] = $no->CustomService;
-        $exptNO['outageType'] = $no->CustomSummary;
+        $exptNO['id'] = $no['ID'];
+        $exptNO['serviceId'] = $no['OptusNetworkRef'];
 
-        $exptNO['type'] = $no->Type->Name;
-        if ($exptNO['type'] === "Planned") {
-            $exptNO['startTime'] = date('g:ia D, jS M', $no->StartTime);
-            $exptNO['endTime'] = date('g:ia D, jS M', $no->EndTime);
-        } else {
-            $exptNO['fixingStatus'] = $no->FixingStatus->Name;
-        }
+        $exptNO['state'] = $this->NOState[$no['State']];
+        $exptNO['location'] = $no['Areas'];
+
+        $exptNO['serviceAffected'] = $no['CustomService'];
+        $exptNO['outageType'] = $no['CustomSummary'];
+
+        $exptNO['type'] = $this->NOType[$no['Type']];
+
+        $exptNO['startTime'] = date('g:ia D, jS M', $no['StartTime']);
+        $exptNO['endTime'] = date('g:ia D, jS M', $no['EndTime']);
+
+        $exptNO['fixingStatus'] = $this->NOFixStatus[$no['FixingStatus']];
+
 
         return $exptNO;
     }
 
     function exportNetworkOutageDetail($no) {
         $exptNO2 = $this->exportNetworkOutageBrief($no);
-        
+
         $exptNO = array();
         foreach($exptNO2 as $key => $value) {
             $exptNO[$key] = $value;
         }
 
-        if ($exptNO['type'] === "Unplanned") {
-            $exptNO['startTime'] = date('g:ia D, jS M', $no->StartTime);
-            $exptNO['endTime'] = date('g:ia D, jS M', $no->EndTime);
-        }
-        $exptNO['updatedTime'] = date('g:ia D, jS M', $no->UpdatedTime);
+        $exptNO['updatedTime'] = date('g:ia D, jS M', $no['UpdatedTime']);
 
-        $exptNO['description'] = $no->CustomDescription;
+        $exptNO['description'] = $no['CustomDescription'];
         //$exptNO['technicalSummary'] = $no->TechnicalSummary;
-        $exptNO['resolution'] = $no->Resolution;
+        $exptNO['resolution'] = $no['Resolution'];
 
         return $exptNO;
     }
 
     function getRealClientIP() {
-        
+
         if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $proxyIps = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
             return $proxyIps[0];
