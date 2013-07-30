@@ -9,9 +9,6 @@
     width: 96px;
     height: 32px;
     display: block;
-}
-
-.search_action_lnk a {
     background: url('../images/optus/search_button_sprite.png') no-repeat;
     background-position: 0 -5px;
 }
@@ -41,16 +38,18 @@
     margin-bottom: 20px;
 }
 
-.search_title_panel .search_title {
-    font-size: 1.8em;
-}
-
-.search_title_panel .search_title2 {
-    font-size: 1.5em;
+.search_title_panel h1.search_title {
+    color: #006685;
+    font-size: 2.3em;
 }
 
 .service_status_content  .search_intro_section {
     margin-top: 10px;
+}
+
+.unexpected_issues_panel h2, .planned_repairs_maintenance_panel h2 {
+    color: #006685;
+    font-size: 2em;
 }
 
 .service_status_detail_content h2 {
