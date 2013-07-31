@@ -8,12 +8,18 @@
     </div>
 
     <div class="service_status_content">
+		<div class="search_intro_section ">
+			<h2 class="search_prompt">Check Optus' Network service status in your area</h2>
+			<p>
+				We’ll keep you in the loop about any planned repairs & maintenance, outages and any other unexpected issues that may affect your Optus fixed, broadband or mobile service.
+			</p>
+			<p>
+				Simply enter a suburb name to see if there are any known issues in your area:
+			</p>
+		</div>
 
         <div class="search_condition_section">
             <div class="search_head_panel">
-                <p class="search_prompt">
-                    Check Optus' Network service status in your area
-                </p>
 
                 <div class="search_panel">
                     <table>
@@ -23,35 +29,21 @@
                                        aria-autocomplete="list" aria-haspopup="true">
                             </td>
                             <td class="search_action_lnk">
-                                <a href="#" id="service_status_search_lnk"></a>
+                               <a href="#" id="service_status_search_lnk"></a>
                             </td>
                         </tr>
                     </table>
 
                     <!-- <input id="serviceStatusSuburb" name="serviceStatusSuburb"/>-->
 
-                </div>
-                <div class="service_status_SubNote">
-                    <p>E.g. Darlinghurst</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="search_intro_section ">
-            <p>
-                We’ll keep you in the loop about any planned repairs & maintenance, outages and any other unexpected issues that may affect your Optus fixed, broadband or mobile service.
-                Simply enter a suburb name to see if there are any known issues in your area:
-            </p>
-        </div>
+                 </div>
+                 <div class="service_status_SubNote">
+                     <p>E.g. Darlinghurst</p>
+                 </div>
+             </div>
+         </div>
 
         <div class="search_result_list_section">
-
-            <div class="search_result_prompt " style="display:none">
-                <h2>What's happening in your area?</h2>
-
-                <p>Below are the results found for your area.</p>
-            </div>
-
             <div class="unexpected_issues_panel ">
                 <h2>Unexpected Issues</h2>
 
@@ -83,9 +75,9 @@
             </div>
         </div>
 
-        <div class="system_error_section" style="display:none">
-            <p>Sorry! The query service is temporarily unavailable now.</p>
-        </div>
+         <div class="system_error_section" style="display:none">
+             <p>Sorry! The query service is temporarily unavailable now.</p>
+         </div>
 
     </div>
     <!-- service_status_content -->
@@ -147,6 +139,5 @@
 
     </div>
     <!-- service_status_detail_content ends -->
-
 
 </div>
