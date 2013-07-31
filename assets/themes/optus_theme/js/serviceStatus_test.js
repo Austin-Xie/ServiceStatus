@@ -195,13 +195,13 @@
 
         //console.log('suburb == ' + suburb);
         if (suburb === '' || suburb == null) {
-            $(searchIntroSection).show();
+            //$(searchIntroSection).show();
         } else {
             // Truncate suburb to up to 30 characters
             if (suburb.length > 30) {
                 suburb = suburb.substr(0, 30);
             }
-            $(searchIntroSection).hide();
+            //$(searchIntroSection).hide();
         }
         togglePanels([unexpectedIssueNonFoundPanel, plannedIssueNonFoundPanel,
             unexpectedIssueListPanel, plannedIssueListPanel], false);
@@ -210,7 +210,7 @@
 
         fetchServiceStatus(suburb, function (jsonData) {
                 // Succeed
-                togglePanels([searchIntroSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
+                togglePanels([/*searchIntroSection,*/ unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
 
                 var data = getServiceStatusData(jsonData);
 
@@ -235,7 +235,7 @@
             },
             function (error) {
                 console.error(error);
-                togglePanels([searchIntroSection, searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
+                togglePanels([/*searchIntroSection,*/ searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
                 $(serviceStatusListErrorPanel).show();
             }
         );
