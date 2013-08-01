@@ -9,7 +9,7 @@
 
     <div class="service_status_content">
 		<div class="search_intro_section ">
-			<h2 class="search_prompt">Check Optus' Network service status in your area</h2>
+			<h3 class="search_prompt">Check Optus' Network service status in your area</h3>
 			<p>
 				We’ll keep you in the loop about any planned repairs & maintenance, outages and any other unexpected issues that may affect your Optus fixed, broadband or mobile service.
 			</p>

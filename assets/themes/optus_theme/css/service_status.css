@@ -43,8 +43,8 @@
     font-size: 2.3em;
 }
 
-.service_status_content .search_intro_section h2.search_prompt {
-    font-size: 2em;
+.service_status_content .search_intro_section h3.search_prompt {
+    font-size: 1.5em;
 }
 
 .unexpected_issues_panel h2, .planned_repairs_maintenance_panel h2 {
