@@ -244,14 +244,21 @@
 
     $(document).ready(function () {
         // bind search action
-        $('#service_status_search_lnk').on('click', searchServiceStatuses);
+        $('#service_status_search_lnk').click(searchServiceStatuses);
 
-        $(serviceStatusDetailsBackPanel + ' a.back_link').on('click', function (e) {
+        $(serviceStatusDetailsBackPanel + ' a.back_link').click(function (e) {
             e.preventDefault();
             $(serviceStatusContent).show();
             $(serviceStatusDetailsContent).hide();
 
             return false;
+        });
+
+        $('#suburbInput').keypress(function(event) {
+            if ( event.which == 13 ) {
+                event.preventDefault();
+                $('#service_status_search_lnk').trigger('click');
+            }
         });
 
         initSearchPage();
