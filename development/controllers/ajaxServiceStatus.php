@@ -125,6 +125,22 @@ class ajaxServiceStatus extends ControllerBase
 
         return $exptNO;
     }
+	
+	
+	function importNetworkOutageTemplate() {
+	    $noJsonTemp = json_decode($_POST['networkJSONTemplate']);
+		
+		$noJsonTemp->Alias = substr($noJsonTemp->NetworkType, 0, 1) . 
+		                     substr($noJsonTemp->OptusNetwork, 0, 1) . 
+							 substr($noJsonTemp->PlanType, 0, 1) .
+                             substr($noJsonTemp->OptusService, 0, 1) .
+							 substr($noJsonTemp->OutageType, 0, 1) .
+							 substr($noJsonTemp->ProductRename, 0, 1);							 
+
+		$noTmpl = $this->NetworkOutage_model->updateNwkOtgTemplate($noJsonTemp);
+
+        echo json_encode($noTmpl);
+    }
 
     function getRealClientIP() {
         

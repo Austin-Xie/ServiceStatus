@@ -3,7 +3,7 @@
 use RightNow\Connect\v1 as RNCPHP;
 
 class NetworkOutage_model extends Model
-{
+{   
     /**
 	* the max number of returned Network outage records.
     */
@@ -85,6 +85,7 @@ class NetworkOutage_model extends Model
         $noTmpl->PlanType = $ssJsonTemplate->PlanType;
         $noTmpl->OutageType = $ssJsonTemplate->OutageType;
         $noTmpl->ProductRename = $ssJsonTemplate->ProductRename;
+		$noTmpl->Alias = $ssJsonTemplate->Alias;
         $noTmpl->Severity = $ssJsonTemplate->Severity;
         $noTmpl->Summary = $ssJsonTemplate->Summary;
         $noTmpl->Description = $ssJsonTemplate->Description;
@@ -92,8 +93,8 @@ class NetworkOutage_model extends Model
 
     function updateNwkOtgTemplate($ssJsonTemplate) {
         $noTemple = null;
-        if (is_null($ssJsonTemplate->ID)) {
-             $noTemple = new RNCPHP\CO.NwkOtgTemplate;
+        if (empty($ssJsonTemplate->ID)) {
+             $noTemple = new RNCPHP\CO\NwkOtgTemplate;
         } else {
              $noTemple =  getNetworkOutageTemplateById($ssJsonTemplate->ID);
         }
@@ -102,11 +103,11 @@ class NetworkOutage_model extends Model
             return 'failed to create/update network outage template';
         }
 
-        populateNwkOtgTemplate($noTemple, $ssJsonTemplate);
+        $this->populateNwkOtgTemplate($noTemple, $ssJsonTemplate);
 
         // save template
         $noTemple->save();
 
-        return "success";
+        return $noTemple;
     }
 }
