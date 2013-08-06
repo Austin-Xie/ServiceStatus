@@ -101,7 +101,10 @@ if(isIE6()){
 				} else if (strstr($requestURL,"/app/ask")) {
 					$page_type = "Ask";
 					$section = "Contact Us Form";
-				} else if (strstr($requestURL,"/app")) {
+				} else if (strstr($requestURL,"/app/service/status/list")) {
+                    $page_type = "Network Status List";
+                  	$section = "Network Status";
+                } else if (strstr($requestURL,"/app")) {
 					$page_type = "Landing Page";
 					$section = "Home";
 				} else {
