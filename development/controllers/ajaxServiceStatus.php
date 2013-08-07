@@ -100,8 +100,8 @@ class ajaxServiceStatus extends ControllerBase
 
         $exptNO['type'] = $this->NOType[$no['Type']];
        
-        $exptNO['startTime'] = date('g:ia D, jS M', $no['StartTime']);
-        $exptNO['endTime'] = date('g:ia D, jS M', $no['EndTime']);
+        $exptNO['startTime'] = date('g:ia D, jS M', strtotime($no['StartTime']));
+        $exptNO['endTime'] = date('g\:i a D, jS M', strtotime($no['EndTime']));
         
         $exptNO['fixingStatus'] = $this->NOFixStatus[$no['FixingStatus']];
         
@@ -117,7 +117,7 @@ class ajaxServiceStatus extends ControllerBase
             $exptNO[$key] = $value;
         }
 
-        $exptNO['updatedTime'] = date('g:ia D, jS M', $no['UpdatedTime']);
+        $exptNO['updatedTime'] = date('g:ia D, jS M', strtotime($no['UpdatedTime']));
 
         $exptNO['description'] = $no['CustomDescription'];
         //$exptNO['technicalSummary'] = $no->TechnicalSummary;
