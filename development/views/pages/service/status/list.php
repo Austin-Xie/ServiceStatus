@@ -124,7 +124,7 @@
             </div>
 
             <div>
-                <h5>Estimated Time of Commencement</h5>
+                <h5>Estimated Time of Restoration</h5>
                 <p><span id="ssd_endTime"></span></p>
             </div>
         </div>
