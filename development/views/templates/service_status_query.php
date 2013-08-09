@@ -1,7 +1,7 @@
 <?php
 function isIE6() {
   $userAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
-  if (preg_match('/(?i)msie [1-6]/',$_SERVER['HTTP_USER_AGENT'])) {
+  if (preg_match('/(?i)msie [123456]\./',$_SERVER['HTTP_USER_AGENT'])) {
 	// if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6.') !== FALSE)
 	// if (ereg("msie 6.0", $userAgent)) {
     return true;

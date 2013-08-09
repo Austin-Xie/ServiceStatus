@@ -1,7 +1,7 @@
 <?php
 function isIE6() {
   $userAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
-  if (preg_match('/(?i)msie [1-6]/',$_SERVER['HTTP_USER_AGENT'])) {
+  if (preg_match('/(?i)msie [123456]\./',$_SERVER['HTTP_USER_AGENT'])) {
 	// if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6.') !== FALSE)
 	// if (ereg("msie 6.0", $userAgent)) {
     return true;
@@ -407,7 +407,8 @@ if(isIE6()){
     <!-- HEADER STARTS -->
 		
 		<script type="text/javascript" src="https://smb.optus.com.au/opfiles/cc/static/assets/common/js/globalHeader.js"> </script>
-		
+		<script type="text/javascript" src="https://smb.optus.com.au/opfiles/OnePortal/lib/js/integrators/controller.help_support.js"> </script>
+				
 		<rn:widget path="utils/Templates/Header" />
 		
 		<!-- HEADER ENDS -->
@@ -593,11 +594,6 @@ if(isIE6()){
               </div>
               <div class="light_back_footer"></div>
             </div>  
-						
-						<p>
-							<a href="http://optus.messengerpostcouriers.com.au"><img alt="Track your delivery online" src="https://optus.custhelp.com/euf/assets/themes/optus_theme/images/optus/delivery_rhs.jpg" /></a>
-						</p>
-			
             <div class="light_back_box" id="rn_twitter">
               <div class="light_back_header">
                 <div class="back_left"></div>
