@@ -3,10 +3,8 @@
 use RightNow\Connect\v1 as RNCPHP;
 
 class NetworkOutage_model extends Model
-{   
-    /**
-	* the max number of returned Network outage records.
-    */
+{
+    // the max number of returned Network outage records.
     protected $rowLimit = 20;
 
     function __construct()
