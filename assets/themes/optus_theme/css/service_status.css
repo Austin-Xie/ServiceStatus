@@ -118,7 +118,6 @@
     margin: 5px 10px 10px 5px;
 }
 
-
 .service_status_content .dataTables_wrapper {
     position: relative;
     clear: both;
@@ -173,7 +172,6 @@ table.service_status_table th {
 table.service_status_table tr {
     border: 1px #dddddd solid;
 }
-
 
 table.service_status_table td {
     padding: 3px 10px;
