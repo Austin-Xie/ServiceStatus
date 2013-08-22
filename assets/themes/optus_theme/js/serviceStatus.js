@@ -235,7 +235,7 @@
             },
             function (error) {
                 console.error(error);
-                togglePanels([/*searchIntroSection,*/ searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
+                togglePanels([searchResultListSection, unexpectedIssueLoadingPanel, plannedIssueLoadingPanel], false);
                 $(serviceStatusListErrorPanel).show();
             }
         );
