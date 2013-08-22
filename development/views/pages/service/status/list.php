@@ -2,7 +2,6 @@
 
 <div id="rn_ServiceStatusPageContent" class="servcie_status_main_section">
     <!-- Service Status pages start here! -->
-
     <div class="search_title_panel">
         <h1 class="search_title">Optus Network Status</h1>
     </div>
@@ -139,5 +138,4 @@
 
     </div>
     <!-- service_status_detail_content ends -->
-
 </div>
