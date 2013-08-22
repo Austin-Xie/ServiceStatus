@@ -102,9 +102,12 @@ class ajaxServiceStatus extends ControllerBase
        
         $exptNO['startTime'] = date('g:ia D, jS M', strtotime($no['StartTime']));
         $exptNO['endTime'] = date('g:ia D, jS M', strtotime($no['EndTime']));
+
+        if (strpos($exptNO['endTime'], '1970') !== false) {
+            $exptNO['endTime'] = 'TBA';
+        }
         
         $exptNO['fixingStatus'] = $this->NOFixStatus[$no['FixingStatus']];
-        
 
         return $exptNO;
     }
@@ -120,13 +123,16 @@ class ajaxServiceStatus extends ControllerBase
         $exptNO['updatedTime'] = date('g:ia D, jS M', strtotime($no['UpdatedTime']));
 
         $exptNO['description'] = $no['CustomDescription'];
-        //$exptNO['technicalSummary'] = $no->TechnicalSummary;
+
         $exptNO['resolution'] = $no['Resolution'];
 
         return $exptNO;
     }
 	
-	
+	/**
+     * This function is used to import Network Outage template data into db.
+	 * It's not open to external system.
+     */
 	function importNetworkOutageTemplate() {
 	    $noJsonTemp = json_decode($_POST['networkJSONTemplate']);
 		
