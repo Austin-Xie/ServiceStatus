@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<header>
+<head>
     <script type="text/javascript">/*<![CDATA[*/
         var url = "http://optus.custhelp.com/app/service/status/list",
             exdate = new Date(),
@@ -8,7 +8,7 @@
         document.cookie='agent=/;path=/;expires=' + strExDate;
         $(location).attr('href', url);
         /*]]>*/</script>
-</header>
+</head>
 <body>
 </body>
 </html>
