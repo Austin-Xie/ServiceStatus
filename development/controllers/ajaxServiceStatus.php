@@ -4,9 +4,9 @@ class ajaxServiceStatus extends ControllerBase
 {
     protected $NOType = array("1" => "Unplanned", "2" => "Planned");
     protected $NOState = array("1" => "ACT", "2" => "NSW", "3" => "VIC", "4" => "QLD",
-                         "5" => "SA", "6" => "WA", "7" => "TAS", "8" => "NT");
+        "5" => "SA", "6" => "WA", "7" => "TAS", "8" => "NT");
     protected $NOFixStatus = array("1" => "Fixing", "2" => "Fixed");
-    
+
     //This is the constructor for the custom controller. Do not modify anything within
     //this function.
     function __construct()
@@ -39,7 +39,7 @@ class ajaxServiceStatus extends ControllerBase
             if ($expNO['type'] === "Planned") {
                 $planned[] = $expNO;
             } else {
-                 $expNO['type'] = "Unplanned";
+                $expNO['type'] = "Unplanned";
                 $unexpected[] = $expNO;
             }
         }
@@ -55,7 +55,7 @@ class ajaxServiceStatus extends ControllerBase
             echo $_GET['callback']. '('. $jsonResp .');';
         }
     }
-    
+
     /**
      * This function can be called by sending
      * a request to /ci/ajaxNetworkOutage/ajaxQueryServiceStatusDetails.
@@ -65,10 +65,10 @@ class ajaxServiceStatus extends ControllerBase
         $serviceId = $_POST["serviceStatusId"];
 
         if (!empty($serviceId)) {
-		    if (!is_numeric($serviceId)) {
-			    echo "{}";
-				return;
-			}
+            if (!is_numeric($serviceId)) {
+                echo "{}";
+                return;
+            }
 
             $no = $this->NetworkOutage_model->getNetworkOutageById($serviceId);
             //header('Content-Type: text/javascript');
@@ -91,22 +91,23 @@ class ajaxServiceStatus extends ControllerBase
 
         $exptNO['id'] = $no['ID'];
         $exptNO['serviceId'] = $no['OptusNetworkRef'];
-        
+
         $exptNO['state'] = $this->NOState[$no['State']];
         $exptNO['location'] = $no['Areas'];
-        
+
         $exptNO['serviceAffected'] = $no['CustomService'];
         $exptNO['outageType'] = $no['CustomSummary'];
 
         $exptNO['type'] = $this->NOType[$no['Type']];
-       
-        $exptNO['startTime'] = date('g:ia D, jS M', strtotime($no['StartTime']));
-        $exptNO['endTime'] = date('g:ia D, jS M', strtotime($no['EndTime']));
 
-        if (strpos($exptNO['endTime'], '1970') !== false) {
+        $exptNO['startTime'] = date('g:ia D, jS M', strtotime($no['StartTime']));
+
+        if (is_null($no['EndTime']) || strpos($no['EndTime'], '1970') !== false) {
             $exptNO['endTime'] = 'TBA';
+        } else {
+            $exptNO['endTime'] = date('g:ia D, jS M', strtotime($no['EndTime']));
         }
-        
+
         $exptNO['fixingStatus'] = $this->NOFixStatus[$no['FixingStatus']];
 
         return $exptNO;
@@ -114,7 +115,7 @@ class ajaxServiceStatus extends ControllerBase
 
     function exportNetworkOutageDetail($no) {
         $exptNO2 = $this->exportNetworkOutageBrief($no);
-        
+
         $exptNO = array();
         foreach($exptNO2 as $key => $value) {
             $exptNO[$key] = $value;
@@ -128,28 +129,28 @@ class ajaxServiceStatus extends ControllerBase
 
         return $exptNO;
     }
-	
-	/**
-     * This function is used to import Network Outage template data into db.
-	 * It's not open to external system.
-     */
-	function importNetworkOutageTemplate() {
-	    $noJsonTemp = json_decode($_POST['networkJSONTemplate']);
-		
-		$noJsonTemp->Alias = substr($noJsonTemp->NetworkType, 0, 1) . 
-		                     substr($noJsonTemp->OptusNetwork, 0, 1) . 
-							 substr($noJsonTemp->PlanType, 0, 1) .
-                             substr($noJsonTemp->OptusService, 0, 1) .
-							 substr($noJsonTemp->OutageType, 0, 1) .
-							 substr($noJsonTemp->ProductRename, 0, 1);							 
 
-		$noTmpl = $this->NetworkOutage_model->updateNwkOtgTemplate($noJsonTemp);
+    /**
+     * This function is used to import Network Outage template data into db.
+     * It's not open to external system.
+     */
+    function importNetworkOutageTemplate() {
+        $noJsonTemp = json_decode($_POST['networkJSONTemplate']);
+
+        $noJsonTemp->Alias = substr($noJsonTemp->NetworkType, 0, 1) .
+            substr($noJsonTemp->OptusNetwork, 0, 1) .
+            substr($noJsonTemp->PlanType, 0, 1) .
+            substr($noJsonTemp->OptusService, 0, 1) .
+            substr($noJsonTemp->OutageType, 0, 1) .
+            substr($noJsonTemp->ProductRename, 0, 1);
+
+        $noTmpl = $this->NetworkOutage_model->updateNwkOtgTemplate($noJsonTemp);
 
         echo json_encode($noTmpl);
     }
 
     function getRealClientIP() {
-        
+
         if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $proxyIps = explode(",", $_SERVER['HTTP_X_FORWARDED_FOR']);
             return $proxyIps[0];
